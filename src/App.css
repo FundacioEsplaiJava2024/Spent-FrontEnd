@@ -3,3 +3,8 @@
 .body {
     font-family: 'roboto';
 }
+
+#appBody{
+    display: flex;
+    justify-content: center;
+}
