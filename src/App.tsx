@@ -1,5 +1,5 @@
 import "./App.css";
-import EventCard from "./components/CardComponent";
+import EventCard from "./components/EventCardComponent";
 import FilterBar from "./components/FilterBarComponent";
 import Header from "./components/HeaderComponent";
 import SearchBar from "./components/SearchBarComponent";

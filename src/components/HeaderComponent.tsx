@@ -61,7 +61,7 @@ export default function MenuAppBar() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}><AccountCircle/>Profile</MenuItem>
+              <MenuItem onClick={handleClose}><AccountCircle/> Profile</MenuItem>
               <MenuItem
                 onClick={handleClose}
                 id="logout"
@@ -69,7 +69,7 @@ export default function MenuAppBar() {
                   color: "red",
                 }}
               >
-                <LogoutIcon/>Logout
+                <LogoutIcon/> Logout
               </MenuItem>
             </Menu>
           </div>
