@@ -1,4 +1,5 @@
 import "./App.css";
+import FilterBar from "./components/FilterBarComponent";
 import Header from "./components/HeaderComponent";
 import SearchBar from "./components/SearchBarComponent";
 
@@ -7,7 +8,10 @@ function App() {
     <>
       <Header />
       <section id="appBody">
-        <SearchBar />
+        <div className="container">
+          <SearchBar />
+          <FilterBar />
+        </div>
       </section>
     </>
   );
