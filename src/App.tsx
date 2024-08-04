@@ -1,4 +1,5 @@
 import "./App.css";
+import EventCard from "./components/CardComponent";
 import FilterBar from "./components/FilterBarComponent";
 import Header from "./components/HeaderComponent";
 import SearchBar from "./components/SearchBarComponent";
@@ -11,6 +12,9 @@ function App() {
         <div className="container">
           <SearchBar />
           <FilterBar />
+          <EventCard />
+          <EventCard />
+          <EventCard />
         </div>
       </section>
     </>
