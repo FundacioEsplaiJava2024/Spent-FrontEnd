@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
-  
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -22,14 +22,14 @@ export default function RegisterPage() {
     const name = data.get("name") as string;
     const username = data.get("username") as string;
     const token = await apiRegister(email, password, name, username);
-    if (password !== data.get("confirm-password")){
+    if (password !== data.get("confirm-password")) {
       alert("Passwords do not match");
       return token;
     }
     if (token == undefined || token == "") {
       alert("Invalid register");
     } else {
-      console.log(token)
+      console.log(token);
       localStorage.setItem("accessToken", token);
       navigate("/");
     }
@@ -39,12 +39,13 @@ export default function RegisterPage() {
     <Grid container component="main" sx={{ height: "100vh" }}>
       <CssBaseline />
       <Grid
+        id="grid"
         item
         xs={false}
         sm={4}
         md={7}
         sx={{
-          backgroundImage: 'url("../public/pexels-jeffibera-1320761.jpg")',
+          backgroundImage: 'url("/pexels-jeffibera-1320761.jpg")',
 
           backgroundColor: (t) =>
             t.palette.mode === "light"
@@ -68,7 +69,7 @@ export default function RegisterPage() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Register
           </Typography>
           <Box
             component="form"
