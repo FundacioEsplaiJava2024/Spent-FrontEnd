@@ -7,20 +7,20 @@ import UserProfile from "./UserProfile";
 import EventCreate from "./EventCreate";
 
 function Router() {
-//   const token = localStorage.getItem("accessToken");
+  const token = localStorage.getItem("accessToken");
 
-//   if (token)
-//     return (
-//       <Routes>
-//         <Route path="/" element={<LoginPage />} />
-//         <Route path="/userProfile" element={<RegisterPage />} />
-//       </Routes>
-//     );
+  if (token)
+    return (
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/userProfile" element={<UserProfile />} />
+      </Routes>
+    );
 
   return (
     <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/login" element={<LoginPage />} />
+      {/* <Route path="/" element={<App />} /> */}
+      <Route path="/" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/events/id" element={<EventPage />} />
       <Route path="/users/id" element={<UserProfile />} />
