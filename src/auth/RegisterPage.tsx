@@ -29,7 +29,6 @@ export default function RegisterPage() {
     if (token == undefined || token == "") {
       alert("Invalid register");
     } else {
-      console.log(token);
       localStorage.setItem("accessToken", token);
       navigate("/");
     }
@@ -102,7 +101,7 @@ export default function RegisterPage() {
               required
               fullWidth
               name="confirm-password"
-              label="confirm-password"
+              label="Confirm Password"
               type="password"
               id="confirm-password"
               autoComplete="current-password"
