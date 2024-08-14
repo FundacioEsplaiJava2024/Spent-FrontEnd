@@ -8,15 +8,22 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
+import { apiLogin } from '../api/AuthApiManager';
 
 export default function LoginPage() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const email = data.get("email") as string;
+    const password = data.get("password") as string;
+    const token = await apiLogin(email, password);
+
+    if (token == undefined || token == "") {
+      alert("Invalid credentials");
+    } else {
+      localStorage.setItem("accessToken", token);
+      window.location.reload();
+    }
   };
   
   return (
