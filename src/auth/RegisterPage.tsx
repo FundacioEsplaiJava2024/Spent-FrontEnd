@@ -10,6 +10,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { apiRegister } from "../api/AuthApiManager";
 import { useNavigate } from "react-router-dom";
+import { Link } from "@mui/material";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ export default function RegisterPage() {
     } else {
       localStorage.setItem("accessToken", token);
       navigate("/");
+      window.location.reload();
     }
   };
 
@@ -135,6 +137,9 @@ export default function RegisterPage() {
             >
               Register
             </Button>
+            <Typography sx={{ textAlign: "center" }}>
+              Already have an account? <Link href="/">Login</Link>
+            </Typography>
           </Box>
         </Box>
       </Grid>

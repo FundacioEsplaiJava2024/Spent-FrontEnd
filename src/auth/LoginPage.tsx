@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { apiLogin } from "../api/AuthApiManager";
+import { Link } from "@mui/material";
 
 export default function LoginPage() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -95,6 +96,9 @@ export default function LoginPage() {
             >
               Sign In
             </Button>
+            <Typography sx={{ textAlign: "center" }}>
+              Don't have an account? <Link href="/register">Register</Link>
+            </Typography>
           </Box>
         </Box>
       </Grid>
