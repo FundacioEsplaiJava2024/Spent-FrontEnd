@@ -20,6 +20,11 @@ export default function MenuAppBar() {
     setAnchorEl(null);
   };
 
+  const handleLogout = () =>{
+    localStorage.removeItem("accessToken");
+    window.location.href = "/";
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -63,7 +68,7 @@ export default function MenuAppBar() {
             >
               <MenuItem onClick={handleClose}><AccountCircle/> Profile</MenuItem>
               <MenuItem
-                onClick={handleClose}
+                onClick={handleLogout}
                 id="logout"
                 sx={{
                   color: "red",
