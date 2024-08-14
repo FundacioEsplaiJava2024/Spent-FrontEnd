@@ -21,11 +21,12 @@ export default function RegisterPage() {
     const password = data.get("password") as string;
     const name = data.get("name") as string;
     const username = data.get("username") as string;
-    const token = await apiRegister(email, password, name, username);
     if (password !== data.get("confirm-password")) {
       alert("Passwords do not match");
-      return token;
+      return ;
     }
+    const token = await apiRegister(email, password, name, username);
+    
     if (token == undefined || token == "") {
       alert("Invalid register");
     } else {
