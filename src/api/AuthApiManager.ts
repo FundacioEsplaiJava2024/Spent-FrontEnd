@@ -8,7 +8,7 @@ export const apiRegister = async (
 ) => {
   let token = "";
   try {
-    await SpentApi.post("/signup", {
+    await SpentApi.post("/register", {
       email: email,
       password: password,
       name: name,
