@@ -1,11 +1,11 @@
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import App from "./App";
 import LoginPage from "./auth/LoginPage";
 import RegisterPage from "./auth/RegisterPage";
+import EventCreate from "./EventCreate";
 import EventPage from "./EventPage";
 import UserProfile from "./UserProfile";
-import EventCreate from "./EventCreate";
-import { useEffect, useState } from "react";
 
 function Router() {
   const [token, setToken] = useState(localStorage.getItem("accessToken"));
@@ -26,6 +26,7 @@ function Router() {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/userProfile" element={<UserProfile />} />
+        <Route path=":username" element={<UserProfile />} />
       </Routes>
     );
 
@@ -35,7 +36,7 @@ function Router() {
       <Route path="/register" element={<RegisterPage setToken={setToken} />} />
       <Route path="/main" element={<App />} />
       <Route path="/events/id" element={<EventPage />} />
-      <Route path="/users/id" element={<UserProfile />} />
+      <Route path=":username" element={<UserProfile />} />
       <Route path="/event/create" element={<EventCreate />} />
     </Routes>
   );

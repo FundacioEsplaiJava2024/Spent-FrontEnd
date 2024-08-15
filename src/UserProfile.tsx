@@ -3,17 +3,27 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { apiGetUser } from "./api/SpentApiManager";
 import EventCard from "./components/EventCardComponent";
 import Header from "./components/HeaderComponent";
+import { User } from "./types/types";
 
-const userData = {
-  username: "johnDoe",
-  firstName: "John",
-  email: "johndoe@example.com",
-  rating: 4.5,
-};
 
 function UserProfile() {
+  const {username} = useParams();
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    if (username) {
+      apiGetUser(username).then((user) => {
+        setUser(user);
+      });
+    }
+  }, [username]);
+  if (!user) return <div>Loading...</div>;
+
   return (
     <>
       <Header />
@@ -26,12 +36,12 @@ function UserProfile() {
               </Grid>
 
               <Grid item xs={2}>
-                <Typography variant="h5">{userData.firstName}</Typography>
-                <Typography variant="body1">{userData.username}</Typography>
-                <Typography variant="body1">{userData.email}</Typography>
+                <Typography variant="h5">{user.firstName}</Typography>
+                <Typography variant="body1">{user.username}</Typography>
+                <Typography variant="body1">{user.email}</Typography>
                 <Rating
                   name="read-only"
-                  value={userData.rating}
+                  value={user.rating}
                   precision={0.5}
                   readOnly
                 />
