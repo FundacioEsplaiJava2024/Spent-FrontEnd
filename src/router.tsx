@@ -25,8 +25,7 @@ function Router() {
     return (
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/userProfile" element={<UserProfile />} />
-        <Route path=":username" element={<UserProfile />} />
+        <Route path="/:username" element={<UserProfile />} />
       </Routes>
     );
 
@@ -36,7 +35,6 @@ function Router() {
       <Route path="/register" element={<RegisterPage setToken={setToken} />} />
       <Route path="/main" element={<App />} />
       <Route path="/events/id" element={<EventPage />} />
-      <Route path=":username" element={<UserProfile />} />
       <Route path="/event/create" element={<EventCreate />} />
     </Routes>
   );

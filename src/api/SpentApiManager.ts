@@ -3,7 +3,7 @@ import SpentApi from "./SpentApi";
 
 
 export const apiGetUser = async (username: string): Promise<User> => {
-    const response = await SpentApi.get(`/${username}`);
+    const response = await SpentApi.get(`/${username}`,{headers: {'authorization': localStorage.getItem('accessToken')}});
     console.log(response);
     const userData = response.data;
     const user: User = {

@@ -15,6 +15,8 @@ export const apiRegister = async (
       username: username,
     }).then((response) => {
       token = response.data.accessToken;
+      username = response.data.username;
+      localStorage.setItem("username", username);
     });
     return token;
   } catch (error) {
