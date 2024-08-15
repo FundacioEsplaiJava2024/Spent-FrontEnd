@@ -12,7 +12,7 @@ import { apiRegister } from "../api/AuthApiManager";
 import { useNavigate } from "react-router-dom";
 import { Link } from "@mui/material";
 
-export default function RegisterPage() {
+export default function RegisterPage({ setToken }: RegisterPageProps) {
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -31,9 +31,9 @@ export default function RegisterPage() {
     if (token == undefined || token == "") {
       alert("Invalid register");
     } else {
-      localStorage.setItem("accessToken", token);
-      navigate("/");
-      window.location.reload();
+      setToken(token);
+      // localStorage.setItem("accessToken", token);
+      navigate('/');
     }
   };
 
@@ -146,3 +146,10 @@ export default function RegisterPage() {
     </Grid>
   );
 }
+
+type SetToken = (token: string | null) => void;
+
+interface RegisterPageProps {
+  setToken: SetToken;
+}
+
