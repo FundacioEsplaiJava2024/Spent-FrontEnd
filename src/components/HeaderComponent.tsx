@@ -34,6 +34,10 @@ export default function MenuAppBar() {
     navigate(`/${username}`);
   }
 
+  const handleHomeClick = () => {
+    navigate("/");
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -45,7 +49,10 @@ export default function MenuAppBar() {
         }}
       >
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" 
+            component="div" 
+            sx={{ flexGrow: 1 , cursor: 'pointer'}}
+            onClick={handleHomeClick}>
             SPENT
           </Typography>
 

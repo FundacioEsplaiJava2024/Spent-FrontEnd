@@ -12,7 +12,7 @@ import { User } from "./types/types";
 
 
 function UserProfile() {
-  const {username} = useParams();
+  const { username } = useParams();
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -48,11 +48,14 @@ function UserProfile() {
               </Grid>
 
               <Grid item xs={2} sx={{ marginLeft: "auto" }}>
-                <Typography variant="h6">Intereses</Typography>
+                <Typography variant="h6">Interests</Typography>
                 {/* <ul>
                 {userData.interests.map((interest, index) => (
                   <li key={index}> */}
-                <Typography variant="body1">- Deportes</Typography>
+                <Typography variant="body1">
+                  - Spikeball <br />
+                  - Volleyball
+                </Typography>
                 {/* </li>
                 ))} */}
                 {/* </ul> */}
@@ -63,13 +66,13 @@ function UserProfile() {
             <Grid container spacing={25}>
               <Grid item xs={6}>
                 <Typography variant="h6" textAlign="center">
-                  Eventos Creados
+                  Created events
                 </Typography>
                 <EventCard />
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="h6" textAlign="center">
-                  Eventos Participados
+                  Participated events
                 </Typography>
                 <EventCard />
               </Grid>
