@@ -24,12 +24,13 @@ export default function MenuAppBar() {
 
   const handleLogout = () =>{
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("username");
     window.location.href = "/";
   }
 
-  const username = localStorage.getItem("username");
 
   const handleRedirect = () => {
+    const username = localStorage.getItem("username");
     navigate(`/${username}`);
   }
 
