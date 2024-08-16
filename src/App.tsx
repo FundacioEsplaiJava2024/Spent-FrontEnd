@@ -12,7 +12,6 @@ function App() {
       <section id="appBody">
         <div className="container">
           <SearchBar />
-          <EventCreate/>
           <FilterBar />
           <EventCard />
           <EventCard />
