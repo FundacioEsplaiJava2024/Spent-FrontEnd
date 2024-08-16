@@ -1,4 +1,4 @@
-import { User } from "../types/types";
+import { Sport, User } from "../types/types";
 import SpentApi from "./SpentApi";
 
 
@@ -17,3 +17,16 @@ export const apiGetUser = async (username: string): Promise<User> => {
     };
     return user;
 };
+
+export const apiGetSports = async (): Promise<Sport[]> => {
+    const response = await SpentApi.get(`/sports`,{headers: {'authorization': localStorage.getItem('accessToken')}});
+    const apiSports = response.data;
+    const sports: Sport[] = apiSports.map((sport: any) => ({
+        id: sport.id,
+        sportName: sport.name,
+        description: sport.description
+    }));
+    return sports;
+};
+
+
