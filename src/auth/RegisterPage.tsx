@@ -32,7 +32,7 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
       alert("Invalid register");
     } else {
       setToken(token);
-      // localStorage.setItem("accessToken", token);
+      localStorage.setItem("accessToken", token);
       navigate('/');
     }
   };

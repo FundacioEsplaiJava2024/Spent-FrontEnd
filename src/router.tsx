@@ -19,7 +19,7 @@ function Router() {
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, []);
+  }, [token]);
 
   if (token)
     return (
