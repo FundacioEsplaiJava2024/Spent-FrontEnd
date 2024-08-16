@@ -1,15 +1,19 @@
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Event } from "../types/types";
 
-export default function EventCard() {
+
+interface EventCardProps{
+  event: Event;
+}
+
+export default function EventCard({event}: EventCardProps) {
   return (
-    <Card sx={{ minWidth: 275, marginTop:3 }}>
+    <Card sx={{ minWidth: 500, marginTop:3 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Spikeball
+          {event.title}
         </Typography>
         <Typography variant="h5" component="div">
           Spikeball 2v2 a Barceloneta!
@@ -21,9 +25,6 @@ export default function EventCard() {
           15:30 / 17:30
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Sign Up</Button>
-      </CardActions>
     </Card>
   );
 }
