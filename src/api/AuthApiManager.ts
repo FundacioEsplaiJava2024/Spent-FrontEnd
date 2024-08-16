@@ -15,6 +15,7 @@ export const apiRegister = async (
       username: username,
     }).then((response) => {
       token = response.data.accessToken;
+      localStorage.setItem("username", response.data.username);
     });
     return token;
   } catch (error) {
@@ -32,6 +33,7 @@ export const apiLogin = async (
     await SpentApi.post("/login", { email: email, password: password }).then(
       (response) => {
         token = response.data.accessToken;
+        localStorage.setItem("username", response.data.username);
       }
     );
     return token;
