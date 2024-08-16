@@ -5,7 +5,6 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Link } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import EventIcon from '@mui/icons-material/Event';
 import React from "react";
@@ -119,6 +118,20 @@ export default function EventCreate(){
               autoComplete="num-participants"
               autoFocus
             />
+
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="addres"
+              label="Addres"
+              name="addres"
+              autoComplete="addres"
+              autoFocus
+            />
+              
+
+
             <Button
               type="submit"
               fullWidth
