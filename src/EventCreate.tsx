@@ -9,9 +9,9 @@ import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
-import { apiGetSports } from "./api/SpentApiManager";
-import FilterBar from "./components/FilterBarComponent";
+import { apiCreateEvent, apiGetSports } from "./api/SpentApiManager";
 import { Sport } from "./types/types";
+import { TimePicker } from "@mui/lab";
 
 export default function EventCreate() {
   const [sports, setSports] = useState<Sport[]>([]);
@@ -32,17 +32,27 @@ export default function EventCreate() {
     setSelectedSport(selectedSport || null);
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-
-  };
   const [dateTimeValue, setDateTimeValue] = React.useState("");
 
   const handleDateChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
     setDateTimeValue(event.target.value);
+  };  
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const title = data.get("title") as string;
+    const date = data.get("date") as string;
+    const startTime = data.get("startTime") as string;
+    const endTime = data.get("endTime") as string;
+    const numParticipants = data.get("numParticipants") as string;
+    const address = data.get("address") as string;
+    const sportName = selectedSport?.sportName as string;
+    
+    apiCreateEvent(title, date,startTime, endTime, numParticipants, address, sportName);
+
   };
 
   return (
@@ -106,7 +116,8 @@ export default function EventCreate() {
               value={dateTimeValue}
               onChange={handleDateChange}
             />
-
+              
+        
             <TextField
               margin="normal"
               required
@@ -143,7 +154,7 @@ export default function EventCreate() {
               autoFocus
             />
 
-            <FormControl sx={{ m: 1, minWidth: 80 }}>
+            <FormControl sx={{minWidth: 80 }}>
               <InputLabel id="demo-simple-select-autowidth-label">
                 Sport
               </InputLabel>
