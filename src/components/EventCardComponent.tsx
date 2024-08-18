@@ -4,25 +4,25 @@ import Typography from "@mui/material/Typography";
 import { Event } from "../types/types";
 
 
-interface EventCardProps{
+interface EventCardProps {
   event: Event;
 }
 
-export default function EventCard({event}: EventCardProps) {
+export default function EventCard({ event }: EventCardProps) {
   return (
-    <Card sx={{ minWidth: 500, marginTop:3 }}>
+    <Card sx={{ minWidth: 500, marginTop: 3 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {event.title}
+          {event.sport.sportName}
         </Typography>
         <Typography variant="h5" component="div">
-          Spikeball 2v2 a Barceloneta!
+          {event.title}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          24 Agost 2024
+          {event.date}
         </Typography>
         <Typography variant="body2">
-          15:30 / 17:30
+          {event.startTime} / {event.endTime}
         </Typography>
       </CardContent>
     </Card>

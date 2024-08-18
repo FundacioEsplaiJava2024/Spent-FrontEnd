@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { apiGetUser } from "./api/SpentApiManager";
-import EventCard from "./components/EventCardComponent";
 import Header from "./components/HeaderComponent";
 import { User } from "./types/types";
 
@@ -14,11 +13,19 @@ import { User } from "./types/types";
 function UserProfile() {
   const { username } = useParams();
   const [user, setUser] = useState<User | null>(null);
+  const [event, setEvent] = useState<any | null>(null);
+
 
   useEffect(() => {
     if (username) {
       apiGetUser(username).then((user) => {
         setUser(user);
+        // setEvent({
+        //   id: 1,
+        //   name: "Evento de prueba",
+        //   description: "Este es un evento de prueba",
+        //   date: "2023-03-01T12:00:00.000Z",
+        // });
       });
     }
   }, [username]);
@@ -68,13 +75,15 @@ function UserProfile() {
                 <Typography variant="h6" textAlign="center">
                   Created events
                 </Typography>
-                <EventCard />
+
+                {/* <EventCard event={event} /> */}
+
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="h6" textAlign="center">
                   Participated events
                 </Typography>
-                <EventCard />
+                {/* <EventCard event={event} /> */}
               </Grid>
             </Grid>
           </Grid>
