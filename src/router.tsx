@@ -6,7 +6,6 @@ import RegisterPage from "./auth/RegisterPage";
 import EventCreate from "./EventCreate";
 import EventPage from "./EventPage";
 import UserProfile from "./UserProfile";
-import EventCreateTest from "./Testtime";
 
 function Router() {
   const [token, setToken] = useState(localStorage.getItem("accessToken"));

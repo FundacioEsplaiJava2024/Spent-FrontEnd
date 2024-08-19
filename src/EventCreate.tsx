@@ -92,7 +92,7 @@ export default function EventCreate() {
   };
 
   return (
-    <Grid container component="main" sx={{ height: "100vh" }}>
+    <Grid container component="main" sx={{ height: "100vh", marginTop: 2, marginBottom:2 }}>
       <CssBaseline />
       <Grid id="grid" item xs={false} sm={4} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
