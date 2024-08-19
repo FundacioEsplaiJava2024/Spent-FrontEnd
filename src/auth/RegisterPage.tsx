@@ -24,10 +24,10 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
     const username = data.get("username") as string;
     if (password !== data.get("confirm-password")) {
       alert("Passwords do not match");
-      return ;
+      return;
     }
     const token = await apiRegister(email, password, name, username);
-    
+
     if (token == undefined || token == "") {
       alert("Invalid register");
     } else {

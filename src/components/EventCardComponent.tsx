@@ -2,6 +2,9 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Event } from "../types/types";
+import GroupIcon from '@mui/icons-material/Group';
+import { Grid } from "@mui/material";
+import { blue } from "@mui/material/colors";
 
 
 interface EventCardProps {
@@ -9,30 +12,51 @@ interface EventCardProps {
 }
 
 export default function EventCard({ event }: EventCardProps) {
+  console.log(event)
   return (
-    <Card sx={{ minWidth: 500, marginTop: 3 }}>
+    <Card sx={{ minWidth: 500, marginTop: 3, backgroundColor: blue[50], }}>
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {event.sport.sportName}
-        </Typography>
+        <Grid container spacing={2} justifyContent="space-between">
+          <Grid item xs={6}>
+            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+              {event.sport.sportName}
+            </Typography>
+          </Grid>
+          <Grid textAlign="right">
+            <Typography sx={{ mt: 1.5 }} color="text.secondary">
+              {event.date}
+            </Typography>
+          </Grid>
+        </Grid>
         <Typography variant="h5" component="div">
           {event.title}
         </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {event.date}
-        </Typography>
-        <Typography variant="body2">
+
+        <Typography variant="body2" sx={{ mb: 0.5, mt: 0.5 }}>
           {event.startTime} / {event.endTime}
         </Typography>
         <Typography variant="body2">
-          <strong>Organizer: </strong> {event.userCreator.username}
+          {event.userCreator ? (
+            <>
+              <strong>Organizer: </strong> {event.userCreator.firstName}
+            </>
+          ) : (
+            <span>Organized by user</span>
+          )}
         </Typography>
-        <Typography variant="body2">
-          <strong>Participants: </strong>  {event.eventParticipants.length}
-        </Typography>
-        <Typography variant="body2">
-          <strong>Address: </strong>{event.address}
-        </Typography>
+        <Grid container spacing={2} justifyContent="space-between">
+          <Grid item xs={6}>
+            <Typography variant="body2">
+              <strong>Address: </strong>{event.address}
+            </Typography>
+          </Grid>
+          <Grid textAlign="right">
+            <Typography variant="body2">
+              <GroupIcon sx={{ marginTop: -1 }} /> <br />{event.eventParticipants.length} / {event.numParticipants}
+            </Typography>
+          </Grid>
+        </Grid>
+
       </CardContent>
     </Card>
   );

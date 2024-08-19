@@ -24,7 +24,6 @@ export const apiGetEvents = async (): Promise<Event[]> => {
 
     const apiEvents = response.data;
 
-    // Mapear todos los datos de la API a la estructura del tipo Event
     const events: Event[] = apiEvents.map((event: any) => ({
         id: event.id,
         title: event.title,
@@ -33,34 +32,31 @@ export const apiGetEvents = async (): Promise<Event[]> => {
         endTime: event.endTime,
         numParticipants: event.numParticipants,
         address: event.address,
-        
-        // Mapeo del deporte (Sport)
+
         sport: {
             id: event.sport.id,
-            sportName: event.sport.name,  // Asegúrate que el campo se llama 'name' en la API
+            sportName: event.sport.name,
             description: event.sport.description,
         } as Sport,
 
-        // Mapeo del usuario creador (User)
         userCreator: {
             id: event.userCreator.id,
             username: event.userCreator.username,
             email: event.userCreator.email,
             firstName: event.userCreator.firstName,
             rating: event.userCreator.rating,
-            eventsCreated: [], // Aquí puedes mapear eventos creados si lo deseas
-            joinedEvents: [],  // Aquí puedes mapear eventos unidos si es necesario
+            eventsCreated: [],
+            joinedEvents: [],
         } as User,
 
-        // Mapeo de los participantes del evento (User[])
         eventParticipants: event.eventParticipants.map((participant: any) => ({
             id: participant.id,
             username: participant.username,
             email: participant.email,
             firstName: participant.firstName,
             rating: participant.rating,
-            eventsCreated: [],  // Puedes mapear si lo necesitas
-            joinedEvents: [],   // Puedes mapear si lo necesitas
+            eventsCreated: [],
+            joinedEvents: [],
         })) as User[],
     }));
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiGetEvents } from "./api/SpentApiManager"; 
+import { apiGetEvents } from "./api/SpentApiManager";
 import "./App.css";
 import EventCard from "./components/EventCardComponent";
 import FilterBar from "./components/FilterBarComponent";
@@ -29,8 +29,8 @@ function App() {
           <SearchBar />
           <FilterBar />
           {events.map((event) => (
-          <EventCard key={event.id} event={event} />
-        ))}
+            <EventCard key={event.id} event={event} />
+          ))}
         </div>
       </section>
     </>

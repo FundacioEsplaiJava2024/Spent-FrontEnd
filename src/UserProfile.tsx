@@ -8,24 +8,17 @@ import { useParams } from "react-router-dom";
 import { apiGetUser } from "./api/SpentApiManager";
 import Header from "./components/HeaderComponent";
 import { User } from "./types/types";
+import EventCard from "./components/EventCardComponent";
 
 
 function UserProfile() {
   const { username } = useParams();
   const [user, setUser] = useState<User | null>(null);
-  const [event, setEvent] = useState<any | null>(null);
-
 
   useEffect(() => {
     if (username) {
       apiGetUser(username).then((user) => {
         setUser(user);
-        // setEvent({
-        //   id: 1,
-        //   name: "Evento de prueba",
-        //   description: "Este es un evento de prueba",
-        //   date: "2023-03-01T12:00:00.000Z",
-        // });
       });
     }
   }, [username]);
@@ -41,7 +34,6 @@ function UserProfile() {
               <Grid item xs={1} alignItems="center">
                 <Person2Icon fontSize="large" />
               </Grid>
-
               <Grid item xs={2}>
                 <Typography variant="h5">{user.firstName}</Typography>
                 <Typography variant="body1">{user.username}</Typography>
@@ -53,19 +45,12 @@ function UserProfile() {
                   readOnly
                 />
               </Grid>
-
               <Grid item xs={2} sx={{ marginLeft: "auto" }}>
                 <Typography variant="h6">Interests</Typography>
-                {/* <ul>
-                {userData.interests.map((interest, index) => (
-                  <li key={index}> */}
                 <Typography variant="body1">
                   - Spikeball <br />
                   - Volleyball
                 </Typography>
-                {/* </li>
-                ))} */}
-                {/* </ul> */}
               </Grid>
             </Grid>
           </Grid>
@@ -75,15 +60,17 @@ function UserProfile() {
                 <Typography variant="h6" textAlign="center">
                   Created events
                 </Typography>
-
-                {/* <EventCard event={event} /> */}
-
+                {user.eventsCreated.map((event) => (
+                  <EventCard key={event.id} event={event} />
+                ))}
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="h6" textAlign="center">
                   Participated events
                 </Typography>
-                {/* <EventCard event={event} /> */}
+                {user.joinedEvents.map((event) => (
+                  <EventCard key={event.id} event={event} />
+                ))}
               </Grid>
             </Grid>
           </Grid>
