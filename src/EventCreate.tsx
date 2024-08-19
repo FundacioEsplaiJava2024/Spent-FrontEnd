@@ -168,10 +168,10 @@ export default function EventCreate() {
               margin="normal"
               required
               fullWidth
-              id="addres"
-              label="Addres"
-              name="addres"
-              autoComplete="addres"
+              id="address"
+              label="Address"
+              name="address"
+              autoComplete="address"
               autoFocus
             />
 
