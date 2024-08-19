@@ -8,7 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function MenuAppBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -22,7 +22,7 @@ export default function MenuAppBar() {
     setAnchorEl(null);
   };
 
-  const handleLogout = () =>{
+  const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("username");
     window.location.href = "/";
@@ -49,13 +49,19 @@ export default function MenuAppBar() {
         }}
       >
         <Toolbar>
-          <Typography variant="h6" 
-            component="div" 
-            sx={{ flexGrow: 1 , cursor: 'pointer'}}
+          <Typography variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, cursor: 'pointer' }}
             onClick={handleHomeClick}>
             SPENT
           </Typography>
 
+
+          <Link to="/sports" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Typography variant="body1" style={{ marginRight: 8}}>
+              Sports
+            </Typography>
+          </Link>
           <div>
             <IconButton
               size="large"
@@ -65,6 +71,7 @@ export default function MenuAppBar() {
               onClick={handleMenu}
               color="inherit"
             >
+
               <AccountCircle />
             </IconButton>
             <Menu
@@ -82,7 +89,7 @@ export default function MenuAppBar() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleRedirect}><AccountCircle/> Profile</MenuItem>
+              <MenuItem onClick={handleRedirect}><AccountCircle /> Profile</MenuItem>
               <MenuItem
                 onClick={handleLogout}
                 id="logout"
@@ -90,7 +97,7 @@ export default function MenuAppBar() {
                   color: "red",
                 }}
               >
-                <LogoutIcon/> Logout
+                <LogoutIcon /> Logout
               </MenuItem>
             </Menu>
           </div>
