@@ -1,5 +1,11 @@
 import EventIcon from "@mui/icons-material/Event";
-import { FormControl, IconButton, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -11,9 +17,11 @@ import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
 import { apiCreateEvent, apiGetSports } from "./api/SpentApiManager";
 import { Sport } from "./types/types";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
-
+import dayjs, { Dayjs } from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider, TimeField } from "@mui/x-date-pickers";
 
 export default function EventCreate() {
   const navigate = useNavigate();
@@ -22,7 +30,7 @@ export default function EventCreate() {
   useEffect(() => {
     const fetchSports = async () => {
       const fetchedSports = await apiGetSports();
-      setSports(fetchedSports); 
+      setSports(fetchedSports);
     };
 
     fetchSports();
@@ -35,33 +43,52 @@ export default function EventCreate() {
     setSelectedSport(selectedSport || null);
   };
 
-  const [dateTimeValue, setDateTimeValue] = React.useState("");
+  const [startTime, setStartTime] = useState<Dayjs | null>(dayjs());
+  const [endTime, setEndTime] = useState<Dayjs | null>(dayjs());
 
-  const handleDateChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setDateTimeValue(event.target.value);
+  const handleStartTimeChange = (newValue: Dayjs | null) => {
+    setStartTime(newValue);
+  };
+
+  const handleEndTimeChange = (newValue: Dayjs | null) => {
+    setEndTime(newValue);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const title = data.get("title") as string;
     const date = data.get("date") as string;
-    const startTime = data.get("startTime") as string;
-    const endTime = data.get("endTime") as string;
+
     const numParticipants = data.get("numParticipants") as string;
     const address = data.get("address") as string;
     const sportName = selectedSport?.sportName as string;
-    
-    apiCreateEvent(title, date,startTime, endTime, numParticipants, address, sportName);
-   
+    var realStartTime = "";
+    var realEndTime = "";
+
+    if (startTime && endTime) {
+      realStartTime = startTime.format('HH:mm') as string; 
+      realEndTime = endTime.format('HH:mm') as string;
+    } else {
+      alert('Time not selected');
+      return
+    }
+
+    apiCreateEvent(
+      title,
+      date,
+      realStartTime,
+      realEndTime,
+      numParticipants,
+      address,
+      sportName
+    );
+    navigate("/");
   };
-
-
+  
   const handleClose = () => {
     navigate("/");
-
   };
 
   return (
@@ -123,33 +150,25 @@ export default function EventCreate() {
                 shrink: true,
               }}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="start-time"
-              label="Start Time "
-              type="datetime-local"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              value={dateTimeValue}
-              onChange={handleDateChange}
-            />
+            <Box sx={{ marginTop: 1 }}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <TimeField
+                  label="Start time"
+                  format="HH:mm"
+                  value={startTime}
+                  onChange={handleStartTimeChange}
+                />
+              </LocalizationProvider>
 
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="end-time"
-              label="End Time "
-              type="datetime-local"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              value={dateTimeValue}
-              onChange={handleDateChange}
-            />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <TimeField
+                  label="End time"
+                  format="HH:mm"
+                  value={endTime}
+                  onChange={handleEndTimeChange}
+                />
+              </LocalizationProvider>
+            </Box>
 
             <TextField
               margin="normal"
@@ -187,7 +206,6 @@ export default function EventCreate() {
                 autoWidth
                 label="Sport"
               >
-
                 {sports.map((sport) => (
                   <MenuItem key={sport.id} value={sport.sportName}>
                     {sport.sportName}
