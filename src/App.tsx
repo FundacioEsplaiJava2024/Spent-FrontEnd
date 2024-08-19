@@ -13,7 +13,12 @@ function App() {
   const [events, setEvents] = useState<Event[]>([]);
 
   useEffect(() => {
-    apiGetEvents().then((events) => setEvents(events));
+    const fetchEvents = async () => {
+      const fetchedEvents = await apiGetEvents();
+      setEvents(fetchedEvents); 
+    };
+
+    fetchEvents();
   }, []);
 
   return (
