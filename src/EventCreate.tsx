@@ -158,8 +158,10 @@ export default function EventCreate() {
               id="num-participants"
               label="Number Participants"
               name="num-participants"
+              type="number"
               autoComplete="num-participants"
               autoFocus
+              inputProps={{ min: 0, step: 1 }}
             />
 
             <TextField
