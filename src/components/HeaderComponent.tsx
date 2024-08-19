@@ -1,5 +1,5 @@
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -22,21 +22,20 @@ export default function MenuAppBar() {
     setAnchorEl(null);
   };
 
-  const handleLogout = () =>{
+  const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("username");
     window.location.href = "/";
-  }
-
+  };
 
   const handleRedirect = () => {
     const username = localStorage.getItem("username");
     navigate(`/${username}`);
-  }
+  };
 
   const handleHomeClick = () => {
     navigate("/");
-  }
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -48,13 +47,17 @@ export default function MenuAppBar() {
           color: "black",
         }}
       >
-        <Toolbar>
-          <Typography variant="h6" 
-            component="div" 
-            sx={{ flexGrow: 1 , cursor: 'pointer'}}
-            onClick={handleHomeClick}>
-            SPENT
-          </Typography>
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Box
+            component="img"
+            src="/SPENT.png"
+            alt="SPENT logo"
+            onClick={handleHomeClick}
+            sx={{
+              width: "6%",
+              cursor: "pointer"
+            }}
+          />
 
           <div>
             <IconButton
@@ -82,7 +85,9 @@ export default function MenuAppBar() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleRedirect}><AccountCircle/> Profile</MenuItem>
+              <MenuItem onClick={handleRedirect}>
+                <AccountCircle /> Profile
+              </MenuItem>
               <MenuItem
                 onClick={handleLogout}
                 id="logout"
@@ -90,7 +95,7 @@ export default function MenuAppBar() {
                   color: "red",
                 }}
               >
-                <LogoutIcon/> Logout
+                <LogoutIcon /> Logout
               </MenuItem>
             </Menu>
           </div>
