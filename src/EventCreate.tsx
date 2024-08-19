@@ -1,5 +1,5 @@
 import EventIcon from "@mui/icons-material/Event";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { FormControl, IconButton, InputLabel, MenuItem, Select } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -11,9 +11,12 @@ import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
 import { apiCreateEvent, apiGetSports } from "./api/SpentApiManager";
 import { Sport } from "./types/types";
-import { TimePicker } from "@mui/lab";
+import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate } from "react-router-dom";
+
 
 export default function EventCreate() {
+  const navigate = useNavigate();
   const [sports, setSports] = useState<Sport[]>([]);
   const [selectedSport, setSelectedSport] = useState<Sport | null>(null);
   useEffect(() => {
@@ -38,7 +41,7 @@ export default function EventCreate() {
     target: { value: React.SetStateAction<string> };
   }) => {
     setDateTimeValue(event.target.value);
-  };  
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -52,6 +55,12 @@ export default function EventCreate() {
     const sportName = selectedSport?.sportName as string;
     
     apiCreateEvent(title, date,startTime, endTime, numParticipants, address, sportName);
+   
+  };
+
+
+  const handleClose = () => {
+    navigate("/");
 
   };
 
@@ -67,8 +76,19 @@ export default function EventCreate() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            position: "relative",
           }}
         >
+          <IconButton
+            sx={{
+              position: "absolute",
+              top: 8,
+              right: 8,
+            }}
+            onClick={handleClose}
+          >
+            <CloseIcon />
+          </IconButton>
           <Avatar sx={{ m: 1, bgcolor: "black" }}>
             <EventIcon />
           </Avatar>
@@ -116,8 +136,7 @@ export default function EventCreate() {
               value={dateTimeValue}
               onChange={handleDateChange}
             />
-              
-        
+
             <TextField
               margin="normal"
               required
@@ -154,7 +173,7 @@ export default function EventCreate() {
               autoFocus
             />
 
-            <FormControl sx={{minWidth: 80 }}>
+            <FormControl sx={{ minWidth: 80 }}>
               <InputLabel id="demo-simple-select-autowidth-label">
                 Sport
               </InputLabel>
