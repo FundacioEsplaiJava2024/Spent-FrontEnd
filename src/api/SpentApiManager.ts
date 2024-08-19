@@ -1,4 +1,4 @@
-import { Sport, User } from "../types/types";
+import { Sport, User, Event } from "../types/types";
 import SpentApi from "./SpentApi";
 
 

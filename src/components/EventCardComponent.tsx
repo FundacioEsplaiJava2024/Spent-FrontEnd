@@ -25,16 +25,13 @@ export default function EventCard({ event }: EventCardProps) {
           {event.startTime} / {event.endTime}
         </Typography>
         <Typography variant="body2">
-          Lugar: {event.address}
+          <strong>Organizer: </strong> {event.userCreator.username}
         </Typography>
         <Typography variant="body2">
-          Creador: {event.userCreator.username}
+          <strong>Participants: </strong>  {event.eventParticipants.length}
         </Typography>
         <Typography variant="body2">
-          Participantes: {event.eventParticipants.length}
-        </Typography>
-        <Typography variant="body2">
-          Descripción: {event.sport.description}
+          <strong>Address: </strong>{event.address}
         </Typography>
       </CardContent>
     </Card>
