@@ -1,4 +1,4 @@
-import { Sport, User, Event } from "../types/types";
+import { Event, Sport, User } from "../types/types";
 import SpentApi from "./SpentApi";
 
 
@@ -16,6 +16,8 @@ export const apiGetUser = async (username: string): Promise<User> => {
     };
     return user;
 };
+
+
 
 export const apiGetEvents = async (): Promise<Event[]> => {
     const response = await SpentApi.get(`/events`, {
