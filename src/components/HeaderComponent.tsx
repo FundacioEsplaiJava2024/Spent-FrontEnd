@@ -10,6 +10,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import AddIcon from '@mui/icons-material/Add';
 
 export default function MenuAppBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -60,15 +61,16 @@ export default function MenuAppBar() {
             SPENT
           </Typography>
 
-          <Button 
-            color="inherit" 
-            onClick={handleCreateEvent}
-            sx={{ marginRight: 2 }} // Opcional: Añadir margen derecho para separar del icono
+          <Button
+          variant="contained"
+          onClick={handleCreateEvent}
+          sx={{ml: 1, backgroundColor: "black" }}   
           >
-            Create Event
+            <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center'}}>
+               Create Event
+              <AddIcon sx={{ ml: 1, alignItems: 'center' }} />
+            </Box>
           </Button>
-
-
 
           <div>
             <IconButton
