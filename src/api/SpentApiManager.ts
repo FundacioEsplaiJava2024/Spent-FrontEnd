@@ -36,6 +36,7 @@ export const apiGetEventById = async (id:String): Promise<Event> => {
     const event: Event = {
         id: userData.id,
         title: userData.title,
+        description: userData.description,
         date: userData.date,
         startTime: userData.startTime,
         endTime: userData.endTime,
@@ -80,6 +81,7 @@ export const apiGetEvents = async (): Promise<Event[]> => {
     const events: Event[] = apiEvents.map((event: any) => ({
         id: event.id,
         title: event.title,
+        description: event.description,
         date: event.date,
         startTime: event.startTime,
         endTime: event.endTime,
