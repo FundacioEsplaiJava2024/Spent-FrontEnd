@@ -2,13 +2,18 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import Header from "./components/HeaderComponent";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { apiGetEventById, apiJoinEvent, apiWithdrawEvent } from "./api/SpentApiManager";
-import { Event } from "./types/types";
+import {
+  apiGetEventById,
+  apiJoinEvent,
+  apiWithdrawEvent,
+} from "./api/SpentApiManager";
+import { Event, User } from "./types/types";
 import GroupIcon from "@mui/icons-material/Group";
 
 function EventPage() {
   const { id } = useParams();
   const [event, setEvent] = useState<Event | null>(null);
+  const username = localStorage.getItem("username") as string;
 
   const isUsernameInEventParticipants = (
     event: Event,
@@ -21,10 +26,7 @@ function EventPage() {
 
   const isParticipant =
     event && localStorage.getItem("username")
-      ? isUsernameInEventParticipants(
-          event,
-          localStorage.getItem("username") as string
-        )
+      ? isUsernameInEventParticipants(event, username)
       : false;
 
   useEffect(() => {
@@ -37,10 +39,34 @@ function EventPage() {
   if (!event) return <div>Loading...</div>;
 
   const handleJoin = () => {
+    const newUser: User = {
+      id: "newUserId",
+      username: username,
+      email: "default@example.com",
+      firstName: "Default",
+      rating: 0,
+      eventsCreated: [],
+      joinedEvents: [],
+    };
+
+    const updatedEvent = {
+      ...event,
+      eventParticipants: [...event.eventParticipants, newUser],
+    };
+
+    setEvent(updatedEvent);
     apiJoinEvent(id as string);
   };
 
   const handleWithdraw = () => {
+    const updatedEvent = {
+      ...event,
+      eventParticipants: event.eventParticipants.filter(
+        (participant) => participant.username !== username
+      ),
+    };
+
+    setEvent(updatedEvent);
     apiWithdrawEvent(id as string);
   };
 
