@@ -2,7 +2,7 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import Header from "./components/HeaderComponent";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { apiGetEventById } from "./api/SpentApiManager";
+import { apiGetEventById, apiJoinEvent } from "./api/SpentApiManager";
 import { Event } from "./types/types";
 import GroupIcon from '@mui/icons-material/Group';
 
@@ -18,6 +18,10 @@ function EventPage() {
     }
   }, [id]);
   if (!event) return <div>Loading...</div>;
+
+  const handleJoin = () => {
+    apiJoinEvent(id as string);
+  }
 
   return (
     <>
@@ -78,7 +82,7 @@ function EventPage() {
             >
               <Box >
                 <Typography variant="h5">
-                  <Button variant="contained" color="success" sx={{
+                  <Button onClick={handleJoin} variant="contained" color="success" sx={{
                   width: "150px",
                   height: "50px",
                   borderRadius: "10px",
