@@ -2,13 +2,30 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import Header from "./components/HeaderComponent";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { apiGetEventById, apiJoinEvent } from "./api/SpentApiManager";
+import { apiGetEventById, apiJoinEvent, apiWithdrawEvent } from "./api/SpentApiManager";
 import { Event } from "./types/types";
-import GroupIcon from '@mui/icons-material/Group';
+import GroupIcon from "@mui/icons-material/Group";
 
 function EventPage() {
   const { id } = useParams();
   const [event, setEvent] = useState<Event | null>(null);
+
+  const isUsernameInEventParticipants = (
+    event: Event,
+    username: string
+  ): boolean => {
+    return event.eventParticipants.some(
+      (participant) => participant.username === username
+    );
+  };
+
+  const isParticipant =
+    event && localStorage.getItem("username")
+      ? isUsernameInEventParticipants(
+          event,
+          localStorage.getItem("username") as string
+        )
+      : false;
 
   useEffect(() => {
     if (id) {
@@ -21,7 +38,11 @@ function EventPage() {
 
   const handleJoin = () => {
     apiJoinEvent(id as string);
-  }
+  };
+
+  const handleWithdraw = () => {
+    apiWithdrawEvent(id as string);
+  };
 
   return (
     <>
@@ -33,9 +54,7 @@ function EventPage() {
               <Typography variant="h3" fontWeight="bold">
                 {event.title}
               </Typography>
-              <Typography variant="h5">
-                {event.sport.sportName}
-              </Typography>
+              <Typography variant="h5">{event.sport.sportName}</Typography>
               <Typography variant="body1">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -80,16 +99,37 @@ function EventPage() {
                 alignItems: "center",
               }}
             >
-              <Box >
+              <Box>
                 <Typography variant="h5">
-                  <Button onClick={handleJoin} variant="contained" color="success" sx={{
-                  width: "150px",
-                  height: "50px",
-                  borderRadius: "10px",
-                  backgroundColor: "#4CAF50",
-                }}>
-                    Join
-                  </Button>
+                  {isParticipant ? (
+                    <Button
+                      onClick={handleWithdraw}
+                      variant="contained"
+                      color="error"
+                      sx={{
+                        width: "150px",
+                        height: "50px",
+                        borderRadius: "10px",
+                        backgroundColor: "red",
+                      }}
+                    >
+                      Withdraw
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={handleJoin}
+                      variant="contained"
+                      color="success"
+                      sx={{
+                        width: "150px",
+                        height: "50px",
+                        borderRadius: "10px",
+                        backgroundColor: "#4CAF50",
+                      }}
+                    >
+                      Join
+                    </Button>
+                  )}
                 </Typography>
               </Box>
               <Box
