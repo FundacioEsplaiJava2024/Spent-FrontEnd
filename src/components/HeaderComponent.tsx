@@ -1,7 +1,9 @@
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import LogoutIcon from '@mui/icons-material/Logout';
+import AddIcon from '@mui/icons-material/Add';
+import LogoutIcon from "@mui/icons-material/Logout";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -26,18 +28,20 @@ export default function MenuAppBar() {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("username");
     window.location.href = "/";
-  }
-
+  };
 
   const handleRedirect = () => {
     const username = localStorage.getItem("username");
     navigate(`/${username}`);
-  }
+  };
 
   const handleHomeClick = () => {
     navigate("/");
-  }
+  };
 
+  const handleCreateEvent = () => {
+    navigate("/event/create");
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -48,17 +52,32 @@ export default function MenuAppBar() {
           color: "black",
         }}
       >
-        <Toolbar>
-          <Typography variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, cursor: 'pointer' }}
-            onClick={handleHomeClick}>
-            SPENT
-          </Typography>
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Box
+            component="img"
+            src="/SPENT.png"
+            alt="SPENT logo"
+            onClick={handleHomeClick}
+            sx={{
+              width: "6%",
+              cursor: "pointer"
+            }}
+          />
+
+          <Button
+            variant="contained"
+            onClick={handleCreateEvent}
+            sx={{ ml: 1, backgroundColor: "black" }}
+          >
+            <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+              Create Event
+              <AddIcon sx={{ ml: 1, alignItems: 'center' }} />
+            </Box>
+          </Button>
 
 
           <Link to="/sports" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <Typography variant="body1" style={{ marginRight: 8}}>
+            <Typography variant="body1" style={{ marginRight: 8 }}>
               Sports
             </Typography>
           </Link>
@@ -89,7 +108,9 @@ export default function MenuAppBar() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleRedirect}><AccountCircle /> Profile</MenuItem>
+              <MenuItem onClick={handleRedirect}>
+                <AccountCircle /> Profile
+              </MenuItem>
               <MenuItem
                 onClick={handleLogout}
                 id="logout"

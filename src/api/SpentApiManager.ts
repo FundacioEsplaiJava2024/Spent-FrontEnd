@@ -1,7 +1,6 @@
 import { Event, Sport, User } from "../types/types";
 import SpentApi from "./SpentApi";
 
-
 export const apiGetUser = async (username: string): Promise<User> => {
     const response = await SpentApi.get(`/${username}`, { headers: { 'authorization': localStorage.getItem('accessToken') } });
     const userData = response.data;
@@ -30,7 +29,7 @@ export const apiGetSports = async (): Promise<Sport[]> => {
     return sports;
 };
 
-export const apiGetEventById = async (id:String): Promise<Event> => {
+export const apiGetEventById = async (id: String): Promise<Event> => {
     const response = await SpentApi.get(`/events/${id}`, { headers: { 'authorization': localStorage.getItem('accessToken') } });
     const userData = response.data;
     const event: Event = {
@@ -118,10 +117,36 @@ export const apiGetEvents = async (): Promise<Event[]> => {
     return events;
 };
 
-export const apiJoinEvent = async (id: string) =>{
-  await SpentApi.post(`/events/join/${id}`,{}, { headers: { authorization: localStorage.getItem("accessToken")}});
+export const apiJoinEvent = async (id: string) => {
+    await SpentApi.post(`/events/join/${id}`, {}, { headers: { authorization: localStorage.getItem("accessToken") } });
 }
 
-export const apiWithdrawEvent = async (id: string) =>{
-  await SpentApi.delete(`/events/withdraw/${id}`, { headers: { authorization: localStorage.getItem("accessToken")}});
+export const apiWithdrawEvent = async (id: string) => {
+    await SpentApi.delete(`/events/withdraw/${id}`, { headers: { authorization: localStorage.getItem("accessToken") } });
 }
+
+export const apiCreateEvent = async (
+    title: string,
+    date: string,
+    startTime: string,
+    endTime: string,
+    description: string,
+    numParticipants: string,
+    address: string,
+    sportName: string
+) => {
+    await SpentApi.post(
+        "/events",
+        {
+            title: title,
+            description: description,
+            date: date,
+            startTime: startTime,
+            endTime: endTime,
+            numParticipants: numParticipants,
+            address: address,
+            sportName: sportName,
+        },
+        { headers: { authorization: localStorage.getItem("accessToken") } }
+    );
+};
