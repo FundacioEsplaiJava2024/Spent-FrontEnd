@@ -31,7 +31,7 @@ export const apiGetSports = async (): Promise<Sport[]> => {
 };
 
 export const apiGetEventById = async (id:String): Promise<Event> => {
-    const response = await SpentApi.get(`/${id}`, { headers: { 'authorization': localStorage.getItem('accessToken') } });
+    const response = await SpentApi.get(`/events/${id}`, { headers: { 'authorization': localStorage.getItem('accessToken') } });
     const userData = response.data;
     const event: Event = {
         id: userData.id,
@@ -41,9 +41,31 @@ export const apiGetEventById = async (id:String): Promise<Event> => {
         endTime: userData.endTime,
         numParticipants: userData.numParticipants,
         address: userData.address,
-        sport: userData.sport,
-        userCreator: userData.userCreator,
-        eventParticipants: userData.eventParticipants
+        sport: {
+            id: userData.sport.id,
+            sportName: userData.sport.name,
+            description: userData.sport.description,
+        } as Sport,
+
+        userCreator: {
+            id: userData.userCreator.id,
+            username: userData.userCreator.username,
+            email: userData.userCreator.email,
+            firstName: userData.userCreator.firstName,
+            rating: userData.userCreator.rating,
+            eventsCreated: [],
+            joinedEvents: [],
+        } as User,
+
+        eventParticipants: userData.eventParticipants.map((participant: any) => ({
+            id: participant.id,
+            username: participant.username,
+            email: participant.email,
+            firstName: participant.firstName,
+            rating: participant.rating,
+            eventsCreated: [],
+            joinedEvents: [],
+        })) as User[],
     };
     return event;
 };
