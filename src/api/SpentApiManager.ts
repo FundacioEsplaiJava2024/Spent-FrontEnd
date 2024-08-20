@@ -30,6 +30,24 @@ export const apiGetSports = async (): Promise<Sport[]> => {
     return sports;
 };
 
+export const apiGetEventById = async (id:String): Promise<Event> => {
+    const response = await SpentApi.get(`/${id}`, { headers: { 'authorization': localStorage.getItem('accessToken') } });
+    const userData = response.data;
+    const event: Event = {
+        id: userData.id,
+        title: userData.title,
+        date: userData.date,
+        startTime: userData.startTime,
+        endTime: userData.endTime,
+        numParticipants: userData.numParticipants,
+        address: userData.address,
+        sport: userData.sport,
+        userCreator: userData.userCreator,
+        eventParticipants: userData.eventParticipants
+    };
+    return event;
+};
+
 export const apiGetEvents = async (): Promise<Event[]> => {
     const response = await SpentApi.get(`/events`, {
         headers: { 'authorization': localStorage.getItem('accessToken') }
