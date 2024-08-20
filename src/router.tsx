@@ -26,6 +26,7 @@ function Router() {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/:username" element={<UserProfile />} />
+        <Route path="/event/create" element={<EventCreate />} />
       </Routes>
     );
 
