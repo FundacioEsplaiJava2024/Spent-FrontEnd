@@ -92,7 +92,7 @@ export default function EventCreate() {
   };
 
   return (
-    <Grid container component="main" sx={{ height: "100vh", marginTop: 10, marginBottom:10}}>
+    <Grid container component="main" sx={{ height: "100vh", marginTop: 5, marginBottom:5}}>
       <CssBaseline />
       <Grid id="grid" item xs={false} sm={4} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -193,14 +193,14 @@ export default function EventCreate() {
               autoFocus
             />
 
-            <FormControl sx={{ minWidth: 80 }}>
+            <FormControl sx={{marginTop: 1, minWidth: 80 }}>
               <InputLabel id="demo-simple-select-autowidth-label">
                 Sport
               </InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
-                value={selectedSport ? selectedSport.sportName : ""} // Mostrar el nombre del deporte seleccionado
+                value={selectedSport ? selectedSport.sportName : ""} 
                 onChange={handleChange}
                 autoWidth
                 label="Sport"
@@ -210,9 +210,6 @@ export default function EventCreate() {
                     {sport.sportName}
                   </MenuItem>
                 ))}
-                {/* <MenuItem value={"Kayak"}>Kayak</MenuItem>
-                <MenuItem value={"Spikeball"}>Spikeball</MenuItem>
-                <MenuItem value={"curling"}>Curling</MenuItem> */}
               </Select>
             </FormControl>
             <Button
