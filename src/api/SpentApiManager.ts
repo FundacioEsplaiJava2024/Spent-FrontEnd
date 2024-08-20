@@ -77,3 +77,27 @@ export const apiGetEvents = async (): Promise<Event[]> => {
 
     return events;
 };
+
+export const apiCreateEvent = async (
+  title: string,
+  date: string,
+  startTime: string,
+  endTime: string,
+  numParticipants: string,
+  address: string,
+  sportName: string
+) => {
+  await SpentApi.post(
+    "/events",
+    {
+      title: title,
+      date: date,
+      startTime: startTime,
+      endTime: endTime,
+      numParticipants: numParticipants,
+      address: address,
+      sportName: sportName,
+    },
+    { headers: { authorization: localStorage.getItem("accessToken") } }
+  );
+};
