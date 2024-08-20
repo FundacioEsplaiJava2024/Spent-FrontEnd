@@ -1,22 +1,23 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import Header from "./components/HeaderComponent";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { apiGetEventById } from "./api/SpentApiManager";
 import { Event } from "./types/types";
+import GroupIcon from '@mui/icons-material/Group';
 
 function EventPage() {
-  const {id} = useParams();
-  const [event, setEvent] = useState<Event | null> (null);
+  const { id } = useParams();
+  const [event, setEvent] = useState<Event | null>(null);
 
-  useEffect(()=>{
-    if(id){
-      apiGetEventById(id).then((event)=>{
+  useEffect(() => {
+    if (id) {
+      apiGetEventById(id).then((event) => {
         setEvent(event);
       });
     }
   }, [id]);
-if(!event) return <div>Loading...</div>;
+  if (!event) return <div>Loading...</div>;
 
   return (
     <>
@@ -29,8 +30,8 @@ if(!event) return <div>Loading...</div>;
                 {event.title}
               </Typography>
               <Typography variant="h5">
-                {/* {event.sport.sportName} */}
-                </Typography>
+                {event.sport.sportName}
+              </Typography>
               <Typography variant="body1">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -67,7 +68,7 @@ if(!event) return <div>Loading...</div>;
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={6} md={3} mt={3}>
+          <Grid item xs={6} md={4} mt={3}>
             <Box
               sx={{
                 display: "flex",
@@ -75,19 +76,16 @@ if(!event) return <div>Loading...</div>;
                 alignItems: "center",
               }}
             >
-              <Box
-                sx={{
+              <Box >
+                <Typography variant="h5">
+                  <Button variant="contained" color="success" sx={{
                   width: "150px",
                   height: "50px",
                   borderRadius: "10px",
                   backgroundColor: "#4CAF50",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Typography variant="h5" fontWeight="bold" color="white">
-                  +/-
+                }}>
+                    Join
+                  </Button>
                 </Typography>
               </Box>
               <Box
@@ -97,22 +95,13 @@ if(!event) return <div>Loading...</div>;
                 }}
               >
                 <Typography variant="h6" fontWeight="bold">
-                  {/* {event.eventParticipants.length} / {event.numParticipants} */}
+                  {event.eventParticipants.length} / {event.numParticipants}
                 </Typography>
-                <Box
-                  sx={{
-                    marginLeft: "10px",
-                    width: "30px",
-                    height: "30px",
-                    borderRadius: "50%",
-                    backgroundColor: "#e0e0e0",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  {/* Add your person icon here */}
-                </Box>
+                <Grid item xs={6} md={3} mt={2.5}>
+                  <Box>
+                    <GroupIcon sx={{ marginBottom: 2, marginLeft: 1 }} />
+                  </Box>
+                </Grid>
               </Box>
             </Box>
           </Grid>
@@ -123,4 +112,3 @@ if(!event) return <div>Loading...</div>;
 }
 
 export default EventPage;
-  
