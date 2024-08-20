@@ -2,6 +2,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import LogoutIcon from '@mui/icons-material/Logout';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -38,6 +39,9 @@ export default function MenuAppBar() {
     navigate("/");
   }
 
+  const handleCreateEvent = () => {
+    navigate("/event/create"); 
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -55,6 +59,16 @@ export default function MenuAppBar() {
             onClick={handleHomeClick}>
             SPENT
           </Typography>
+
+          <Button 
+            color="inherit" 
+            onClick={handleCreateEvent}
+            sx={{ marginRight: 2 }} // Opcional: Añadir margen derecho para separar del icono
+          >
+            Create Event
+          </Button>
+
+
 
           <div>
             <IconButton

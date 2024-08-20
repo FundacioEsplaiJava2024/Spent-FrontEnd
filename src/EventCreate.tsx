@@ -92,7 +92,7 @@ export default function EventCreate() {
   };
 
   return (
-    <Grid container component="main" sx={{ height: "100vh", marginTop: 2, marginBottom:2 }}>
+    <Grid container component="main" sx={{ height: "100vh", marginTop: 10, marginBottom:10}}>
       <CssBaseline />
       <Grid id="grid" item xs={false} sm={4} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -150,24 +150,23 @@ export default function EventCreate() {
                 shrink: true,
               }}
             />
-            <Box sx={{ marginTop: 1 }}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <TimeField
-                  label="Start time"
-                  format="HH:mm"
-                  value={startTime}
-                  onChange={handleStartTimeChange}
-                />
-              </LocalizationProvider>
-
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <TimeField
-                  label="End time"
-                  format="HH:mm"
-                  value={endTime}
-                  onChange={handleEndTimeChange}
-                />
-              </LocalizationProvider>
+            <Box sx={{ display: "flex", marginTop: 1, gap: 10 }}> 
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <TimeField
+                    label="Start time"
+                    format="HH:mm"
+                    value={startTime}
+                    onChange={handleStartTimeChange}
+                  />
+                </LocalizationProvider>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <TimeField
+                    label="End time"
+                    format="HH:mm"
+                    value={endTime}
+                    onChange={handleEndTimeChange}
+                  />
+                </LocalizationProvider> 
             </Box>
 
             <TextField
