@@ -115,3 +115,7 @@ export const apiGetEvents = async (): Promise<Event[]> => {
 
     return events;
 };
+
+export const apiJoinEvent = async (id: string) =>{
+  await SpentApi.post(`/events/join/${id}`, { headers: { authorization: localStorage.getItem("accessToken")}});
+}
