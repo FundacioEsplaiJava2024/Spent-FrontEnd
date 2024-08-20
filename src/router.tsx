@@ -34,7 +34,6 @@ function Router() {
     <Routes>
       <Route path="/" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage setToken={setToken} />} />
-      <Route path="/main" element={<App />} />
       <Route path="/events/id" element={<EventPage />} />
       <Route path="/event/create" element={<EventCreate />} />
     </Routes>

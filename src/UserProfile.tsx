@@ -6,9 +6,9 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { apiGetUser } from "./api/SpentApiManager";
-import EventCard from "./components/EventCardComponent";
 import Header from "./components/HeaderComponent";
 import { User } from "./types/types";
+import EventCard from "./components/EventCardComponent";
 
 
 function UserProfile() {
@@ -34,7 +34,6 @@ function UserProfile() {
               <Grid item xs={1} alignItems="center">
                 <Person2Icon fontSize="large" />
               </Grid>
-
               <Grid item xs={2}>
                 <Typography variant="h5">{user.firstName}</Typography>
                 <Typography variant="body1">{user.username}</Typography>
@@ -46,19 +45,12 @@ function UserProfile() {
                   readOnly
                 />
               </Grid>
-
               <Grid item xs={2} sx={{ marginLeft: "auto" }}>
                 <Typography variant="h6">Interests</Typography>
-                {/* <ul>
-                {userData.interests.map((interest, index) => (
-                  <li key={index}> */}
                 <Typography variant="body1">
                   - Spikeball <br />
                   - Volleyball
                 </Typography>
-                {/* </li>
-                ))} */}
-                {/* </ul> */}
               </Grid>
             </Grid>
           </Grid>
@@ -68,13 +60,17 @@ function UserProfile() {
                 <Typography variant="h6" textAlign="center">
                   Created events
                 </Typography>
-                <EventCard />
+                {user.eventsCreated.map((event) => (
+                  <EventCard key={event.id} event={event} />
+                ))}
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="h6" textAlign="center">
                   Participated events
                 </Typography>
-                <EventCard />
+                {user.joinedEvents.map((event) => (
+                  <EventCard key={event.id} event={event} />
+                ))}
               </Grid>
             </Grid>
           </Grid>
