@@ -56,6 +56,12 @@ export default function LoginPage() {
             alignItems: "center",
           }}
         >
+          <Box
+            component="img"
+            src="/SPENT.png"
+            alt="SPENT logo"
+            sx={{ marginBottom: 5 }}
+          />
           <Avatar sx={{ m: 1, bgcolor: "black" }}>
             <LockOutlinedIcon />
           </Avatar>
