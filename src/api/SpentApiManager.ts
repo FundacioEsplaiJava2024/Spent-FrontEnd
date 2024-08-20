@@ -97,3 +97,7 @@ export const apiGetEvents = async (): Promise<Event[]> => {
 export const apiJoinEvent = async (id: string) =>{
   await SpentApi.post(`/events/join/${id}`, { headers: { authorization: localStorage.getItem("accessToken")}});
 }
+
+export const apiWithdrawEvent = async (id: string) =>{
+  await SpentApi.delete(`/events/withdraw/${id}`, { headers: { authorization: localStorage.getItem("accessToken")}});
+}
