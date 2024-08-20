@@ -9,6 +9,7 @@ import {
 } from "./api/SpentApiManager";
 import { Event, User } from "./types/types";
 import GroupIcon from "@mui/icons-material/Group";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function EventPage() {
   const { id } = useParams();
@@ -36,7 +37,12 @@ function EventPage() {
       });
     }
   }, [id]);
-  if (!event) return <div>Loading...</div>;
+  if (!event)
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
+        <CircularProgress color="inherit"/>
+      </Box>
+    );
 
   const handleJoin = () => {
     const newUser: User = {
@@ -82,9 +88,7 @@ function EventPage() {
               </Typography>
               <Typography variant="h5">{event.sport.sportName}</Typography>
               <Typography variant="body1">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                {event.description}
               </Typography>
             </Box>
           </Grid>

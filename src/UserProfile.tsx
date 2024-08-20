@@ -9,7 +9,7 @@ import { apiGetUser } from "./api/SpentApiManager";
 import Header from "./components/HeaderComponent";
 import { User } from "./types/types";
 import EventCard from "./components/EventCardComponent";
-
+import { CircularProgress } from "@mui/material";
 
 function UserProfile() {
   const { username } = useParams();
@@ -22,7 +22,19 @@ function UserProfile() {
       });
     }
   }, [username]);
-  if (!user) return <div>Loading...</div>;
+  if (!user)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress color="inherit" />
+      </Box>
+    );
 
   return (
     <>
@@ -48,8 +60,7 @@ function UserProfile() {
               <Grid item xs={2} sx={{ marginLeft: "auto" }}>
                 <Typography variant="h6">Interests</Typography>
                 <Typography variant="body1">
-                  - Spikeball <br />
-                  - Volleyball
+                  - Spikeball <br />- Volleyball
                 </Typography>
               </Grid>
             </Grid>
