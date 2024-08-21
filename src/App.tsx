@@ -1,11 +1,11 @@
+import SearchIcon from '@mui/icons-material/Search';
+import { Autocomplete, InputAdornment, Stack, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { apiGetEvents, apiGetSports } from "./api/SpentApiManager";
 import "./App.css";
 import EventCard from "./components/EventCardComponent";
 import Header from "./components/HeaderComponent";
-import SearchIcon from '@mui/icons-material/Search';
 import { Event, Sport } from "./types/types";
-import { Autocomplete, InputAdornment, Stack, TextField } from "@mui/material";
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -15,10 +15,10 @@ function App() {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const filteredEvents = events
-    .filter((event: Event) => 
+    .filter((event: Event) =>
       selectedSport ? event.sport.sportName === selectedSport : true
     )
-    .filter((event: Event) => 
+    .filter((event: Event) =>
       searchTerm ? event.title.toLowerCase().includes(searchTerm.toLowerCase()) : true
     );
 

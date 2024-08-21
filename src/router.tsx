@@ -3,9 +3,10 @@ import { Route, Routes } from "react-router-dom";
 import App from "./App";
 import LoginPage from "./auth/LoginPage";
 import RegisterPage from "./auth/RegisterPage";
-import EventCreate from "./EventCreate";
-import EventPage from "./EventPage";
-import UserProfile from "./UserProfile";
+import EventCreate from "./pages/EventCreate";
+import EventPage from "./pages/EventPage";
+import SportsPage from "./pages/SportsPage";
+import UserProfile from "./pages/UserProfile";
 
 function Router() {
   const [token, setToken] = useState(localStorage.getItem("accessToken"));
@@ -26,6 +27,8 @@ function Router() {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/:username" element={<UserProfile />} />
+        <Route path="/sports" element={<SportsPage />} />
+        <Route path="/events/:id" element={<EventPage />} />
         <Route path="/event/create" element={<EventCreate />} />
       </Routes>
     );
@@ -34,8 +37,6 @@ function Router() {
     <Routes>
       <Route path="/" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage setToken={setToken} />} />
-      <Route path="/events/id" element={<EventPage />} />
-      <Route path="/event/create" element={<EventCreate />} />
     </Routes>
   );
 }

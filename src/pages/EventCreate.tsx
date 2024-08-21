@@ -1,3 +1,4 @@
+import CloseIcon from "@mui/icons-material/Close";
 import EventIcon from "@mui/icons-material/Event";
 import {
   FormControl,
@@ -14,14 +15,13 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import React, { useEffect, useState } from "react";
-import { apiCreateEvent, apiGetSports } from "./api/SpentApiManager";
-import { Sport } from "./types/types";
-import CloseIcon from "@mui/icons-material/Close";
-import { useNavigate } from "react-router-dom";
-import dayjs, { Dayjs } from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider, TimeField } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs, { Dayjs } from "dayjs";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { apiCreateEvent, apiGetSports } from "../api/SpentApiManager";
+import { Sport } from "../types/types";
 
 export default function EventCreate() {
   const navigate = useNavigate();
@@ -55,12 +55,12 @@ export default function EventCreate() {
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    
+
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const title = data.get("title") as string;
     const date = data.get("date") as string;
-
+    const description = data.get("description") as string;
     const numParticipants = data.get("numParticipants") as string;
     const address = data.get("address") as string;
     const sportName = selectedSport?.sportName as string;
@@ -68,7 +68,7 @@ export default function EventCreate() {
     var realEndTime = "";
 
     if (startTime && endTime) {
-      realStartTime = startTime.format('HH:mm') as string; 
+      realStartTime = startTime.format('HH:mm') as string;
       realEndTime = endTime.format('HH:mm') as string;
     } else {
       alert('Time not selected');
@@ -80,19 +80,20 @@ export default function EventCreate() {
       date,
       realStartTime,
       realEndTime,
+      description,
       numParticipants,
       address,
       sportName
     );
     navigate("/");
   };
-  
+
   const handleClose = () => {
     navigate("/");
   };
 
   return (
-    <Grid container component="main" sx={{ height: "100vh", marginTop: 5, marginBottom:5}}>
+    <Grid container component="main" sx={{ height: "100vh", marginTop: 5, marginBottom: 5 }}>
       <CssBaseline />
       <Grid id="grid" item xs={false} sm={4} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -150,34 +151,47 @@ export default function EventCreate() {
                 shrink: true,
               }}
             />
-            <Box sx={{ display: "flex", marginTop: 1, gap: 10 }}> 
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <TimeField
-                    label="Start time"
-                    format="HH:mm"
-                    value={startTime}
-                    onChange={handleStartTimeChange}
-                  />
-                </LocalizationProvider>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <TimeField
-                    label="End time"
-                    format="HH:mm"
-                    value={endTime}
-                    onChange={handleEndTimeChange}
-                  />
-                </LocalizationProvider> 
+            <Box sx={{ display: "flex", marginTop: 1, gap: 10 }}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <TimeField
+                  label="Start time"
+                  format="HH:mm"
+                  value={startTime}
+                  onChange={handleStartTimeChange}
+                />
+              </LocalizationProvider>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <TimeField
+                  label="End time"
+                  format="HH:mm"
+                  value={endTime}
+                  onChange={handleEndTimeChange}
+                />
+              </LocalizationProvider>
             </Box>
 
             <TextField
               margin="normal"
               required
               fullWidth
-              id="num-participants"
+              id="description"
+              label="Description"
+              name="description"
+              autoComplete="description"
+              autoFocus
+              multiline
+              rows={4}
+            />
+
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="numParticipants"
               label="Number Participants"
-              name="num-participants"
+              name="numParticipants"
               type="number"
-              autoComplete="num-participants"
+              autoComplete="numParticipants"
               autoFocus
               inputProps={{ min: 0, step: 1 }}
             />
@@ -193,14 +207,14 @@ export default function EventCreate() {
               autoFocus
             />
 
-            <FormControl sx={{marginTop: 1, minWidth: 80 }}>
+            <FormControl sx={{ marginTop: 1, minWidth: 80 }}>
               <InputLabel id="demo-simple-select-autowidth-label">
                 Sport
               </InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
-                value={selectedSport ? selectedSport.sportName : ""} 
+                value={selectedSport ? selectedSport.sportName : ""}
                 onChange={handleChange}
                 autoWidth
                 label="Sport"

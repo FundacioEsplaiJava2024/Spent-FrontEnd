@@ -1,15 +1,15 @@
 import Person2Icon from "@mui/icons-material/Person2";
+import { CircularProgress } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { apiGetUser } from "./api/SpentApiManager";
-import Header from "./components/HeaderComponent";
-import { User } from "./types/types";
-import EventCard from "./components/EventCardComponent";
-
+import { apiGetUser } from "../api/SpentApiManager";
+import EventCard from "../components/EventCardComponent";
+import Header from "../components/HeaderComponent";
+import { User } from "../types/types";
 
 function UserProfile() {
   const { username } = useParams();
@@ -22,7 +22,19 @@ function UserProfile() {
       });
     }
   }, [username]);
-  if (!user) return <div>Loading...</div>;
+  if (!user)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress color="inherit" />
+      </Box>
+    );
 
   return (
     <>
@@ -48,8 +60,7 @@ function UserProfile() {
               <Grid item xs={2} sx={{ marginLeft: "auto" }}>
                 <Typography variant="h6">Interests</Typography>
                 <Typography variant="body1">
-                  - Spikeball <br />
-                  - Volleyball
+                  - Spikeball <br />- Volleyball
                 </Typography>
               </Grid>
             </Grid>
@@ -61,7 +72,9 @@ function UserProfile() {
                   Created events
                 </Typography>
                 {user.eventsCreated.map((event) => (
-                  <EventCard key={event.id} event={event} />
+                  <div className="EventCard">
+                    <EventCard key={event.id} event={event} />
+                  </div>
                 ))}
               </Grid>
               <Grid item xs={6}>
@@ -69,7 +82,9 @@ function UserProfile() {
                   Participated events
                 </Typography>
                 {user.joinedEvents.map((event) => (
-                  <EventCard key={event.id} event={event} />
+                  <div className="EventCard">
+                    <EventCard key={event.id} event={event} />
+                  </div>
                 ))}
               </Grid>
             </Grid>
