@@ -3,10 +3,10 @@ import { Route, Routes } from "react-router-dom";
 import App from "./App";
 import LoginPage from "./auth/LoginPage";
 import RegisterPage from "./auth/RegisterPage";
-import EventCreate from "./EventCreate";
-import EventPage from "./EventPage";
-import SportsPage from "./SportsPage";
-import UserProfile from "./UserProfile";
+import EventCreate from "./pages/EventCreate";
+import EventPage from "./pages/EventPage";
+import SportsPage from "./pages/SportsPage";
+import UserProfile from "./pages/UserProfile";
 
 function Router() {
   const [token, setToken] = useState(localStorage.getItem("accessToken"));
