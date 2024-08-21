@@ -6,6 +6,7 @@ import "./App.css";
 import EventCard from "./components/EventCardComponent";
 import Header from "./components/HeaderComponent";
 import { Event, Sport } from "./types/types";
+import FooterComponent from './components/FooterComponent';
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -87,6 +88,7 @@ function App() {
           ))}
         </div>
       </section>
+      <FooterComponent />
     </>
   );
 }

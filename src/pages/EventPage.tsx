@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Slide, Typography } from "@mui/material";
 import Header from "../components/HeaderComponent";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -10,12 +10,34 @@ import {
 import { Event, User } from "../types/types";
 import GroupIcon from "@mui/icons-material/Group";
 import CircularProgress from "@mui/material/CircularProgress";
+import React from "react";
+import { TransitionProps } from "@mui/material/transitions";
+import './EventPage.css'
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>;
+  },
+  ref: React.Ref<unknown>,
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function EventPage() {
   const { id } = useParams();
   const [event, setEvent] = useState<Event | null>(null);
   const username = localStorage.getItem("username") as string;
   
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const isUsernameInEventParticipants = (
     event: Event,
@@ -40,8 +62,8 @@ function EventPage() {
   }, [id]);
   if (!event)
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
-        <CircularProgress color="inherit"/>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <CircularProgress color="inherit" />
       </Box>
     );
 
@@ -87,7 +109,28 @@ function EventPage() {
               <Typography variant="h3" fontWeight="bold">
                 {event.title}
               </Typography>
-              <Typography variant="h5">{event.sport.sportName}</Typography>
+              <React.Fragment>
+                <Typography variant="h5" onClick={handleClickOpen}>
+                  <span className="sportName">
+                    {event.sport.sportName}
+                  </span>
+                </Typography>
+                <Dialog
+                  open={open}
+                  TransitionComponent={Transition}
+                  keepMounted
+                  onClose={handleClose}
+                  aria-describedby="alert-dialog-slide-description"
+                >
+                  <DialogTitle> {event.sport.sportName}</DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                      {event.sport.description}
+                    </DialogContentText>
+                  </DialogContent>
+                </Dialog>
+              </React.Fragment>
+
               <Typography variant="body1">
                 {event.description}
               </Typography>
