@@ -46,7 +46,7 @@ function SportsPage() {
             id="free-solo-demo"
             freeSolo
             options={sports.map((option) => option.sportName)}
-            onInputChange={(sport, newInputValue) => {
+            onInputChange={(_sport, newInputValue) => {
               setSearchTerm(newInputValue);
             }}
             renderInput={(params) => (
