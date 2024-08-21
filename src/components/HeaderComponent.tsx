@@ -8,9 +8,8 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function MenuAppBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -63,24 +62,23 @@ export default function MenuAppBar() {
               cursor: "pointer"
             }}
           />
-
-          <Button
+          <Button 
+            color="primary"
             variant="contained"
             onClick={handleCreateEvent}
-            sx={{ ml: 1, backgroundColor: "black" }}
+            sx={{ ml: 150, flexDirection: 'row-reverse' }}
           >
-            <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
-              Create Event
-              <AddIcon sx={{ ml: 1, alignItems: 'center' }} />
+            <Box sx={{ flexGrow: 0, 
+              minWidth: 5, 
+              height: 24, 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent:'center', 
+              marginRight: 0, }}>
+              <AddIcon sx={{ fontSize:30 }} />
             </Box>
           </Button>
 
-
-          <Link to="/sports" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <Typography variant="body1" style={{ marginRight: 8 }}>
-              Sports
-            </Typography>
-          </Link>
           <div>
             <IconButton
               size="large"

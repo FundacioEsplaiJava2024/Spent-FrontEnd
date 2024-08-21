@@ -36,7 +36,7 @@ export default function LoginPage() {
         sm={4}
         md={7}
         sx={{
-          backgroundImage: 'url("/pexels-jeffibera-1320761.jpg")',
+          backgroundImage: 'url("/LoginBackground.jpg")',
 
           backgroundColor: (t) =>
             t.palette.mode === "light"
