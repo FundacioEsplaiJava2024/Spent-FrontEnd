@@ -1,5 +1,5 @@
 import SearchIcon from '@mui/icons-material/Search';
-import { Autocomplete, Button, InputAdornment, Link, Stack, TextField, Typography } from "@mui/material";
+import { Autocomplete, InputAdornment, Stack, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { apiGetEvents, apiGetSports } from "./api/SpentApiManager";
 import "./App.css";
@@ -7,6 +7,7 @@ import EventCard from "./components/EventCardComponent";
 import Header from "./components/HeaderComponent";
 import { Event, Sport } from "./types/types";
 import SportsHandballIcon from '@mui/icons-material/SportsHandball';
+import FooterComponent from './components/FooterComponent';
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -48,7 +49,7 @@ function App() {
               id="free-solo-demo"
               freeSolo
               options={events.map((option) => option.title)}
-              onInputChange={(event, newInputValue) => {
+              onInputChange={(_event, newInputValue) => {
                 setSearchTerm(newInputValue);
               }}
               renderInput={(params) => (
@@ -90,7 +91,7 @@ function App() {
               sx={{width:350, fontSize:16}}
                />
               )}
-              onChange={(sport, value) => setSelectedSport(value as string)}
+              onChange={(_sport, value) => setSelectedSport(value as string)}
             />
           </Stack>
           {filteredEvents.map((event) => (
@@ -99,6 +100,7 @@ function App() {
 
         </div>
       </section>
+      <FooterComponent />
     </>
   );
 }
