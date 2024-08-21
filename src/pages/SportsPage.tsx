@@ -15,6 +15,7 @@ import { apiGetSports } from "../api/SpentApiManager";
 import Header from "../components/HeaderComponent";
 import { Sport } from "../types/types";
 import SearchIcon from "@mui/icons-material/Search";
+import SportsHandballIcon from '@mui/icons-material/SportsHandball';
 
 function SportsPage() {
   const [sports, setSports] = useState<Sport[]>([]);
@@ -71,8 +72,8 @@ function SportsPage() {
         </Stack>
       </Box>
       <Grid container justifyContent="center">
-        <Typography variant="h3" align="center" style={{ marginTop: 15 }}>
-          Deportes
+        <Typography variant="h3" align="center" style={{ marginTop: 15, fontWeight: "semi-bold"}}>
+            <SportsHandballIcon sx={{ fontSize: 40 }} /> Sports
         </Typography>
       </Grid>
       <Container
