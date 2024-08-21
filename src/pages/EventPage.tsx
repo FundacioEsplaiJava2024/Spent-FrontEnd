@@ -15,6 +15,7 @@ function EventPage() {
   const { id } = useParams();
   const [event, setEvent] = useState<Event | null>(null);
   const username = localStorage.getItem("username") as string;
+  
 
   const isUsernameInEventParticipants = (
     event: Event,
@@ -118,6 +119,9 @@ function EventPage() {
               </Typography>
               <Typography variant="h5" fontWeight="bold" mt={1}>
                 {event.date}
+              </Typography>
+              <Typography variant="body2" sx={{ mb: 0.5, mt: 0.5 }}>
+                {event.startTime.substring(0, 5)} - {event.endTime.substring(0, 5)}
               </Typography>
             </Box>
           </Grid>
