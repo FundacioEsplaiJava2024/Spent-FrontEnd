@@ -1,11 +1,12 @@
 import SearchIcon from '@mui/icons-material/Search';
-import { Autocomplete, InputAdornment, Stack, TextField } from "@mui/material";
+import { Autocomplete, Button, InputAdornment, Link, Stack, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { apiGetEvents, apiGetSports } from "./api/SpentApiManager";
 import "./App.css";
 import EventCard from "./components/EventCardComponent";
 import Header from "./components/HeaderComponent";
 import { Event, Sport } from "./types/types";
+import SportsHandballIcon from '@mui/icons-material/SportsHandball';
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -40,7 +41,7 @@ function App() {
         <div className="container">
           <Stack
             spacing={2}
-            sx={{ width: 1000, borderRadius: 80, marginTop: 5 }}
+            sx={{ width: 600, borderRadius: 80, marginTop: 5 }}
             id="SearchBar"
           >
             <Autocomplete
@@ -70,21 +71,32 @@ function App() {
                 />
               )}
             />
-          </Stack>
-          <Stack spacing={2} sx={{ width: 300, marginTop: 3 }}>
+            </Stack>
+            <Stack direction="row" spacing={10} alignItems="center"
+              sx={{marginTop: 2, marginBottom:2 }}>
+            <Typography variant="body1" 
+            sx={{ textDecoration: 'none', color: 'blue' }}
+            component="a" href="/sports">
+              <SportsHandballIcon sx={{ fontSize: 20, marginBottom:-0.4 }} />
+              Sports
+            </Typography>
             <Autocomplete
               id="free-solo-demo"
               freeSolo
               options={sports.map(
                 (option: { sportName: string }) => option.sportName
               )}
-              renderInput={(params) => <TextField {...params} label="Sports" />}
+              renderInput={(params) => (<TextField {...params} label="Sports"
+              sx={{width:350, fontSize:16}}
+               />
+              )}
               onChange={(sport, value) => setSelectedSport(value as string)}
             />
           </Stack>
           {filteredEvents.map((event) => (
             <EventCard key={event.id} event={event} />
           ))}
+
         </div>
       </section>
     </>

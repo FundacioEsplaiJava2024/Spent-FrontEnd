@@ -1,11 +1,9 @@
 import CloseIcon from "@mui/icons-material/Close";
 import EventIcon from "@mui/icons-material/Event";
 import {
-  FormControl,
+  Autocomplete,
   IconButton,
-  InputLabel,
-  MenuItem,
-  Select,
+  Stack,
 } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
@@ -21,12 +19,20 @@ import dayjs, { Dayjs } from "dayjs";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiCreateEvent, apiGetSports } from "../api/SpentApiManager";
-import { Sport } from "../types/types";
+import { Sport, Event } from "../types/types";
+import EventCard from "../components/EventCardComponent";
 
 export default function EventCreate() {
   const navigate = useNavigate();
   const [sports, setSports] = useState<Sport[]>([]);
   const [selectedSport, setSelectedSport] = useState<Sport | null>(null);
+  const [events, setEvents] = useState<Event[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const filteredEvents = events
+    .filter((event: Event) => selectedSport ? event.sport.sportName : String)
+    .filter((event: Event) => searchTerm ? event.title.toLowerCase().includes(searchTerm.toLowerCase()) : true);
+
   useEffect(() => {
     const fetchSports = async () => {
       const fetchedSports = await apiGetSports();
@@ -35,13 +41,6 @@ export default function EventCreate() {
 
     fetchSports();
   }, []);
-
-  const handleChange = (event: { target: { value: string } }) => {
-    const selectedSport = sports.find(
-      (sport) => sport.sportName === event.target.value
-    );
-    setSelectedSport(selectedSport || null);
-  };
 
   const [startTime, setStartTime] = useState<Dayjs | null>(dayjs());
   const [endTime, setEndTime] = useState<Dayjs | null>(dayjs());
@@ -55,7 +54,6 @@ export default function EventCreate() {
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const title = data.get("title") as string;
@@ -63,7 +61,7 @@ export default function EventCreate() {
     const description = data.get("description") as string;
     const numParticipants = data.get("numParticipants") as string;
     const address = data.get("address") as string;
-    const sportName = selectedSport?.sportName as string;
+    const sportName = selectedSport?.sportName;
     var realStartTime = "";
     var realEndTime = "";
 
@@ -74,7 +72,6 @@ export default function EventCreate() {
       alert('Time not selected');
       return
     }
-
     apiCreateEvent(
       title,
       date,
@@ -83,13 +80,14 @@ export default function EventCreate() {
       description,
       numParticipants,
       address,
-      sportName
+      sportName ??""
     );
     navigate("/");
   };
 
   const handleClose = () => {
     navigate("/");
+
   };
 
   return (
@@ -206,26 +204,22 @@ export default function EventCreate() {
               autoComplete="address"
               autoFocus
             />
-
-            <FormControl sx={{ marginTop: 1, minWidth: 80 }}>
-              <InputLabel id="demo-simple-select-autowidth-label">
-                Sport
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-autowidth-label"
-                id="demo-simple-select-autowidth"
-                value={selectedSport ? selectedSport.sportName : ""}
-                onChange={handleChange}
-                autoWidth
-                label="Sport"
-              >
-                {sports.map((sport) => (
-                  <MenuItem key={sport.id} value={sport.sportName}>
-                    {sport.sportName}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <Stack spacing={2} sx={{ width: 300, marginTop: 3 }}>
+              <Autocomplete
+                id="free-solo-demo"
+                freeSolo
+                options={sports.map(
+                  (option: { sportName: string }) => option.sportName
+                )}
+                renderInput={(params) => <TextField {...params} label="Sports" />}
+                onChange={(event, value) => {
+                  const selectedSport = sports.find((sport) => sport.sportName === value);
+                  setSelectedSport(selectedSport ?? null);
+                }} />
+            </Stack>
+            {filteredEvents.map((event) => (
+              <EventCard key={event.id} event={event} />
+            ))}
             <Button
               type="submit"
               fullWidth

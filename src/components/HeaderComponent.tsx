@@ -63,24 +63,23 @@ export default function MenuAppBar() {
               cursor: "pointer"
             }}
           />
-
-          <Button
+          <Button 
+            color="primary"
             variant="contained"
             onClick={handleCreateEvent}
-            sx={{ ml: 1, backgroundColor: "black" }}
+            sx={{ ml: 150, flexDirection: 'row-reverse' }}
           >
-            <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
-              Create Event
-              <AddIcon sx={{ ml: 1, alignItems: 'center' }} />
+            <Box sx={{ flexGrow: 0, 
+              minWidth: 5, 
+              height: 24, 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent:'center', 
+              marginRight: 0, }}>
+              <AddIcon sx={{ fontSize:30 }} />
             </Box>
           </Button>
 
-
-          <Link to="/sports" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <Typography variant="body1" style={{ marginRight: 8 }}>
-              Sports
-            </Typography>
-          </Link>
           <div>
             <IconButton
               size="large"

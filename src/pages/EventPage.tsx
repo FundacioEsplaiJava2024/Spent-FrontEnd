@@ -111,7 +111,6 @@ function EventPage() {
                   alignItems: "center",
                 }}
               >
-                {/* Add your map image here */}
               </Box>
               <Typography variant="body1" mt={2}>
                 {event.address}
