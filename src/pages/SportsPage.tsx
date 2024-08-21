@@ -51,7 +51,7 @@ function SportsPage() {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Events"
+                label="Sports"
                 sx={{
                   borderRadius: "80px",
                   "& .MuiOutlinedInput-root": {
