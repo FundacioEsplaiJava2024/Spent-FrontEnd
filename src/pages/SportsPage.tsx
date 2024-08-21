@@ -1,8 +1,8 @@
 import { Grid, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { apiGetSports } from "./api/SpentApiManager";
-import Header from "./components/HeaderComponent";
-import { Sport } from "./types/types";
+import { apiGetSports } from "../api/SpentApiManager";
+import Header from "../components/HeaderComponent";
+import { Sport } from "../types/types";
 
 function SportsPage() {
     const [sports, setSports] = useState<Sport[]>([]);

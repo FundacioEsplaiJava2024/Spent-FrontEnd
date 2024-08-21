@@ -1,13 +1,13 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
-import Header from "./components/HeaderComponent";
+import Header from "../components/HeaderComponent";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   apiGetEventById,
   apiJoinEvent,
   apiWithdrawEvent,
-} from "./api/SpentApiManager";
-import { Event, User } from "./types/types";
+} from "../api/SpentApiManager";
+import { Event, User } from "../types/types";
 import GroupIcon from "@mui/icons-material/Group";
 import CircularProgress from "@mui/material/CircularProgress";
 

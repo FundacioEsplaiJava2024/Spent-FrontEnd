@@ -6,10 +6,10 @@ import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { apiGetUser } from "./api/SpentApiManager";
-import EventCard from "./components/EventCardComponent";
-import Header from "./components/HeaderComponent";
-import { User } from "./types/types";
+import { apiGetUser } from "../api/SpentApiManager";
+import EventCard from "../components/EventCardComponent";
+import Header from "../components/HeaderComponent";
+import { User } from "../types/types";
 
 function UserProfile() {
   const { username } = useParams();
