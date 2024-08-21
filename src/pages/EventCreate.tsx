@@ -19,19 +19,12 @@ import dayjs, { Dayjs } from "dayjs";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiCreateEvent, apiGetSports } from "../api/SpentApiManager";
-import { Sport, Event } from "../types/types";
-import EventCard from "../components/EventCardComponent";
+import { Sport } from "../types/types";
 
 export default function EventCreate() {
   const navigate = useNavigate();
   const [sports, setSports] = useState<Sport[]>([]);
   const [selectedSport, setSelectedSport] = useState<Sport | null>(null);
-  const [events, setEvents] = useState<Event[]>([]);
-  const [searchTerm, setSearchTerm] = useState<string>("");
-
-  const filteredEvents = events
-    .filter((event: Event) => selectedSport ? event.sport.sportName : String)
-    .filter((event: Event) => searchTerm ? event.title.toLowerCase().includes(searchTerm.toLowerCase()) : true);
 
   useEffect(() => {
     const fetchSports = async () => {
@@ -80,7 +73,7 @@ export default function EventCreate() {
       description,
       numParticipants,
       address,
-      sportName ??""
+      sportName ?? ""
     );
     navigate("/");
   };
@@ -91,146 +84,151 @@ export default function EventCreate() {
   };
 
   return (
-    <Grid container component="main" sx={{ height: "100vh", marginTop: 5, marginBottom: 5 }}>
-      <CssBaseline />
-      <Grid id="grid" item xs={false} sm={4} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <Box
-          sx={{
-            my: 8,
-            mx: 4,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            position: "relative",
-          }}
-        >
-          <IconButton
-            sx={{
-              position: "absolute",
-              top: 8,
-              right: 8,
-            }}
-            onClick={handleClose}
-          >
-            <CloseIcon />
-          </IconButton>
-          <Avatar sx={{ m: 1, bgcolor: "black" }}>
-            <EventIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Create Event
-          </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="title"
-              label="Title"
-              name="title"
-              autoComplete="title"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="date"
-              label="Date"
-              name="date"
-              type="date"
-              InputLabelProps={{
-                shrink: true,
+
+    <>
+      <Box sx={{
+        backgroundImage: 'url("/CreateBackground.jpg")', backgroundSize: 'cover', backgroundPosition: 'bottom',
+        height: '140vh' 
+      }}>
+        <Grid container component="main" sx={{ height: "100vh", marginTop: 0, marginBottom: 5 }}>
+          <CssBaseline />
+          <Grid id="grid" item xs={false} sm={4} />
+          <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+            <Box
+              sx={{
+                my: 8,
+                mx: 4,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                position: "relative",
               }}
-            />
-            <Box sx={{ display: "flex", marginTop: 1, gap: 10 }}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <TimeField
-                  label="Start time"
-                  format="HH:mm"
-                  value={startTime}
-                  onChange={handleStartTimeChange}
-                />
-              </LocalizationProvider>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <TimeField
-                  label="End time"
-                  format="HH:mm"
-                  value={endTime}
-                  onChange={handleEndTimeChange}
-                />
-              </LocalizationProvider>
-            </Box>
-
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="description"
-              label="Description"
-              name="description"
-              autoComplete="description"
-              autoFocus
-              multiline
-              rows={4}
-            />
-
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="numParticipants"
-              label="Number Participants"
-              name="numParticipants"
-              type="number"
-              autoComplete="numParticipants"
-              autoFocus
-              inputProps={{ min: 0, step: 1 }}
-            />
-
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="address"
-              label="Address"
-              name="address"
-              autoComplete="address"
-              autoFocus
-            />
-            <Stack spacing={2} sx={{ width: 300, marginTop: 3 }}>
-              <Autocomplete
-                id="free-solo-demo"
-                freeSolo
-                options={sports.map(
-                  (option: { sportName: string }) => option.sportName
-                )}
-                renderInput={(params) => <TextField {...params} label="Sports" />}
-                onChange={(event, value) => {
-                  const selectedSport = sports.find((sport) => sport.sportName === value);
-                  setSelectedSport(selectedSport ?? null);
-                }} />
-            </Stack>
-            {filteredEvents.map((event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2, backgroundColor: "black" }}
             >
-              Create Event
-            </Button>
-          </Box>
-        </Box>
-      </Grid>
-    </Grid>
+              <IconButton
+                sx={{
+                  position: "absolute",
+                  top: 8,
+                  right: 8,
+                }}
+                onClick={handleClose}
+              >
+                <CloseIcon />
+              </IconButton>
+              <Avatar sx={{ m: 1, bgcolor: "black" }}>
+                <EventIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Create Event
+              </Typography>
+              <Box
+                component="form"
+                noValidate
+                onSubmit={handleSubmit}
+                sx={{ mt: 1 }}
+              >
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="title"
+                  label="Title"
+                  name="title"
+                  autoComplete="title"
+                  autoFocus
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="date"
+                  label="Date"
+                  name="date"
+                  type="date"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+                <Box sx={{ display: "flex", marginTop: 1, gap: 10 }}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <TimeField
+                      label="Start time"
+                      format="HH:mm"
+                      value={startTime}
+                      onChange={handleStartTimeChange}
+                    />
+                  </LocalizationProvider>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <TimeField
+                      label="End time"
+                      format="HH:mm"
+                      value={endTime}
+                      onChange={handleEndTimeChange}
+                    />
+                  </LocalizationProvider>
+                </Box>
+
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="description"
+                  label="Description"
+                  name="description"
+                  autoComplete="description"
+                  autoFocus
+                  multiline
+                  rows={4}
+                />
+
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="numParticipants"
+                  label="Number Participants"
+                  name="numParticipants"
+                  type="number"
+                  autoComplete="numParticipants"
+                  autoFocus
+                  inputProps={{ min: 0, step: 1 }}
+                />
+
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="address"
+                  label="Address"
+                  name="address"
+                  autoComplete="address"
+                  autoFocus
+                />
+                <Stack spacing={2} sx={{ width: 300, marginTop: 3 }}>
+                  <Autocomplete
+                    id="free-solo-demo"
+                    freeSolo
+                    options={sports.map(
+                      (option: { sportName: string }) => option.sportName
+                    )}
+                    renderInput={(params) => <TextField {...params} label="Sports" />}
+                    onChange={(_sport, value) => {
+                      const selectedSport = sports.find((sport) => sport.sportName === value);
+                      setSelectedSport(selectedSport ?? null);
+                    }} />
+                </Stack>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, backgroundColor: "black" }}
+                >
+                  Create Event
+                </Button>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
+    </>
   );
 }
