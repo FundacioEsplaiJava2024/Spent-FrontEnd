@@ -67,7 +67,7 @@ export default function MenuAppBar() {
               color="primary"
               variant="contained"
               onClick={handleCreateEvent}
-              sx={{ flexDirection: "row-reverse", mr: 4 }}
+              sx={{ flexDirection: "row-reverse", mr: 4, height: 40, mt:0.5 }}
             >
               <Box
                 sx={{
