@@ -145,7 +145,7 @@ export const apiCreateEvent = async (
             endTime: endTime,
             numParticipants: numParticipants,
             address: address,
-            name: name,
+            sportName: name,
         },
         { headers: { authorization: localStorage.getItem("accessToken") } }
     );
