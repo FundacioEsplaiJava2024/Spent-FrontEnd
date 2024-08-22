@@ -1,24 +1,45 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Slide, Typography } from "@mui/material";
-import Header from "../components/HeaderComponent";
+import {
+  Box,
+  Button,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Chip,
+  Container,
+  CssBaseline,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Divider,
+  Grid,
+  Slide,
+  Stack,
+  ThemeProvider,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   apiGetEventById,
   apiJoinEvent,
   apiWithdrawEvent,
 } from "../api/SpentApiManager";
 import { Event, User } from "../types/types";
-import GroupIcon from "@mui/icons-material/Group";
 import CircularProgress from "@mui/material/CircularProgress";
 import React from "react";
 import { TransitionProps } from "@mui/material/transitions";
-import './EventPage.css'
+import "./EventPage.css";
+import PersonIcon from "@mui/icons-material/Person";
+import UserProfile from "./UserProfile";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement<any, any>;
   },
-  ref: React.Ref<unknown>,
+  ref: React.Ref<unknown>
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -27,12 +48,16 @@ function EventPage() {
   const { id } = useParams();
   const [event, setEvent] = useState<Event | null>(null);
   const username = localStorage.getItem("username") as string;
-  
+  const navigate = useNavigate();
 
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
+  };
+
+  const handleUserProfile = (username: string) => {
+    navigate(`/${username}`);
   };
 
   const handleClose = () => {
@@ -62,7 +87,14 @@ function EventPage() {
   }, [id]);
   if (!event)
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
         <CircularProgress color="inherit" />
       </Box>
     );
@@ -100,136 +132,89 @@ function EventPage() {
   };
 
   return (
-    <>
-      <Header />
-      <Box sx={{ padding: "20px" }}>
-        <Grid container spacing={6}>
-          <Grid item xs={12} md={6}>
-            <Box>
-              <Typography variant="h3" fontWeight="bold">
-                {event.title}
-              </Typography>
-              <React.Fragment>
-                <Typography variant="h5" onClick={handleClickOpen}>
-                  <span className="sportName">
-                    {event.sport.sportName}
-                  </span>
-                </Typography>
-                <Dialog
-                  open={open}
-                  TransitionComponent={Transition}
-                  keepMounted
-                  onClose={handleClose}
-                  aria-describedby="alert-dialog-slide-description"
-                >
-                  <DialogTitle> {event.sport.sportName}</DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                      {event.sport.description}
-                    </DialogContentText>
-                  </DialogContent>
-                </Dialog>
-              </React.Fragment>
+    <Card variant="outlined" sx={{ width: 1000, ml: 20, marginTop: 10 }}>
+      <Box sx={{ p: 2 }}>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Typography gutterBottom variant="h5" component="div">
+            {event.title}
+          </Typography>
 
-              <Typography variant="body1">
-                {event.description}
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Box
+          <Typography gutterBottom variant="body1" component="div">
+            {event.address}<br />
+            {event.date}<br />
+            {event.startTime.substring(0, 5)} - {event.endTime.substring(0, 5)}
+          </Typography>
+          
+        </Stack>
+        <Typography gutterBottom variant="h5" component="div">
+          {event.sport.sportName}
+        </Typography>
+        <Typography color="text.secondary" variant="body2">
+          {event.sport.description}
+        </Typography>
+        <Box sx={{ p: 2 }}>
+          <Typography gutterBottom variant="body2">
+            Participants {event.eventParticipants.length} /{" "}
+            {event.numParticipants}
+          </Typography>
+
+          <Stack direction="row" spacing={1}>
+            {event.eventParticipants.map((user) => (
+              <Chip
+                key={user.username} 
+                color="primary"
+                onClick={() => handleUserProfile(user.username)}
+                icon={<PersonIcon />}
+                label={user.username} 
+                size="small"
+              />
+            ))}
+          </Stack>
+        </Box>
+        <Box>
+          <Typography variant="h5">
+            {isParticipant ? (
+              <Button
+                onClick={handleWithdraw}
+                variant="contained"
+                color="error"
                 sx={{
-                  width: "150px",
-                  height: "150px",
-                  borderRadius: "10px",
-                  backgroundColor: "#e0e0e0",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  width: "100px",
+                  height: "40px",
+                  borderRadius: "5px",
+                  backgroundColor: "red",
+                  marginTop: 5,
                 }}
               >
-                {/* Add your map image here */}
-              </Box>
-              <Typography variant="body1" mt={2}>
-                {event.address}
-              </Typography>
-              <Typography variant="h5" fontWeight="bold" mt={1}>
-                {event.date}
-              </Typography>
-              <Typography variant="body2" sx={{ mb: 0.5, mt: 0.5 }}>
-                {event.startTime.substring(0, 5)} - {event.endTime.substring(0, 5)}
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={6} md={4} mt={3}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Box>
-                <Typography variant="h5">
-                  {isParticipant ? (
-                    <Button
-                      onClick={handleWithdraw}
-                      variant="contained"
-                      color="error"
-                      sx={{
-                        width: "150px",
-                        height: "50px",
-                        borderRadius: "10px",
-                        backgroundColor: "red",
-                      }}
-                    >
-                      Withdraw
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={handleJoin}
-                      variant="contained"
-                      color="success"
-                      sx={{
-                        width: "150px",
-                        height: "50px",
-                        borderRadius: "10px",
-                        backgroundColor: "#4CAF50",
-                      }}
-                    >
-                      Join
-                    </Button>
-                  )}
-                </Typography>
-              </Box>
-              <Box
+                Withdraw
+              </Button>
+            ) : (
+              <Button
+                onClick={handleJoin}
+                variant="contained"
+                color="success"
                 sx={{
-                  display: "flex",
-                  alignItems: "center",
+                  width: "100px",
+                  height: "40px",
+                  borderRadius: "5px",
+                  backgroundColor: "#4CAF50",
                 }}
               >
-                <Typography variant="h6" fontWeight="bold">
-                  {event.eventParticipants.length} / {event.numParticipants}
-                </Typography>
-                <Grid item xs={6} md={3} mt={2.5}>
-                  <Box>
-                    <GroupIcon sx={{ marginBottom: 2, marginLeft: 1 }} />
-                  </Box>
-                </Grid>
-              </Box>
-            </Box>
-          </Grid>
-        </Grid>
+                Join
+              </Button>
+            )}
+          </Typography>
+        </Box>
       </Box>
-    </>
+    </Card>
   );
 }
 
 export default EventPage;
+function setAnchorEl(currentTarget: EventTarget & HTMLElement) {
+  throw new Error("Function not implemented.");
+}
