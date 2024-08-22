@@ -35,7 +35,10 @@ import "./EventPage.css";
 import PersonIcon from "@mui/icons-material/Person";
 import Header from "../components/HeaderComponent";
 import FooterComponent from "../components/FooterComponent";
-import SportsHandballIcon from '@mui/icons-material/SportsHandball';
+import SportsHandballIcon from "@mui/icons-material/SportsHandball";
+import GroupIcon from "@mui/icons-material/Group";
+
+
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -143,7 +146,7 @@ export default function EventPage() {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography gutterBottom variant="h3" component="div">
               {event.title}
             </Typography>
 
@@ -158,8 +161,9 @@ export default function EventPage() {
           </Stack>
           <React.Fragment>
             <Typography variant="h6" onClick={handleClickOpen} color="primary">
-              
-              <span className="sportName"><SportsHandballIcon/> {event.sport.sportName}</span>
+              <span className="sportName">
+                <SportsHandballIcon /> {event.sport.sportName}
+              </span>
             </Typography>
             <Dialog
               open={open}
@@ -176,13 +180,16 @@ export default function EventPage() {
               </DialogContent>
             </Dialog>
           </React.Fragment>
-          <Typography color="text.secondary" variant="body2">
-            {event.sport.description}
-          </Typography>
+
+          <Divider sx={{ marginTop: 2 }}/>
+
           <Box sx={{ p: 2 }}>
-            <Typography gutterBottom variant="body2">
-              Participants {event.eventParticipants.length} /{" "}
-              {event.numParticipants}
+            <Typography gutterBottom variant="h6">
+              <Box component="span" display="inline-flex" alignItems="center">
+                Participants {event.eventParticipants.length} /{" "}
+                {event.numParticipants}
+                <GroupIcon sx={{ marginLeft: 1, marginBottom: 0.5 }} />
+              </Box>
             </Typography>
 
             <Stack direction="row" spacing={1}>
@@ -198,6 +205,8 @@ export default function EventPage() {
               ))}
             </Stack>
           </Box>
+          <Divider sx={{ marginTop: 2 }}/>
+
           <Box>
             <Typography variant="h5">
               {isParticipant ? (
@@ -233,7 +242,6 @@ export default function EventPage() {
             </Typography>
           </Box>
         </Box>
-        
       </Card>
       <FooterComponent />
     </>
