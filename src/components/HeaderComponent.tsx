@@ -66,7 +66,7 @@ export default function MenuAppBar() {
             color="primary"
             variant="contained"
             onClick={handleCreateEvent}
-            sx={{ ml: 150, flexDirection: 'row-reverse' }}
+            sx={{ flexDirection: 'row-reverse' }}
           >
             <Box sx={{ flexGrow: 0, 
               minWidth: 5, 
@@ -78,7 +78,6 @@ export default function MenuAppBar() {
               <AddIcon sx={{ fontSize:30 }} />
             </Box>
           </Button>
-
           <div>
             <IconButton
               size="large"

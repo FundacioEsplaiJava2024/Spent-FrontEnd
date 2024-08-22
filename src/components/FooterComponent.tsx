@@ -53,7 +53,7 @@ export default function Footer() {
                         marginBottom: 1}}>
                         <img
                             src={
-                                './public/SPENT.png'
+                                './SPENT.png'
                             }
                             style={logoStyle}
                             alt="logo of SPENT"

@@ -1,16 +1,12 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import { Box, Button, Paper, Grid, Typography, Avatar, CssBaseline, Link} from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
 import { apiRegister } from "../api/AuthApiManager";
 import { useNavigate } from "react-router-dom";
-import { Link } from "@mui/material";
+import ValidatedTextField from "../validations/ValidatedTextField";
+import { emailValidator, nameValidator, passwordValidator, usernameValidator } from "../validations/Validator";
+
+
 
 export default function RegisterPage({ setToken }: RegisterPageProps) {
   const navigate = useNavigate();
@@ -47,7 +43,7 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
         sm={4}
         md={7}
         sx={{
-          backgroundImage: 'url("/pexels-jeffibera-1320761.jpg")',
+          backgroundImage: 'url("/LoginBackground.jpg")',
 
           backgroundColor: (t) =>
             t.palette.mode === "light"
@@ -79,17 +75,19 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
             onSubmit={handleSubmit}
             sx={{ mt: 1 }}
           >
-            <TextField
+            <ValidatedTextField
               margin="normal"
-              required
-              fullWidth
+              required={true}
+              fullWidth={true}
               id="email"
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
+              autoFocus={true}
+              validator={emailValidator}
+              onChange={(isValid)=>console.log(isValid)}
             />
-            <TextField
+            <ValidatedTextField
               margin="normal"
               required
               fullWidth
@@ -98,8 +96,10 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               type="password"
               id="password"
               autoComplete="current-password"
+              validator={passwordValidator}
+              onChange={(isValid) => console.log(`Password validation state changed to ${isValid}`)}
             />
-            <TextField
+            <ValidatedTextField
               margin="normal"
               required
               fullWidth
@@ -108,18 +108,22 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               type="password"
               id="confirm-password"
               autoComplete="current-password"
-            />
-            <TextField
+              onChange={(isValid) => console.log(`Confirm password validation state changed to ${isValid}`)}
+              validator={() => false}
+              />
+            <ValidatedTextField
               margin="normal"
               required
               fullWidth
-              id="email"
+              id="username"
               label="Username"
               name="username"
               autoComplete="username"
               autoFocus
+              validator={usernameValidator}
+              onChange={(isValid) => console.log(`Username validation state changed to ${isValid}`)}
             />
-            <TextField
+            <ValidatedTextField
               margin="normal"
               required
               fullWidth
@@ -128,6 +132,8 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               name="name"
               autoComplete="name"
               autoFocus
+              validator={nameValidator}
+              onChange={(isValid) => console.log(`Name validation state changed to ${isValid}`)}
             />
             <Button
               type="submit"
