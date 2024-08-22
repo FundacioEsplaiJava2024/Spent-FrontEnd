@@ -163,6 +163,7 @@ export default function EventPage() {
                   icon={<PersonIcon />}
                   label={event.userCreator.username}
                   size="medium"
+                  sx={{ ml: 1, mb: 0.5 }}
                 />
               </Typography>
               <Divider sx={{ mb: 2 }} />
@@ -203,17 +204,17 @@ export default function EventPage() {
                   title="Event location image"
                 />
                 <CardContent>
-                  <Typography variant="body1" color="text.secondary">
-                    <CalendarMonthIcon color="primary" />
+                  <Typography variant="body1" color="text.secondary" sx={{ mb: 1 }}>
+                    <CalendarMonthIcon color="primary" sx={{ verticalAlign: 'middle', mr: 1 }}/>
                     {formattedDate}
                   </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    <AccessTimeIcon color="primary" />
+                  <Typography variant="body1" color="text.secondary" sx={{ mb: 1 }}>
+                    <AccessTimeIcon color="primary" sx={{ verticalAlign: 'middle', mr: 1 }}/>
                     {event.startTime.substring(0, 5)} -{" "}
                     {event.endTime.substring(0, 5)}
                   </Typography>
                   <Typography variant="body1" color="text.secondary">
-                    <LocationOnIcon color="primary" />
+                    <LocationOnIcon color="primary" sx={{ verticalAlign: 'middle', mr: 1 }}/>
                     {event.address}
                   </Typography>
                 </CardContent>
@@ -259,7 +260,7 @@ export default function EventPage() {
                     height: "40px",
                     borderRadius: "5px",
                     backgroundColor: "red",
-                    marginTop: 5,
+                    marginTop: 2,
                   }}
                 >
                   Withdraw
@@ -274,6 +275,7 @@ export default function EventPage() {
                     height: "40px",
                     borderRadius: "5px",
                     backgroundColor: "#4CAF50",
+                    marginTop: 2,
                   }}
                 >
                   Join
