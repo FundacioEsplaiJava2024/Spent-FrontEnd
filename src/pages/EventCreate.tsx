@@ -20,6 +20,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiCreateEvent, apiGetSports } from "../api/SpentApiManager";
 import { Sport } from "../types/types";
+import ValidatedTextField from "../validations/ValidatedTextField";
+import { titleValidator, numParticipantsValidator, dateValidator, endTimeValidator } from "../validations/CreateEventValidator";
+
 
 export default function EventCreate() {
   const navigate = useNavigate();
@@ -55,6 +58,24 @@ export default function EventCreate() {
     const numParticipants = data.get("numParticipants") as string;
     const address = data.get("address") as string;
     const sportName = selectedSport?.sportName;
+
+    if(!titleValidator(title)){
+      alert("Invalid title");
+      return;
+    }
+    /*if (!dateValidator(date)) {
+      alert("Invalid date");
+      return;
+    }*/
+    if (!numParticipantsValidator(numParticipants)) {
+      alert("Invalid number of participants");
+      return;
+    }
+    /*if (!endTimeValidator(startTime, endTime)) {
+      alert("Invalid time");
+      return;
+    }*/
+
     var realStartTime = "";
     var realEndTime = "";
 
@@ -126,7 +147,7 @@ export default function EventCreate() {
                 onSubmit={handleSubmit}
                 sx={{ mt: 1 }}
               >
-                <TextField
+                <ValidatedTextField
                   margin="normal"
                   required
                   fullWidth
@@ -135,8 +156,10 @@ export default function EventCreate() {
                   name="title"
                   autoComplete="title"
                   autoFocus
+                  validator={titleValidator}
+                  onChange={(isValid)=>}
                 />
-                <TextField
+                <ValidatedTextField
                   margin="normal"
                   required
                   fullWidth

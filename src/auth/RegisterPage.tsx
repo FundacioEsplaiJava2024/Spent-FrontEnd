@@ -4,12 +4,17 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { apiRegister } from "../api/AuthApiManager";
 import { useNavigate } from "react-router-dom";
 import ValidatedTextField from "../validations/ValidatedTextField";
-import { emailValidator, nameValidator, passwordValidator, usernameValidator } from "../validations/Validator";
+import { emailValidator, nameValidator, passwordValidator, usernameValidator } from "../validations/RegisterValidator";
 
 
 
 export default function RegisterPage({ setToken }: RegisterPageProps) {
   const navigate = useNavigate();
+  const [emailIsValid, setEmailIsValid] = React.useState(false);
+  const [passwordIsValid, setPasswordIsValid] = React.useState(false);
+  const [confirmPasswordIsValid, setConfirmPasswordIsValid] = React.useState(false);
+  const [usernameIsValid, setUsernameIsValid] = React.useState(false);
+  const [nameIsValid, setNameIsValid] = React.useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -18,6 +23,11 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
     const password = data.get("password") as string;
     const name = data.get("name") as string;
     const username = data.get("username") as string;
+    if (!emailIsValid || !passwordIsValid || !confirmPasswordIsValid || !usernameIsValid || !nameIsValid) {
+      alert("Please fill in all fields correctly");
+      return;
+    }
+
     if (password !== data.get("confirm-password")) {
       alert("Passwords do not match");
       return;
@@ -85,7 +95,7 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               autoComplete="email"
               autoFocus={true}
               validator={emailValidator}
-              onChange={(isValid)=>console.log(isValid)}
+              onChange={(isValid)=> setEmailIsValid(isValid)}
             />
             <ValidatedTextField
               margin="normal"
@@ -97,7 +107,7 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               id="password"
               autoComplete="current-password"
               validator={passwordValidator}
-              onChange={(isValid) => console.log(`Password validation state changed to ${isValid}`)}
+              onChange={(isValid) => setPasswordIsValid(isValid)}
             />
             <ValidatedTextField
               margin="normal"
@@ -108,7 +118,7 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               type="password"
               id="confirm-password"
               autoComplete="current-password"
-              onChange={(isValid) => console.log(`Confirm password validation state changed to ${isValid}`)}
+              onChange={(isValid) => setConfirmPasswordIsValid(isValid)}
               validator={() => false}
               />
             <ValidatedTextField
@@ -121,7 +131,7 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               autoComplete="username"
               autoFocus
               validator={usernameValidator}
-              onChange={(isValid) => console.log(`Username validation state changed to ${isValid}`)}
+              onChange={(isValid) => setUsernameIsValid(isValid)}
             />
             <ValidatedTextField
               margin="normal"
@@ -133,7 +143,7 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               autoComplete="name"
               autoFocus
               validator={nameValidator}
-              onChange={(isValid) => console.log(`Name validation state changed to ${isValid}`)}
+              onChange={(isValid) => setNameIsValid(isValid)}
             />
             <Button
               type="submit"
