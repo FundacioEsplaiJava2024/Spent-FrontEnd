@@ -2,22 +2,16 @@ import {
   Box,
   Button,
   Card,
-  CardActionArea,
   CardContent,
   CardMedia,
   Chip,
-  Container,
-  CssBaseline,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
   Divider,
-  Grid,
   Slide,
   Stack,
-  ThemeProvider,
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -37,8 +31,9 @@ import Header from "../components/HeaderComponent";
 import FooterComponent from "../components/FooterComponent";
 import SportsHandballIcon from "@mui/icons-material/SportsHandball";
 import GroupIcon from "@mui/icons-material/Group";
-
-
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -54,6 +49,14 @@ export default function EventPage() {
   const [event, setEvent] = useState<Event | null>(null);
   const username = localStorage.getItem("username") as string;
   const navigate = useNavigate();
+  const formattedDate =
+    event && event.date
+      ? new Date(event.date).toLocaleDateString("en-GB", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      : "Date not available";
 
   const [open, setOpen] = React.useState(false);
 
@@ -141,47 +144,84 @@ export default function EventPage() {
       <Header />
       <Card variant="outlined" sx={{ width: 1000, ml: 20, marginTop: 10 }}>
         <Box sx={{ p: 2 }}>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Typography gutterBottom variant="h3" component="div">
-              {event.title}
-            </Typography>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Typography gutterBottom variant="h3" component="div">
+                  {event.title}
+                </Typography>
+              </Stack>
+              <Typography gutterBottom variant="h5" component="div">
+                Organizer:{" "}
+                <Chip
+                  color="primary"
+                  onClick={() => handleUserProfile(event.userCreator.username)}
+                  icon={<PersonIcon />}
+                  label={event.userCreator.username}
+                  size="medium"
+                />
+              </Typography>
+              <Divider sx={{ mb: 2 }} />
+              <React.Fragment>
+                <Typography
+                  variant="h6"
+                  onClick={handleClickOpen}
+                  color="primary"
+                >
+                  <span className="sportName">
+                    <SportsHandballIcon /> {event.sport.sportName}
+                  </span>
+                </Typography>
+                <Dialog
+                  open={open}
+                  TransitionComponent={Transition}
+                  keepMounted
+                  onClose={handleClose}
+                  aria-describedby="alert-dialog-slide-description"
+                >
+                  <DialogTitle> {event.sport.sportName}</DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                      {event.sport.description}
+                    </DialogContentText>
+                  </DialogContent>
+                </Dialog>
+              </React.Fragment>
+              <Typography gutterBottom component="div">
+                {event.description}
+              </Typography>
+            </Box>
+            <Box>
+              <Card sx={{ width: 250 }}>
+                <CardMedia
+                  sx={{ height: 140 }}
+                  image="/Maps_placeholder.png"
+                  title="Event location image"
+                />
+                <CardContent>
+                  <Typography variant="body1" color="text.secondary">
+                    <CalendarMonthIcon color="primary" />
+                    {formattedDate}
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary">
+                    <AccessTimeIcon color="primary" />
+                    {event.startTime.substring(0, 5)} -{" "}
+                    {event.endTime.substring(0, 5)}
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary">
+                    <LocationOnIcon color="primary" />
+                    {event.address}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Box>
+          </Box>
 
-            <Typography gutterBottom variant="body1" component="div">
-              {event.address}
-              <br />
-              {event.date}
-              <br />
-              {event.startTime.substring(0, 5)} -{" "}
-              {event.endTime.substring(0, 5)}
-            </Typography>
-          </Stack>
-          <React.Fragment>
-            <Typography variant="h6" onClick={handleClickOpen} color="primary">
-              <span className="sportName">
-                <SportsHandballIcon /> {event.sport.sportName}
-              </span>
-            </Typography>
-            <Dialog
-              open={open}
-              TransitionComponent={Transition}
-              keepMounted
-              onClose={handleClose}
-              aria-describedby="alert-dialog-slide-description"
-            >
-              <DialogTitle> {event.sport.sportName}</DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-slide-description">
-                  {event.sport.description}
-                </DialogContentText>
-              </DialogContent>
-            </Dialog>
-          </React.Fragment>
-
-          <Divider sx={{ marginTop: 2 }}/>
+          <Divider sx={{ marginTop: 2 }} />
 
           <Box sx={{ p: 2 }}>
             <Typography gutterBottom variant="h6">
@@ -200,12 +240,12 @@ export default function EventPage() {
                   onClick={() => handleUserProfile(user.username)}
                   icon={<PersonIcon />}
                   label={user.username}
-                  size="small"
+                  size="medium"
                 />
               ))}
             </Stack>
           </Box>
-          <Divider sx={{ marginTop: 2 }}/>
+          <Divider sx={{ marginTop: 2 }} />
 
           <Box>
             <Typography variant="h5">
@@ -243,6 +283,7 @@ export default function EventPage() {
           </Box>
         </Box>
       </Card>
+
       <FooterComponent />
     </>
   );
