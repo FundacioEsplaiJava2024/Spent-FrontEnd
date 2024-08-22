@@ -33,7 +33,8 @@ import React from "react";
 import { TransitionProps } from "@mui/material/transitions";
 import "./EventPage.css";
 import PersonIcon from "@mui/icons-material/Person";
-import UserProfile from "./UserProfile";
+import Header from "../components/HeaderComponent";
+import FooterComponent from "../components/FooterComponent";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -44,7 +45,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function EventPage() {
+export default function EventPage() {
   const { id } = useParams();
   const [event, setEvent] = useState<Event | null>(null);
   const username = localStorage.getItem("username") as string;
@@ -132,107 +133,107 @@ function EventPage() {
   };
 
   return (
-    <Card variant="outlined" sx={{ width: 1000, ml: 20, marginTop: 10 }}>
-      <Box sx={{ p: 2 }}>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Typography gutterBottom variant="h5" component="div">
-            {event.title}
-          </Typography>
-
-          <Typography gutterBottom variant="body1" component="div">
-            {event.address}<br />
-            {event.date}<br />
-            {event.startTime.substring(0, 5)} - {event.endTime.substring(0, 5)}
-          </Typography>
-          
-        </Stack>
-        <React.Fragment>
-                <Typography variant="h6" onClick={handleClickOpen}>
-                  <span className="sportName">
-                    {event.sport.sportName}
-                  </span>
-                </Typography>
-                <Dialog
-                  open={open}
-                  TransitionComponent={Transition}
-                  keepMounted
-                  onClose={handleClose}
-                  aria-describedby="alert-dialog-slide-description"
-                >
-                  <DialogTitle> {event.sport.sportName}</DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                      {event.sport.description}
-                    </DialogContentText>
-                  </DialogContent>
-                </Dialog>
-              </React.Fragment>
-        <Typography color="text.secondary" variant="body2">
-          {event.sport.description}
-        </Typography>
+    <>
+      <Header />
+      <Card variant="outlined" sx={{ width: 1000, ml: 20, marginTop: 10 }}>
         <Box sx={{ p: 2 }}>
-          <Typography gutterBottom variant="body2">
-            Participants {event.eventParticipants.length} /{" "}
-            {event.numParticipants}
-          </Typography>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Typography gutterBottom variant="h5" component="div">
+              {event.title}
+            </Typography>
 
-          <Stack direction="row" spacing={1}>
-            {event.eventParticipants.map((user) => (
-              <Chip
-                key={user.username} 
-                color="primary"
-                onClick={() => handleUserProfile(user.username)}
-                icon={<PersonIcon />}
-                label={user.username} 
-                size="small"
-              />
-            ))}
+            <Typography gutterBottom variant="body1" component="div">
+              {event.address}
+              <br />
+              {event.date}
+              <br />
+              {event.startTime.substring(0, 5)} -{" "}
+              {event.endTime.substring(0, 5)}
+            </Typography>
           </Stack>
-        </Box>
-        <Box>
-          <Typography variant="h5">
-            {isParticipant ? (
-              <Button
-                onClick={handleWithdraw}
-                variant="contained"
-                color="error"
-                sx={{
-                  width: "100px",
-                  height: "40px",
-                  borderRadius: "5px",
-                  backgroundColor: "red",
-                  marginTop: 5,
-                }}
-              >
-                Withdraw
-              </Button>
-            ) : (
-              <Button
-                onClick={handleJoin}
-                variant="contained"
-                color="success"
-                sx={{
-                  width: "100px",
-                  height: "40px",
-                  borderRadius: "5px",
-                  backgroundColor: "#4CAF50",
-                }}
-              >
-                Join
-              </Button>
-            )}
+          <React.Fragment>
+            <Typography variant="h6" onClick={handleClickOpen}>
+              <span className="sportName">{event.sport.sportName}</span>
+            </Typography>
+            <Dialog
+              open={open}
+              TransitionComponent={Transition}
+              keepMounted
+              onClose={handleClose}
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle> {event.sport.sportName}</DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  {event.sport.description}
+                </DialogContentText>
+              </DialogContent>
+            </Dialog>
+          </React.Fragment>
+          <Typography color="text.secondary" variant="body2">
+            {event.sport.description}
           </Typography>
-        </Box>
-      </Box>
-    </Card>
-  );
-}
+          <Box sx={{ p: 2 }}>
+            <Typography gutterBottom variant="body2">
+              Participants {event.eventParticipants.length} /{" "}
+              {event.numParticipants}
+            </Typography>
 
-export default EventPage;
-function setAnchorEl(currentTarget: EventTarget & HTMLElement) {
-  throw new Error("Function not implemented.");
+            <Stack direction="row" spacing={1}>
+              {event.eventParticipants.map((user) => (
+                <Chip
+                  key={user.username}
+                  color="primary"
+                  onClick={() => handleUserProfile(user.username)}
+                  icon={<PersonIcon />}
+                  label={user.username}
+                  size="small"
+                />
+              ))}
+            </Stack>
+          </Box>
+          <Box>
+            <Typography variant="h5">
+              {isParticipant ? (
+                <Button
+                  onClick={handleWithdraw}
+                  variant="contained"
+                  color="error"
+                  sx={{
+                    width: "100px",
+                    height: "40px",
+                    borderRadius: "5px",
+                    backgroundColor: "red",
+                    marginTop: 5,
+                  }}
+                >
+                  Withdraw
+                </Button>
+              ) : (
+                <Button
+                  onClick={handleJoin}
+                  variant="contained"
+                  color="success"
+                  sx={{
+                    width: "100px",
+                    height: "40px",
+                    borderRadius: "5px",
+                    backgroundColor: "#4CAF50",
+                  }}
+                >
+                  Join
+                </Button>
+              )}
+            </Typography>
+          </Box>
+        </Box>
+        
+      </Card>
+      <FooterComponent />
+    </>
+  );
 }
