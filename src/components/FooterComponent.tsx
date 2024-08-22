@@ -87,7 +87,6 @@ export default function Footer() {
                         </Typography>
                         <Link href="https://github.com/davidfreixes" sx={{ textDecoration: 'none', color: 'black' }}>
                             <IconButton
-                                href="https://github.com/davidfreixes"
                                 aria-label="GitHub"
                                 sx={{ alignSelf: 'center', color: 'black' }}
                             >
@@ -98,7 +97,6 @@ export default function Footer() {
                         <Link href="https://www.linkedin.com/in/david-freixes/" sx={{ textDecoration: 'none' }}>
                             <IconButton
                                 color="inherit"
-                                href="https://www.linkedin.com/in/david-freixes/"
                                 aria-label="LinkedIn"
                                 sx={{ alignSelf: 'center' }}
                             >
@@ -114,7 +112,6 @@ export default function Footer() {
                         <Link href="https://github.com/Jaranag" sx={{ textDecoration: 'none', color: 'black' }}>
                             <IconButton
                                 color="inherit"
-                                href="https://github.com/Jaranag"
                                 aria-label="GitHub"
                                 sx={{ alignSelf: 'center', color: 'black' }}
                             >
@@ -125,7 +122,6 @@ export default function Footer() {
                         <Link href="https://www.linkedin.com/in/joel-arana-gregori/" sx={{ textDecoration: 'none' }}>
                             <IconButton
                                 color="inherit"
-                                href="https://www.linkedin.com/in/joel-arana-gregori/"
                                 aria-label="LinkedIn"
                                 sx={{ alignSelf: 'center' }}
                             >
@@ -141,7 +137,6 @@ export default function Footer() {
                         <Link href="https://github.com/IzarReina" sx={{ textDecoration: 'none', color: 'black' }}>
                             <IconButton
                                 color="inherit"
-                                href="https://github.com/IzarReina"
                                 aria-label="GitHub"
                                 sx={{ alignSelf: 'center', color: 'black' }}
                             >
@@ -152,7 +147,6 @@ export default function Footer() {
                         <Link href="https://www.linkedin.com/in/izar-reina/" sx={{ textDecoration: 'none' }}>
                             <IconButton
                                 color="inherit"
-                                href="https://www.linkedin.com/in/izar-reina/"
                                 aria-label="LinkedIn"
                                 sx={{ alignSelf: 'center' }}
                             >
@@ -168,7 +162,6 @@ export default function Footer() {
                         <Link href="https://github.com/Daniela-RL" sx={{ textDecoration: 'none', color: 'black' }}>
                             <IconButton
                                 color="inherit"
-                                href="https://github.com/Daniela-RL"
                                 aria-label="GitHub"
                                 sx={{ alignSelf: 'center', color: 'black' }}
                             >
@@ -179,7 +172,6 @@ export default function Footer() {
                         <Link href="https://www.linkedin.com/in/daniela-rodriguez-lainez/" sx={{ textDecoration: 'none' }}>
                             <IconButton
                                 color="inherit"
-                                href="https://www.linkedin.com/in/daniela-rodriguez-lainez/"
                                 aria-label="LinkedIn"
                                 sx={{ alignSelf: 'center' }}
                             >
