@@ -35,6 +35,7 @@ import "./EventPage.css";
 import PersonIcon from "@mui/icons-material/Person";
 import Header from "../components/HeaderComponent";
 import FooterComponent from "../components/FooterComponent";
+import SportsHandballIcon from '@mui/icons-material/SportsHandball';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -156,8 +157,9 @@ export default function EventPage() {
             </Typography>
           </Stack>
           <React.Fragment>
-            <Typography variant="h6" onClick={handleClickOpen}>
-              <span className="sportName">{event.sport.sportName}</span>
+            <Typography variant="h6" onClick={handleClickOpen} color="primary">
+              
+              <span className="sportName"><SportsHandballIcon/> {event.sport.sportName}</span>
             </Typography>
             <Dialog
               open={open}
