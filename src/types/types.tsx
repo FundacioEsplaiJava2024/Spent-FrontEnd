@@ -1,6 +1,6 @@
 export interface Sport {
     id: string;
-    sportName: string;
+    name: string;
     description: string;
 }
 

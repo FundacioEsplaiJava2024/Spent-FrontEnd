@@ -46,7 +46,7 @@ export default function EventCard({ event }: EventCardProps) {
         <Box sx={{ p: 1 }}>
           <Typography gutterBottom variant="body2" sx={{ marginLeft: 1 }}>
             Activity:{" "}
-            <Chip color="primary" label={event.sport.sportName} size="small" />
+            <Chip color="primary" label={event.sport.name} size="small" />
           </Typography>
         </Box>
       </Card>

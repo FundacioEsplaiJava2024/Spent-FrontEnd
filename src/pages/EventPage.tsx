@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Slide, Typography } from "@mui/material";
+import { Box, Button, Dialog, DialogContent, DialogContentText, DialogTitle, Grid, Slide, Typography } from "@mui/material";
 import Header from "../components/HeaderComponent";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -111,7 +111,7 @@ function EventPage() {
               <React.Fragment>
                 <Typography variant="h5" onClick={handleClickOpen}>
                   <span className="sportName">
-                    {event.sport.sportName}
+                    {event.sport.name}
                   </span>
                 </Typography>
                 <Dialog
@@ -121,7 +121,7 @@ function EventPage() {
                   onClose={handleClose}
                   aria-describedby="alert-dialog-slide-description"
                 >
-                  <DialogTitle> {event.sport.sportName}</DialogTitle>
+                  <DialogTitle> {event.sport.name}</DialogTitle>
                   <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                       {event.sport.description}
