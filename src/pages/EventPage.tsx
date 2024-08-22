@@ -150,9 +150,27 @@ function EventPage() {
           </Typography>
           
         </Stack>
-        <Typography gutterBottom variant="h5" component="div">
-          {event.sport.sportName}
-        </Typography>
+        <React.Fragment>
+                <Typography variant="h6" onClick={handleClickOpen}>
+                  <span className="sportName">
+                    {event.sport.sportName}
+                  </span>
+                </Typography>
+                <Dialog
+                  open={open}
+                  TransitionComponent={Transition}
+                  keepMounted
+                  onClose={handleClose}
+                  aria-describedby="alert-dialog-slide-description"
+                >
+                  <DialogTitle> {event.sport.sportName}</DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                      {event.sport.description}
+                    </DialogContentText>
+                  </DialogContent>
+                </Dialog>
+              </React.Fragment>
         <Typography color="text.secondary" variant="body2">
           {event.sport.description}
         </Typography>
