@@ -16,7 +16,7 @@ export default function EventCard({ event }: EventCardProps) {
 
   return (
     <Link to={`/events/${event.id}`} className="EventCard">
-      <Card variant="outlined" sx={{ width: 400, marginTop: 3 }}>
+      <Card variant="outlined" sx={{ width: 600, marginTop: 3 }}>
         <Box sx={{ p: 2 }}>
           <Stack
             direction="row"
