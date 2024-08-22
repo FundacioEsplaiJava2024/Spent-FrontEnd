@@ -14,6 +14,7 @@ import { User } from "../types/types";
 function UserProfile() {
   const { username } = useParams();
   const [user, setUser] = useState<User | null>(null);
+  console.log(user);
 
   useEffect(() => {
     if (username) {

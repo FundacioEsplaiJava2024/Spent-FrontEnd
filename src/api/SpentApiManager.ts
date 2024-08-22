@@ -23,7 +23,7 @@ export const apiGetSports = async (): Promise<Sport[]> => {
     const apiSports = response.data;
     const sports: Sport[] = apiSports.map((sport: any) => ({
         id: sport.id,
-        sportName: sport.name,
+        name: sport.name,
         description: sport.description,
     }));
     return sports;
@@ -43,7 +43,7 @@ export const apiGetEventById = async (id: String): Promise<Event> => {
         address: userData.address,
         sport: {
             id: userData.sport.id,
-            sportName: userData.sport.name,
+            name: userData.sport.name,
             description: userData.sport.description,
         } as Sport,
 
@@ -89,7 +89,7 @@ export const apiGetEvents = async (): Promise<Event[]> => {
 
         sport: {
             id: event.sport.id,
-            sportName: event.sport.name,
+            name: event.sport.name,
             description: event.sport.description,
         } as Sport,
 
@@ -133,7 +133,7 @@ export const apiCreateEvent = async (
     description: string,
     numParticipants: string,
     address: string,
-    sportName: string
+    name: string
 ) => {
     await SpentApi.post(
         "/events",
@@ -145,7 +145,7 @@ export const apiCreateEvent = async (
             endTime: endTime,
             numParticipants: numParticipants,
             address: address,
-            sportName: sportName,
+            name: name,
         },
         { headers: { authorization: localStorage.getItem("accessToken") } }
     );

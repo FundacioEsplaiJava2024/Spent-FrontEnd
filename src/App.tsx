@@ -18,7 +18,7 @@ function App() {
 
   const filteredEvents = events
     .filter((event: Event) =>
-      selectedSport ? event.sport.sportName === selectedSport : true
+      selectedSport ? event.sport.name === selectedSport : true
     )
     .filter((event: Event) =>
       searchTerm ? event.title.toLowerCase().includes(searchTerm.toLowerCase()) : true
@@ -85,7 +85,7 @@ function App() {
               id="free-solo-demo"
               freeSolo
               options={sports.map(
-                (option: { sportName: string }) => option.sportName
+                (option: { name: string }) => option.name
               )}
               renderInput={(params) => (<TextField {...params} label="Sports"
               sx={{width:350, fontSize:16}}
