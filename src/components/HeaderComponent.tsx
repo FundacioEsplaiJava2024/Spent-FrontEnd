@@ -86,37 +86,7 @@ export default function MenuAppBar() {
               aria-haspopup="true"
               onClick={handleMenu}
               color="inherit"
-         /* <Box sx={{ display: "flex" }}>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={handleCreateEvent}
-              sx={{ flexDirection: "row-reverse", mr: 4, height: 40, mt:0.5 }}*/
             >
-              <Box
-                sx={{
-                  flexGrow: 0,
-                  minWidth: 5,
-                  height: 24,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginRight: 0,
-                }}
-              >
-                <AddIcon sx={{ fontSize: 30 }} />
-              </Box>
-            </Button>
-
-            <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
                 <AccountCircle />
               </IconButton>
               <Menu
@@ -148,7 +118,6 @@ export default function MenuAppBar() {
                 </MenuItem>
               </Menu>
             </div>
-          </Box>
         </Toolbar>
       </AppBar>
     </Box>
