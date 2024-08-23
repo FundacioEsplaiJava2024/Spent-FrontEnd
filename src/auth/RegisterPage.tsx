@@ -94,6 +94,8 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               name="email"
               autoComplete="email"
               autoFocus={true}
+              multiline={false}
+              rows={1}
               validator={emailValidator}
               onChange={(isValid)=> setEmailIsValid(isValid)}
             />
@@ -106,6 +108,8 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               type="password"
               id="password"
               autoComplete="current-password"
+              multiline={false}
+              rows={1}
               validator={passwordValidator}
               onChange={(isValid) => setPasswordIsValid(isValid)}
             />
@@ -118,6 +122,8 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               type="password"
               id="confirm-password"
               autoComplete="current-password"
+              multiline={false}
+              rows={1}
               onChange={(isValid) => setConfirmPasswordIsValid(isValid)}
               validator={() => false}
               />
@@ -130,6 +136,8 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               name="username"
               autoComplete="username"
               autoFocus
+              multiline={false}
+              rows={1}
               validator={usernameValidator}
               onChange={(isValid) => setUsernameIsValid(isValid)}
             />
@@ -142,6 +150,8 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               name="name"
               autoComplete="name"
               autoFocus
+              multiline={false}
+              rows={1}
               validator={nameValidator}
               onChange={(isValid) => setNameIsValid(isValid)}
             />

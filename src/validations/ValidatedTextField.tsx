@@ -13,6 +13,8 @@ interface ValidatedTextField {
     autoComplete?: string;
     autoFocus?: boolean;
     type?: string;
+    multiline:boolean;
+    rows: number;
 }
 
 
