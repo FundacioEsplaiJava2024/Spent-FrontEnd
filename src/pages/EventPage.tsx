@@ -174,7 +174,7 @@ export default function EventPage() {
                   color="primary"
                 >
                   <span className="sportName">
-                    <SportsHandballIcon /> {event.sport.sportName}
+                    <SportsHandballIcon /> {event.sport.name}
                   </span>
                 </Typography>
                 <Dialog
@@ -184,7 +184,7 @@ export default function EventPage() {
                   onClose={handleClose}
                   aria-describedby="alert-dialog-slide-description"
                 >
-                  <DialogTitle> {event.sport.sportName}</DialogTitle>
+                  <DialogTitle> {event.sport.name}</DialogTitle>
                   <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                       {event.sport.description}
