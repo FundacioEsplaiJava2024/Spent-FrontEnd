@@ -1,19 +1,20 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import { Box, Button, Paper, Grid, Typography, Avatar, CssBaseline, Link} from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
 import { apiRegister } from "../api/AuthApiManager";
 import { useNavigate } from "react-router-dom";
-import { Link } from "@mui/material";
+import ValidatedTextField from "../validations/ValidatedTextField";
+import { emailValidator, nameValidator, passwordValidator, usernameValidator } from "../validations/RegisterValidator";
+
+
 
 export default function RegisterPage({ setToken }: RegisterPageProps) {
   const navigate = useNavigate();
+  const [emailIsValid, setEmailIsValid] = React.useState(false);
+  const [passwordIsValid, setPasswordIsValid] = React.useState(false);
+  const [confirmPasswordIsValid, setConfirmPasswordIsValid] = React.useState(false);
+  const [usernameIsValid, setUsernameIsValid] = React.useState(false);
+  const [nameIsValid, setNameIsValid] = React.useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -22,6 +23,11 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
     const password = data.get("password") as string;
     const name = data.get("name") as string;
     const username = data.get("username") as string;
+    if (!emailIsValid || !passwordIsValid || !confirmPasswordIsValid || !usernameIsValid || !nameIsValid) {
+      alert("Please fill in all fields correctly");
+      return;
+    }
+
     if (password !== data.get("confirm-password")) {
       alert("Passwords do not match");
       return;
@@ -79,17 +85,21 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
             onSubmit={handleSubmit}
             sx={{ mt: 1 }}
           >
-            <TextField
+            <ValidatedTextField
               margin="normal"
-              required
-              fullWidth
+              required={true}
+              fullWidth={true}
               id="email"
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
+              autoFocus={true}
+              multiline={false}
+              rows={1}
+              validator={emailValidator}
+              onChange={(isValid)=> setEmailIsValid(isValid)}
             />
-            <TextField
+            <ValidatedTextField
               margin="normal"
               required
               fullWidth
@@ -98,8 +108,12 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               type="password"
               id="password"
               autoComplete="current-password"
+              multiline={false}
+              rows={1}
+              validator={passwordValidator}
+              onChange={(isValid) => setPasswordIsValid(isValid)}
             />
-            <TextField
+            <ValidatedTextField
               margin="normal"
               required
               fullWidth
@@ -108,18 +122,26 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               type="password"
               id="confirm-password"
               autoComplete="current-password"
-            />
-            <TextField
+              multiline={false}
+              rows={1}
+              onChange={(isValid) => setConfirmPasswordIsValid(isValid)}
+              validator={() => false}
+              />
+            <ValidatedTextField
               margin="normal"
               required
               fullWidth
-              id="email"
+              id="username"
               label="Username"
               name="username"
               autoComplete="username"
               autoFocus
+              multiline={false}
+              rows={1}
+              validator={usernameValidator}
+              onChange={(isValid) => setUsernameIsValid(isValid)}
             />
-            <TextField
+            <ValidatedTextField
               margin="normal"
               required
               fullWidth
@@ -128,6 +150,10 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               name="name"
               autoComplete="name"
               autoFocus
+              multiline={false}
+              rows={1}
+              validator={nameValidator}
+              onChange={(isValid) => setNameIsValid(isValid)}
             />
             <Button
               type="submit"

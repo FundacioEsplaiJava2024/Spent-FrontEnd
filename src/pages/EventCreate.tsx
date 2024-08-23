@@ -20,6 +20,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiCreateEvent, apiGetSports } from "../api/SpentApiManager";
 import { Sport } from "../types/types";
+import ValidatedTextField from "../validations/ValidatedTextField";
+import { titleValidator, descriptionValidator, numParticipantsValidator, dateValidator, addressValidator } from "../validations/CreateEventValidator";
+
 
 export default function EventCreate() {
   const navigate = useNavigate();
@@ -54,24 +57,69 @@ export default function EventCreate() {
     const description = data.get("description") as string;
     const numParticipants = data.get("numParticipants") as string;
     const address = data.get("address") as string;
-    const name = selectedSport?.name;
-    var realStartTime = "";
+    const sportName = selectedSport?.sportName;
+    const startTimeHour = startTime?.hour() ?? 0;
+    const startTimeMinute = startTime?.minute() ?? 0;
+    const endTimeHour = endTime?.hour() ?? 0;
+    const endTimeMinute = endTime?.minute() ?? 0;
+
+
+    if (titleValidator(title)) {
+      alert("Invalid title");
+      return;
+    }
+
+    if (dateValidator(date)) {
+      alert("Invalid date");
+      return;
+    }
+
+    if (startTimeHour > endTimeHour) {
+      alert("Invalid time");
+      return
+    }
+    if (startTimeHour == endTimeHour && startTimeMinute >= endTimeMinute) {
+      alert("invalid time");
+    }
+
+    if (descriptionValidator(description)) {
+      alert("Invalid description");
+      return;
+    }
+
+    if (numParticipantsValidator(numParticipants)) {
+      alert("Invalid number of participants");
+      return;
+    }
+
+    if (addressValidator(address)) {
+      alert("Invalid address");
+    }
+
+    if (sportName == null) {
+      alert('Seleccione un deporte');
+      return;
+    }
+
+      var realStartTime = "";
     var realEndTime = "";
 
+  
     if (startTime && endTime) {
       realStartTime = startTime.format('HH:mm') as string;
       realEndTime = endTime.format('HH:mm') as string;
     } else {
       alert('Time not selected');
-      return
+      return;
     }
+
     apiCreateEvent(
       title,
       date,
       realStartTime,
       realEndTime,
       description,
-      numParticipants,
+      numParticipants.toString(),
       address,
       name ?? ""
     );
@@ -83,12 +131,16 @@ export default function EventCreate() {
 
   };
 
+  function isValid(): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
 
     <>
       <Box sx={{
         backgroundImage: 'url("/CreateBackground.jpg")', backgroundSize: 'cover', backgroundPosition: 'bottom',
-        height: '140vh' 
+        height: '140vh'
       }}>
         <Grid container component="main" sx={{ height: "100vh", marginTop: 0, marginBottom: 5 }}>
           <CssBaseline />
@@ -126,7 +178,7 @@ export default function EventCreate() {
                 onSubmit={handleSubmit}
                 sx={{ mt: 1 }}
               >
-                <TextField
+                <ValidatedTextField
                   margin="normal"
                   required
                   fullWidth
@@ -135,8 +187,12 @@ export default function EventCreate() {
                   name="title"
                   autoComplete="title"
                   autoFocus
+                  multiline={false}
+                  rows={1}
+                  validator={titleValidator}
+                  onChange={(isValid)}
                 />
-                <TextField
+                <ValidatedTextField
                   margin="normal"
                   required
                   fullWidth
@@ -144,9 +200,10 @@ export default function EventCreate() {
                   label="Date"
                   name="date"
                   type="date"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
+                  multiline={false}
+                  rows={1}
+                  validator={dateValidator}
+                  onChange={(isValid)}
                 />
                 <Box sx={{ display: "flex", marginTop: 1, gap: 10 }}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -167,20 +224,22 @@ export default function EventCreate() {
                   </LocalizationProvider>
                 </Box>
 
-                <TextField
+                <ValidatedTextField
                   margin="normal"
-                  required
-                  fullWidth
+                  required={true}
+                  fullWidth={true}
                   id="description"
                   label="Description"
                   name="description"
                   autoComplete="description"
-                  autoFocus
-                  multiline
+                  autoFocus={true}
+                  multiline={true}
                   rows={4}
+                  validator={descriptionValidator}
+                  onChange={(isValid)}
                 />
 
-                <TextField
+                <ValidatedTextField
                   margin="normal"
                   required
                   fullWidth
@@ -190,10 +249,13 @@ export default function EventCreate() {
                   type="number"
                   autoComplete="numParticipants"
                   autoFocus
-                  inputProps={{ min: 0, step: 1 }}
+                  validator={numParticipantsValidator}
+                  onChange={(isValid)}
+                  multiline={false}
+                  rows={0}
                 />
 
-                <TextField
+                <ValidatedTextField
                   margin="normal"
                   required
                   fullWidth
@@ -202,6 +264,10 @@ export default function EventCreate() {
                   name="address"
                   autoComplete="address"
                   autoFocus
+                  validator={addressValidator}
+                  onChange={(isValid)}
+                  multiline={false}
+                  rows={0}
                 />
                 <Stack spacing={2} sx={{ width: 300, marginTop: 3 }}>
                   <Autocomplete

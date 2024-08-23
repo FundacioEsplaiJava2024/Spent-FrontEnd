@@ -53,6 +53,7 @@ export default function Footer() {
               marginLeft: "1px",
               marginBottom: 1,
             }}
+
           >
             <img src={"./SPENT.png"} style={logoStyle} alt="logo of SPENT" />
           </Box>
@@ -62,7 +63,6 @@ export default function Footer() {
             events, promoting health and the creation of sustainable local
             communities.
           </Typography>
-
           <div>
             <Link color="text.secondary" href="#">
               Privacy Policy
