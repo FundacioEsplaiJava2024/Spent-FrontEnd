@@ -37,6 +37,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditNoteIcon from "@mui/icons-material/EditNote";
+import EditEvent from "../components/EditEventComponent";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -334,19 +335,7 @@ export default function EventPage() {
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                   >
-                    <Box>
-                      <Typography
-                        id="modal-modal-title"
-                        variant="h6"
-                        component="h2"
-                      >
-                        Text in a modal
-                      </Typography>
-                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor
-                        ligula.
-                      </Typography>
-                    </Box>
+                    <EditEvent event={event} />
                   </Modal>
                   <Button
                     variant="contained"

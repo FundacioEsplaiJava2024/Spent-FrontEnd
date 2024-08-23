@@ -157,27 +157,19 @@ export const apiDeleteEvent = async (id: string) => {
 
 export const apiEditEvent = async (
     title: string,
-    date: string,
-    startTime: string,
-    endTime: string,
     description: string,
-    numParticipants: string,
     address: string,
-    name: string,
     eventId: string
 ) => {
-    await SpentApi.put(
+     await SpentApi.put(
         `/events/${eventId}`,
         {
             title: title,
             description: description,
-            date: date,
-            startTime: startTime,
-            endTime: endTime,
-            numParticipants: numParticipants,
             address: address,
-            sportName: name,
         },
         { headers: { authorization: localStorage.getItem("accessToken") } }
     );
+    // console.log(response)
+
 };
