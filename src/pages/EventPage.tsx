@@ -146,7 +146,7 @@ export default function EventPage() {
         justifyContent: "center",
       }}>
         <Card variant="outlined" sx={{
-          width: 1000, marginTop: 10
+          width: 1150, marginTop: 10
         }}>
           <Box sx={{ p: 2 }}>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
