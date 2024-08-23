@@ -20,8 +20,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiCreateEvent, apiGetSports } from "../api/SpentApiManager";
 import { Sport } from "../types/types";
+import { addressValidator, dateValidator, descriptionValidator, numParticipantsValidator, titleValidator } from "../validations/CreateEventValidator";
 import ValidatedTextField from "../validations/ValidatedTextField";
-import { titleValidator, descriptionValidator, numParticipantsValidator, dateValidator, addressValidator } from "../validations/CreateEventValidator";
 
 
 export default function EventCreate() {

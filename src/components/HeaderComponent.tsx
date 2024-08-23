@@ -62,23 +62,25 @@ export default function MenuAppBar() {
               cursor: "pointer",
             }}
           />
-          <Button 
-            color="primary"
-            variant="contained"
-            onClick={handleCreateEvent}
-            sx={{ flexDirection: 'row-reverse' }}
-          >
-            <Box sx={{ flexGrow: 0, 
-              minWidth: 5, 
-              height: 24, 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent:'center', 
-              marginRight: 0, }}>
-              <AddIcon sx={{ fontSize:30 }} />
-            </Box>
-          </Button>
           <div>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={handleCreateEvent}
+              sx={{ flexDirection: 'row-reverse', marginRight: 2}}
+            >
+              <Box sx={{
+                flexGrow: 0,
+                minWidth: 5,
+                height: 24,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginRight: 0,
+              }}>
+                <AddIcon sx={{ fontSize: 30 }} />
+              </Box>
+            </Button>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -87,37 +89,37 @@ export default function MenuAppBar() {
               onClick={handleMenu}
               color="inherit"
             >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: -40,
+                horizontal: 80,
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleRedirect}>
+                <AccountCircle /> Profile
+              </MenuItem>
+              <MenuItem
+                onClick={handleLogout}
+                id="logout"
+                sx={{
+                  color: "red",
                 }}
-                keepMounted
-                transformOrigin={{
-                  vertical: -40,
-                  horizontal: 80,
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
               >
-                <MenuItem onClick={handleRedirect}>
-                  <AccountCircle /> Profile
-                </MenuItem>
-                <MenuItem
-                  onClick={handleLogout}
-                  id="logout"
-                  sx={{
-                    color: "red",
-                  }}
-                >
-                  <LogoutIcon /> Logout
-                </MenuItem>
-              </Menu>
-            </div>
+                <LogoutIcon /> Logout
+              </MenuItem>
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
     </Box>
