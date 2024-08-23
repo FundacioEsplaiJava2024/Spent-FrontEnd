@@ -23,13 +23,13 @@ function SportsPage() {
 
   const filteredSports = sports
   .filter((sport: Sport) =>
-    searchTerm ? sport.sportName.toLowerCase().includes(searchTerm.toLowerCase()) : true
+    searchTerm ? sport.name.toLowerCase().includes(searchTerm.toLowerCase()) : true
   );
 
 
   useEffect(() => {
     apiGetSports().then((sports) => {
-      setSports(sports.sort((a, b) => a.sportName.localeCompare(b.sportName)));
+      setSports(sports.sort((a, b) => a.name.localeCompare(b.name)));
     });
   }, []);
 
@@ -45,7 +45,7 @@ function SportsPage() {
           <Autocomplete
             id="free-solo-demo"
             freeSolo
-            options={sports.map((option) => option.sportName)}
+            options={sports.map((option) => option.name)}
             onInputChange={(_sport, newInputValue) => {
               setSearchTerm(newInputValue);
             }}
@@ -101,7 +101,7 @@ function SportsPage() {
             >
               <CardContent>
                 <Typography variant="body1" color="text.primary">
-                  {sport.sportName}
+                  {sport.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {sport.description}

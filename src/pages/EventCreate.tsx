@@ -101,7 +101,7 @@ export default function EventCreate() {
       return;
     }
 
-    var realStartTime = "";
+      var realStartTime = "";
     var realEndTime = "";
 
   
@@ -121,7 +121,7 @@ export default function EventCreate() {
       description,
       numParticipants.toString(),
       address,
-      sportName ?? ""
+      name ?? ""
     );
     navigate("/");
   };
@@ -274,11 +274,11 @@ export default function EventCreate() {
                     id="free-solo-demo"
                     freeSolo
                     options={sports.map(
-                      (option: { sportName: string }) => option.sportName
+                      (option: { name: string }) => option.name
                     )}
                     renderInput={(params) => <TextField {...params} label="Sports" />}
                     onChange={(_sport, value) => {
-                      const selectedSport = sports.find((sport) => sport.sportName === value);
+                      const selectedSport = sports.find((sport) => sport.name === value);
                       setSelectedSport(selectedSport ?? null);
                     }} />
                 </Stack>

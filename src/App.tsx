@@ -1,24 +1,27 @@
 import SearchIcon from '@mui/icons-material/Search';
-import { Autocomplete, InputAdornment, Stack, TextField, Typography } from "@mui/material";
+import { Autocomplete, Box, Button, InputAdornment, Stack, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { apiGetEvents, apiGetSports } from "./api/SpentApiManager";
 import "./App.css";
 import EventCard from "./components/EventCardComponent";
 import Header from "./components/HeaderComponent";
+import AddIcon from "@mui/icons-material/Add";
 import { Event, Sport } from "./types/types";
 import SportsHandballIcon from '@mui/icons-material/SportsHandball';
 import FooterComponent from './components/FooterComponent';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
   const [sports, setSports] = useState<Sport[]>([]);
+  const navigate = useNavigate();
 
   const [selectedSport, setSelectedSport] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const filteredEvents = events
     .filter((event: Event) =>
-      selectedSport ? event.sport.sportName === selectedSport : true
+      selectedSport ? event.sport.name === selectedSport : true
     )
     .filter((event: Event) =>
       searchTerm ? event.title.toLowerCase().includes(searchTerm.toLowerCase()) : true
@@ -35,61 +38,78 @@ function App() {
     fetchEventsAndSports();
   }, []);
 
+  const handleCreateEvent = () => {
+    navigate("/event/create");
+  };
+
   return (
     <>
       <Header />
       <section id="appBody">
         <div className="container">
-          <Stack
-            spacing={2}
-            sx={{ width: 600, borderRadius: 80, marginTop: 5 }}
-            id="SearchBar"
-          >
-            <Autocomplete
-              id="free-solo-demo"
-              freeSolo
-              options={events.map((option) => option.title)}
-              onInputChange={(_event, newInputValue) => {
-                setSearchTerm(newInputValue);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Events"
-                  sx={{
-                    borderRadius: "80px",
-                    "& .MuiOutlinedInput-root": {
+          <Box sx={{display:'flex'}}>
+            <Stack
+              spacing={2}
+              sx={{ width: 600, borderRadius: 80, marginTop: 5 }}
+              id="SearchBar"
+            >
+              <Autocomplete
+                id="free-solo-demo"
+                freeSolo
+                options={events.map((option) => option.title)}
+                onInputChange={(_event, newInputValue) => {
+                  setSearchTerm(newInputValue);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Events"
+                    sx={{
                       borderRadius: "80px",
-                    },
-                  }}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              )}
-            />
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "80px",
+                      },
+                    }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                )}
+              />
             </Stack>
-            <Stack direction="row" spacing={10} alignItems="center"
-              sx={{marginTop: 2, marginBottom:2 }}>
-            <Typography variant="body1" 
-            sx={{ textDecoration: 'none', color: 'blue' }}
-            component="a" href="/sports">
-              <SportsHandballIcon sx={{ fontSize: 20, marginBottom:-0.4 }} />
+            <Button
+              variant="contained"
+              onClick={handleCreateEvent}
+              sx={{ ml: 2, color: "primary", height:50, marginTop: 5.3, borderRadius:80 }}
+            >
+              <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+                Create Event
+                <AddIcon sx={{ ml: 1, alignItems: 'center' }} />
+              </Box>
+            </Button>
+          </Box>
+
+          <Stack direction="row" spacing={8} alignItems="center"
+            sx={{ marginTop: 2, marginBottom: 2 }}>
+            <Typography variant="body1"
+              sx={{ textDecoration: 'none', color: 'blue' }}
+              component="a" href="/sports">
+              <SportsHandballIcon sx={{ fontSize: 20, marginBottom: -0.4 }} />
               Sports
             </Typography>
             <Autocomplete
               id="free-solo-demo"
               freeSolo
               options={sports.map(
-                (option: { sportName: string }) => option.sportName
+                (option: { name: string }) => option.name
               )}
               renderInput={(params) => (<TextField {...params} label="Sports"
-              sx={{width:350, fontSize:16}}
-               />
+                sx={{ width: 290, fontSize: 16 }}
+              />
               )}
               onChange={(_sport, value) => setSelectedSport(value as string)}
             />
