@@ -10,6 +10,7 @@ import {
   DialogContentText,
   DialogTitle,
   Divider,
+  Modal,
   Slide,
   Stack,
   Typography,
@@ -61,6 +62,9 @@ export default function EventPage() {
       : "Date not available";
 
   const [open, setOpen] = React.useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -304,52 +308,62 @@ export default function EventPage() {
               </Typography>
             </Box>
             <Box>
-              <Button
-                variant="contained"
-                color="warning"
-                sx={{
-                  height: "40px",
-                  borderRadius: "5px",
-                  marginTop: 2,
-                  backgroundColor: (theme) => theme.palette.warning.light,
-                  color: (theme) => theme.palette.warning.contrastText,
-                  '&:hover': {
-                    backgroundColor: (theme) => theme.palette.warning.main,
-                  },
-                }}
-              >
-                <EditNoteIcon />
-              </Button>
-              <Button
-                variant="contained"
-                sx={{
-                  height: "40px",
-                  borderRadius: "5px",
-                  backgroundColor: "grey",
-                  marginTop: 2,
-                  marginLeft: 2,
-
-                }}
-              >
-                <DeleteIcon />
-              </Button>
+              {localStorage.getItem("username") ===
+                event.userCreator.username && (
+                <>
+                  <Button
+                    variant="contained"
+                    color="warning"
+                    onClick={handleOpenModal}
+                    sx={{
+                      height: "40px",
+                      borderRadius: "5px",
+                      marginTop: 2,
+                      backgroundColor: (theme) => theme.palette.warning.light,
+                      color: (theme) => theme.palette.warning.contrastText,
+                      "&:hover": {
+                        backgroundColor: (theme) => theme.palette.warning.main,
+                      },
+                    }}
+                  >
+                    <EditNoteIcon />
+                  </Button>
+                  <Modal
+                    open={openModal}
+                    onClose={handleCloseModal}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box>
+                      <Typography
+                        id="modal-modal-title"
+                        variant="h6"
+                        component="h2"
+                      >
+                        Text in a modal
+                      </Typography>
+                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Duis mollis, est non commodo luctus, nisi erat porttitor
+                        ligula.
+                      </Typography>
+                    </Box>
+                  </Modal>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      height: "40px",
+                      borderRadius: "5px",
+                      backgroundColor: "grey",
+                      marginTop: 2,
+                      marginLeft: 2,
+                    }}
+                  >
+                    <DeleteIcon />
+                  </Button>
+                </>
+              )}
             </Box>
           </Box>
-          {/* <Modal
-            open={openModal}
-            onClose={handleCloseModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box >
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Text in a modal
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-              </Typography>
-            </Box>
-          </Modal> */}
         </Box>
       </Card>
 
@@ -357,7 +371,3 @@ export default function EventPage() {
     </>
   );
 }
-
-// const [openModal, setOpenModal] = React.useState(false);
-// const handleOpenModal = () => setOpenModal(true);
-// const handleCloseModal = () => setOpenModal(false);
