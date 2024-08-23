@@ -204,17 +204,34 @@ export default function EventPage() {
                   title="Event location image"
                 />
                 <CardContent>
-                  <Typography variant="body1" color="text.secondary" sx={{ mb: 1 }}>
-                    <CalendarMonthIcon color="primary" sx={{ verticalAlign: 'middle', mr: 1 }}/>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{ mb: 1 }}
+                  >
+                    <CalendarMonthIcon
+                      color="primary"
+                      sx={{ verticalAlign: "middle", mr: 1 }}
+                    />
                     {formattedDate}
                   </Typography>
-                  <Typography variant="body1" color="text.secondary" sx={{ mb: 1 }}>
-                    <AccessTimeIcon color="primary" sx={{ verticalAlign: 'middle', mr: 1 }}/>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{ mb: 1 }}
+                  >
+                    <AccessTimeIcon
+                      color="primary"
+                      sx={{ verticalAlign: "middle", mr: 1 }}
+                    />
                     {event.startTime.substring(0, 5)} -{" "}
                     {event.endTime.substring(0, 5)}
                   </Typography>
                   <Typography variant="body1" color="text.secondary">
-                    <LocationOnIcon color="primary" sx={{ verticalAlign: 'middle', mr: 1 }}/>
+                    <LocationOnIcon
+                      color="primary"
+                      sx={{ verticalAlign: "middle", mr: 1 }}
+                    />
                     {event.address}
                   </Typography>
                 </CardContent>
