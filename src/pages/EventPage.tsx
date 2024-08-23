@@ -34,6 +34,8 @@ import GroupIcon from "@mui/icons-material/Group";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -265,41 +267,89 @@ export default function EventPage() {
           </Box>
           <Divider sx={{ marginTop: 2 }} />
 
-          <Box>
-            <Typography variant="h5">
-              {isParticipant ? (
-                <Button
-                  onClick={handleWithdraw}
-                  variant="contained"
-                  color="error"
-                  sx={{
-                    width: "100px",
-                    height: "40px",
-                    borderRadius: "5px",
-                    backgroundColor: "red",
-                    marginTop: 2,
-                  }}
-                >
-                  Withdraw
-                </Button>
-              ) : (
-                <Button
-                  onClick={handleJoin}
-                  variant="contained"
-                  color="success"
-                  sx={{
-                    width: "100px",
-                    height: "40px",
-                    borderRadius: "5px",
-                    backgroundColor: "#4CAF50",
-                    marginTop: 2,
-                  }}
-                >
-                  Join
-                </Button>
-              )}
-            </Typography>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box>
+              <Typography variant="h5">
+                {isParticipant ? (
+                  <Button
+                    onClick={handleWithdraw}
+                    variant="contained"
+                    color="error"
+                    sx={{
+                      width: "100px",
+                      height: "40px",
+                      borderRadius: "5px",
+                      backgroundColor: "red",
+                      marginTop: 2,
+                    }}
+                  >
+                    Withdraw
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleJoin}
+                    variant="contained"
+                    color="success"
+                    sx={{
+                      width: "100px",
+                      height: "40px",
+                      borderRadius: "5px",
+                      backgroundColor: "#4CAF50",
+                      marginTop: 2,
+                    }}
+                  >
+                    Join
+                  </Button>
+                )}
+              </Typography>
+            </Box>
+            <Box>
+              <Button
+                variant="contained"
+                color="warning"
+                sx={{
+                  height: "40px",
+                  borderRadius: "5px",
+                  marginTop: 2,
+                  backgroundColor: (theme) => theme.palette.warning.light,
+                  color: (theme) => theme.palette.warning.contrastText,
+                  '&:hover': {
+                    backgroundColor: (theme) => theme.palette.warning.main,
+                  },
+                }}
+              >
+                <EditNoteIcon />
+              </Button>
+              <Button
+                variant="contained"
+                sx={{
+                  height: "40px",
+                  borderRadius: "5px",
+                  backgroundColor: "grey",
+                  marginTop: 2,
+                  marginLeft: 2,
+
+                }}
+              >
+                <DeleteIcon />
+              </Button>
+            </Box>
           </Box>
+          {/* <Modal
+            open={openModal}
+            onClose={handleCloseModal}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box >
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Text in a modal
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+              </Typography>
+            </Box>
+          </Modal> */}
         </Box>
       </Card>
 
@@ -307,3 +357,7 @@ export default function EventPage() {
     </>
   );
 }
+
+// const [openModal, setOpenModal] = React.useState(false);
+// const handleOpenModal = () => setOpenModal(true);
+// const handleCloseModal = () => setOpenModal(false);
