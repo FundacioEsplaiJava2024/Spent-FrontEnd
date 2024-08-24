@@ -309,7 +309,6 @@ export default function EventPage() {
         </Card>
       </Box>
 
-
       <FooterComponent />
     </>
   );

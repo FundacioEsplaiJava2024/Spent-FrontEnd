@@ -1,5 +1,5 @@
 import Person2Icon from "@mui/icons-material/Person2";
-import { CircularProgress } from "@mui/material";
+import { Card, CircularProgress, Divider } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Rating from "@mui/material/Rating";
@@ -40,57 +40,79 @@ function UserProfile() {
   return (
     <>
       <Header />
-      <Box sx={{ p: 4, bgcolor: "background.default", marginTop: 3 }}>
-        <Grid container spacing={15}>
-          <Grid item xs={10}>
-            <Grid container spacing={-1} alignItems="center">
-              <Grid item xs={1} alignItems="center">
-                <Person2Icon fontSize="large" />
-              </Grid>
-              <Grid item xs={2}>
-                <Typography variant="h5">{user.firstName}</Typography>
-                <Typography variant="body1">{user.username}</Typography>
-                <Typography variant="body1">{user.email}</Typography>
+      <Box sx={{
+        display: "flex",
+        justifyContent: "center",
+      }}>
+        <Card variant="outlined" sx={{
+          width: 1150, marginTop: 10
+        }}>
+          <Box sx={{ p: 2 }}>
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Box>
+                <Grid container spacing={8} alignItems="center">
+                  <Grid item xs={1} alignItems="center">
+                    <Person2Icon fontSize="large" />
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography variant="h5">{user.firstName}</Typography>
+                    <Typography variant="body1">{user.username}</Typography>
+                    <Typography variant="body1">{user.email}</Typography>
+                  </Grid>
+                </Grid>
+
+                <Divider sx={{ mb: 2, mt: 2 }} />
                 <Rating
                   name="read-only"
                   value={user.rating}
                   precision={0.5}
                   readOnly
                 />
-              </Grid>
-              <Grid item xs={2} sx={{ marginLeft: "auto" }}>
+
+              </Box>
+              <Grid item xs={2} sx={{ marginLeft: "auto", mr: 10 }}>
                 <Typography variant="h6">Interests</Typography>
                 <Typography variant="body1">
                   - Spikeball <br />- Volleyball
                 </Typography>
               </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={20}>
-            <Grid container spacing={25}>
-              <Grid item xs={6}>
+
+            </Box>
+
+            <Divider sx={{ mt: 2, mb: 2 }} />
+
+            <Box display="flex" flexWrap="wrap">
+              <Box flex={1} sx={{ padding: 2 }}>
                 <Typography variant="h6" textAlign="center">
                   Created events
                 </Typography>
                 {user.eventsCreated.map((event) => (
-                  <div className="EventCard">
-                    <EventCard key={event.id} event={event} />
-                  </div>
+                  <EventCard key={event.id} event={event} />
                 ))}
-              </Grid>
-              <Grid item xs={6}>
+              </Box>
+              <Box flex={1} sx={{ padding: 2 }}>
                 <Typography variant="h6" textAlign="center">
                   Participated events
                 </Typography>
                 {user.joinedEvents.map((event) => (
-                  <div className="EventCard">
-                    <EventCard key={event.id} event={event} />
-                  </div>
+                  <EventCard key={event.id} event={event} />
                 ))}
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+              </Box>
+            </Box>
+          </Box>
+        </Card>
+        <Card variant="outlined" sx={{
+          width: 300, marginTop: 10, marginLeft: 2
+        }}>
+          <Box flex={1} sx={{ padding: 2 }}>
+            <Typography variant="h6" textAlign="center" sx={{ mb: 2, mt: 2 }}>
+              Pending events
+            </Typography>
+            {user.joinedEvents.map((event) => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </Box>
+        </Card>
       </Box>
     </>
   );

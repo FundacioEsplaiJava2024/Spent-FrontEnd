@@ -1,15 +1,15 @@
+import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from '@mui/icons-material/Search';
+import SportsHandballIcon from '@mui/icons-material/SportsHandball';
 import { Autocomplete, Box, Button, InputAdornment, Stack, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { apiGetEvents, apiGetSports } from "./api/SpentApiManager";
 import "./App.css";
 import EventCard from "./components/EventCardComponent";
-import Header from "./components/HeaderComponent";
-import AddIcon from "@mui/icons-material/Add";
-import { Event, Sport } from "./types/types";
-import SportsHandballIcon from '@mui/icons-material/SportsHandball';
 import FooterComponent from './components/FooterComponent';
-import { useNavigate } from 'react-router-dom';
+import Header from "./components/HeaderComponent";
+import { Event, Sport } from "./types/types";
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -47,7 +47,7 @@ function App() {
       <Header />
       <section id="appBody">
         <div className="container">
-          <Box sx={{display:'flex'}}>
+          <Box sx={{ display: 'flex' }}>
             <Stack
               spacing={2}
               sx={{ width: 600, borderRadius: 80, marginTop: 5 }}
@@ -84,7 +84,7 @@ function App() {
             <Button
               variant="contained"
               onClick={handleCreateEvent}
-              sx={{ ml: 2, color: "primary", height:50, marginTop: 5.3, borderRadius:80 }}
+              sx={{ ml: 2, color: "primary", height: 50, marginTop: 5.3, borderRadius: 80 }}
             >
               <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
                 Create Event
@@ -115,7 +115,11 @@ function App() {
             />
           </Stack>
           {filteredEvents.map((event) => (
-            <EventCard key={event.id} event={event} />
+            <Box display="flex" flexWrap="wrap">
+              <Box sx={{ width: 600}}>
+                <EventCard key={event.id} event={event} />
+              </Box>
+            </Box>
           ))}
 
         </div>
