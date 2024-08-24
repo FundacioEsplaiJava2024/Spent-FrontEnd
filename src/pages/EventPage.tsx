@@ -1,3 +1,9 @@
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import GroupIcon from "@mui/icons-material/Group";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import PersonIcon from "@mui/icons-material/Person";
+import SportsHandballIcon from "@mui/icons-material/SportsHandball";
 import {
   Box,
   Button,
@@ -15,7 +21,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
+import { TransitionProps } from "@mui/material/transitions";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   apiEditEvent,
@@ -23,21 +31,10 @@ import {
   apiJoinEvent,
   apiWithdrawEvent,
 } from "../api/SpentApiManager";
-import { Event, User } from "../types/types";
-import CircularProgress from "@mui/material/CircularProgress";
-import React from "react";
-import { TransitionProps } from "@mui/material/transitions";
-import "./EventPage.css";
-import PersonIcon from "@mui/icons-material/Person";
-import Header from "../components/HeaderComponent";
 import FooterComponent from "../components/FooterComponent";
-import SportsHandballIcon from "@mui/icons-material/SportsHandball";
-import GroupIcon from "@mui/icons-material/Group";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditNoteIcon from "@mui/icons-material/EditNote";
+import Header from "../components/HeaderComponent";
+import { Event, User } from "../types/types";
+import "./EventPage.css";
 import EditEvent from "../components/EditEventComponent";
 
 const Transition = React.forwardRef(function Transition(
@@ -57,10 +54,10 @@ export default function EventPage() {
   const formattedDate =
     event && event.date
       ? new Date(event.date).toLocaleDateString("en-GB", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
       : "Date not available";
 
   const [open, setOpen] = React.useState(false);
@@ -164,130 +161,135 @@ export default function EventPage() {
   return (
     <>
       <Header />
-      <Card variant="outlined" sx={{ width: 1000, ml: 20, marginTop: 10 }}>
-        <Box sx={{ p: 2 }}>
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box>
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Typography gutterBottom variant="h3" component="div">
-                  {event.title}
-                </Typography>
-              </Stack>
-              <Typography gutterBottom variant="h5" component="div">
-                Organizer:{" "}
-                <Chip
-                  color="primary"
-                  onClick={() => handleUserProfile(event.userCreator.username)}
-                  icon={<PersonIcon />}
-                  label={event.userCreator.username}
-                  size="medium"
-                  sx={{ ml: 1, mb: 0.5 }}
-                />
-              </Typography>
-              <Divider sx={{ mb: 2 }} />
-              <React.Fragment>
-                <Typography
-                  variant="h6"
-                  onClick={handleClickOpen}
-                  color="primary"
-                >
-                  <span className="sportName">
-                    <SportsHandballIcon /> {event.sport.name}
-                  </span>
-                </Typography>
-                <Dialog
-                  open={open}
-                  TransitionComponent={Transition}
-                  keepMounted
-                  onClose={handleClose}
-                  aria-describedby="alert-dialog-slide-description"
-                >
-                  <DialogTitle> {event.sport.name}</DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                      {event.sport.description}
-                    </DialogContentText>
-                  </DialogContent>
-                </Dialog>
-              </React.Fragment>
-              <Typography gutterBottom component="div">
-                {event.description}
-              </Typography>
-            </Box>
-            <Box>
-              <Card sx={{ width: 250 }}>
-                <CardMedia
-                  sx={{ height: 140 }}
-                  image="/Maps_placeholder.png"
-                  title="Event location image"
-                />
-                <CardContent>
-                  <Typography
-                    variant="body1"
-                    color="text.secondary"
-                    sx={{ mb: 1 }}
-                  >
-                    <CalendarMonthIcon
-                      color="primary"
-                      sx={{ verticalAlign: "middle", mr: 1 }}
-                    />
-                    {formattedDate}
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    color="text.secondary"
-                    sx={{ mb: 1 }}
-                  >
-                    <AccessTimeIcon
-                      color="primary"
-                      sx={{ verticalAlign: "middle", mr: 1 }}
-                    />
-                    {event.startTime.substring(0, 5)} -{" "}
-                    {event.endTime.substring(0, 5)}
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    <LocationOnIcon
-                      color="primary"
-                      sx={{ verticalAlign: "middle", mr: 1 }}
-                    />
-                    {event.address}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Box>
-          </Box>
-
-          <Divider sx={{ marginTop: 2 }} />
-
+      <Box sx={{
+        display: "flex",
+        justifyContent: "center",
+      }}>
+        <Card variant="outlined" sx={{
+          width: 1150, marginTop: 10
+        }}>
           <Box sx={{ p: 2 }}>
-            <Typography gutterBottom variant="h6">
-              <Box component="span" display="inline-flex" alignItems="center">
-                Participants {event.eventParticipants.length} /{" "}
-                {event.numParticipants}
-                <GroupIcon sx={{ marginLeft: 1, marginBottom: 0.5 }} />
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Box>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Typography gutterBottom variant="h3" component="div">
+                    {event.title}
+                  </Typography>
+                </Stack>
+                <Typography gutterBottom variant="h5" component="div">
+                  Organizer:{" "}
+                  <Chip
+                    color="primary"
+                    onClick={() => handleUserProfile(event.userCreator.username)}
+                    icon={<PersonIcon />}
+                    label={event.userCreator.username}
+                    size="medium"
+                    sx={{ ml: 1, mb: 0.5 }}
+                  />
+                </Typography>
+                <Divider sx={{ mb: 2 }} />
+                <React.Fragment>
+                  <Typography
+                    variant="h6"
+                    onClick={handleClickOpen}
+                    color="primary"
+                  >
+                    <span className="sportName">
+                      <SportsHandballIcon /> {event.sport.name}
+                    </span>
+                  </Typography>
+                  <Dialog
+                    open={open}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={handleClose}
+                    aria-describedby="alert-dialog-slide-description"
+                  >
+                    <DialogTitle> {event.sport.name}</DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-slide-description">
+                        {event.sport.description}
+                      </DialogContentText>
+                    </DialogContent>
+                  </Dialog>
+                </React.Fragment>
+                <Typography gutterBottom component="div">
+                  {event.description}
+                </Typography>
               </Box>
-            </Typography>
+              <Box>
+                <Card sx={{ width: 250 }}>
+                  <CardMedia
+                    sx={{ height: 140 }}
+                    image="/Maps_placeholder.png"
+                    title="Event location image"
+                  />
+                  <CardContent>
+                    <Typography
+                      variant="body1"
+                      color="text.secondary"
+                      sx={{ mb: 1 }}
+                    >
+                      <CalendarMonthIcon
+                        color="primary"
+                        sx={{ verticalAlign: "middle", mr: 1 }}
+                      />
+                      {formattedDate}
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      color="text.secondary"
+                      sx={{ mb: 1 }}
+                    >
+                      <AccessTimeIcon
+                        color="primary"
+                        sx={{ verticalAlign: "middle", mr: 1 }}
+                      />
+                      {event.startTime.substring(0, 5)} -{" "}
+                      {event.endTime.substring(0, 5)}
+                    </Typography>
+                    <Typography variant="body1" color="text.secondary">
+                      <LocationOnIcon
+                        color="primary"
+                        sx={{ verticalAlign: "middle", mr: 1 }}
+                      />
+                      {event.address}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Box>
+            </Box>
 
-            <Stack direction="row" spacing={1}>
-              {event.eventParticipants.map((user) => (
-                <Chip
-                  key={user.username}
-                  color="primary"
-                  onClick={() => handleUserProfile(user.username)}
-                  icon={<PersonIcon />}
-                  label={user.username}
-                  size="medium"
-                />
-              ))}
-            </Stack>
-          </Box>
-          <Divider sx={{ marginTop: 2 }} />
+            <Divider sx={{ marginTop: 2 }} />
 
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box sx={{ p: 2 }}>
+              <Typography gutterBottom variant="h6">
+                <Box component="span" display="inline-flex" alignItems="center">
+                  Participants {event.eventParticipants.length} /{" "}
+                  {event.numParticipants}
+                  <GroupIcon sx={{ marginLeft: 1, marginBottom: 0.5 }} />
+                </Box>
+              </Typography>
+
+              <Stack direction="row" spacing={1}>
+                {event.eventParticipants.map((user) => (
+                  <Chip
+                    key={user.username}
+                    color="primary"
+                    onClick={() => handleUserProfile(user.username)}
+                    icon={<PersonIcon />}
+                    label={user.username}
+                    size="medium"
+                  />
+                ))}
+              </Stack>
+            </Box>
+            <Divider sx={{ marginTop: 2 }} />
+
             <Box>
               <Typography variant="h5">
                 {isParticipant ? (
@@ -368,9 +370,8 @@ export default function EventPage() {
               )}
             </Box>
           </Box>
-        </Box>
-      </Card>
-
+        </Card>
+      </Box>
       <FooterComponent />
     </>
   );
