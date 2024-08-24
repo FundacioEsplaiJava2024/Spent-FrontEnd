@@ -62,23 +62,25 @@ export default function MenuAppBar() {
               cursor: "pointer",
             }}
           />
-          <Button 
-            color="primary"
-            variant="contained"
-            onClick={handleCreateEvent}
-            sx={{ flexDirection: 'row-reverse' }}
-          >
-            <Box sx={{ flexGrow: 0, 
-              minWidth: 5, 
-              height: 24, 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent:'center', 
-              marginRight: 0, }}>
-              <AddIcon sx={{ fontSize:30 }} />
-            </Box>
-          </Button>
           <div>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={handleCreateEvent}
+              sx={{ flexDirection: 'row-reverse', marginRight: 2}}
+            >
+              <Box sx={{
+                flexGrow: 0,
+                minWidth: 5,
+                height: 24,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginRight: 0,
+              }}>
+                <AddIcon sx={{ fontSize: 30 }} />
+              </Box>
+            </Button>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -86,69 +88,38 @@ export default function MenuAppBar() {
               aria-haspopup="true"
               onClick={handleMenu}
               color="inherit"
-         /* <Box sx={{ display: "flex" }}>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={handleCreateEvent}
-              sx={{ flexDirection: "row-reverse", mr: 4, height: 40, mt:0.5 }}*/
             >
-              <Box
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: -40,
+                horizontal: 80,
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleRedirect}>
+                <AccountCircle /> Profile
+              </MenuItem>
+              <MenuItem
+                onClick={handleLogout}
+                id="logout"
                 sx={{
-                  flexGrow: 0,
-                  minWidth: 5,
-                  height: 24,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginRight: 0,
+                  color: "red",
                 }}
               >
-                <AddIcon sx={{ fontSize: 30 }} />
-              </Box>
-            </Button>
-
-            <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: -40,
-                  horizontal: 80,
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleRedirect}>
-                  <AccountCircle /> Profile
-                </MenuItem>
-                <MenuItem
-                  onClick={handleLogout}
-                  id="logout"
-                  sx={{
-                    color: "red",
-                  }}
-                >
-                  <LogoutIcon /> Logout
-                </MenuItem>
-              </Menu>
-            </div>
-          </Box>
+                <LogoutIcon /> Logout
+              </MenuItem>
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
     </Box>

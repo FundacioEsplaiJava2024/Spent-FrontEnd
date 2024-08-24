@@ -20,8 +20,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiCreateEvent, apiGetSports } from "../api/SpentApiManager";
 import { Sport } from "../types/types";
+import { addressValidator, dateValidator, descriptionValidator, numParticipantsValidator, titleValidator } from "../validations/CreateEventValidator";
 import ValidatedTextField from "../validations/ValidatedTextField";
-import { titleValidator, descriptionValidator, numParticipantsValidator, dateValidator, addressValidator } from "../validations/CreateEventValidator";
 
 
 export default function EventCreate() {
@@ -57,7 +57,7 @@ export default function EventCreate() {
     const description = data.get("description") as string;
     const numParticipants = data.get("numParticipants") as string;
     const address = data.get("address") as string;
-    const sportName = selectedSport?.sportName;
+    const sportName = selectedSport?.name;
     const startTimeHour = startTime?.hour() ?? 0;
     const startTimeMinute = startTime?.minute() ?? 0;
     const endTimeHour = endTime?.hour() ?? 0;
@@ -80,6 +80,7 @@ export default function EventCreate() {
     }
     if (startTimeHour == endTimeHour && startTimeMinute >= endTimeMinute) {
       alert("invalid time");
+      return;
     }
 
     if (descriptionValidator(description)) {
@@ -94,6 +95,7 @@ export default function EventCreate() {
 
     if (addressValidator(address)) {
       alert("Invalid address");
+      return;
     }
 
     if (sportName == null) {
@@ -101,7 +103,7 @@ export default function EventCreate() {
       return;
     }
 
-      var realStartTime = "";
+    var realStartTime = "";
     var realEndTime = "";
 
   
@@ -112,8 +114,9 @@ export default function EventCreate() {
       alert('Time not selected');
       return;
     }
-
-    apiCreateEvent(
+    console.log("name"+selectedSport?.name),
+    console.log("sportName"+ sportName),
+    await apiCreateEvent(
       title,
       date,
       realStartTime,
@@ -121,7 +124,7 @@ export default function EventCreate() {
       description,
       numParticipants.toString(),
       address,
-      name ?? ""
+      sportName ?? ""
     );
     navigate("/");
   };
