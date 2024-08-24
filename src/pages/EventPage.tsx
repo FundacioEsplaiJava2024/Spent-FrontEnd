@@ -4,6 +4,8 @@ import GroupIcon from "@mui/icons-material/Group";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PersonIcon from "@mui/icons-material/Person";
 import SportsHandballIcon from "@mui/icons-material/SportsHandball";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Box,
   Button,
@@ -54,10 +56,10 @@ export default function EventPage() {
   const formattedDate =
     event && event.date
       ? new Date(event.date).toLocaleDateString("en-GB", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
       : "Date not available";
 
   const [open, setOpen] = React.useState(false);
@@ -161,13 +163,19 @@ export default function EventPage() {
   return (
     <>
       <Header />
-      <Box sx={{
-        display: "flex",
-        justifyContent: "center",
-      }}>
-        <Card variant="outlined" sx={{
-          width: 1150, marginTop: 10
-        }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Card
+          variant="outlined"
+          sx={{
+            width: 1150,
+            marginTop: 10,
+          }}
+        >
           <Box sx={{ p: 2 }}>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Box>
@@ -184,7 +192,9 @@ export default function EventPage() {
                   Organizer:{" "}
                   <Chip
                     color="primary"
-                    onClick={() => handleUserProfile(event.userCreator.username)}
+                    onClick={() =>
+                      handleUserProfile(event.userCreator.username)
+                    }
                     icon={<PersonIcon />}
                     label={event.userCreator.username}
                     size="medium"
@@ -290,84 +300,90 @@ export default function EventPage() {
             </Box>
             <Divider sx={{ marginTop: 2 }} />
 
-            <Box>
-              <Typography variant="h5">
-                {isParticipant ? (
-                  <Button
-                    onClick={handleWithdraw}
-                    variant="contained"
-                    color="error"
-                    sx={{
-                      width: "100px",
-                      height: "40px",
-                      borderRadius: "5px",
-                      backgroundColor: "red",
-                      marginTop: 2,
-                    }}
-                  >
-                    Withdraw
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={handleJoin}
-                    variant="contained"
-                    color="success"
-                    sx={{
-                      width: "100px",
-                      height: "40px",
-                      borderRadius: "5px",
-                      backgroundColor: "#4CAF50",
-                      marginTop: 2,
-                    }}
-                  >
-                    Join
-                  </Button>
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Box>
+                <Typography variant="h5">
+                  {isParticipant ? (
+                    <Button
+                      onClick={handleWithdraw}
+                      variant="contained"
+                      color="error"
+                      sx={{
+                        width: "100px",
+                        height: "40px",
+                        borderRadius: "5px",
+                        backgroundColor: "red",
+                        marginTop: 2,
+                      }}
+                    >
+                      Withdraw
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={handleJoin}
+                      variant="contained"
+                      color="success"
+                      sx={{
+                        width: "100px",
+                        height: "40px",
+                        borderRadius: "5px",
+                        backgroundColor: "#4CAF50",
+                        marginTop: 2,
+                      }}
+                    >
+                      Join
+                    </Button>
+                  )}
+                </Typography>
+              </Box>
+              <Box>
+                {localStorage.getItem("username") ===
+                  event.userCreator.username && (
+                  <>
+                    <Button
+                      variant="contained"
+                      color="warning"
+                      onClick={handleOpenModal}
+                      sx={{
+                        height: "40px",
+                        borderRadius: "5px",
+                        marginTop: 2,
+                        backgroundColor: (theme) => theme.palette.warning.light,
+                        color: (theme) => theme.palette.warning.contrastText,
+                        "&:hover": {
+                          backgroundColor: (theme) =>
+                            theme.palette.warning.main,
+                        },
+                      }}
+                    >
+                      <EditNoteIcon />
+                    </Button>
+                    <Modal
+                      open={openModal}
+                      onClose={handleCloseModal}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <EditEvent
+                        event={event}
+                        handleSubmitEdit={handleSubmitEdit}
+                      />
+                    </Modal>
+                    <Button
+                      variant="contained"
+                      sx={{
+                        height: "40px",
+                        borderRadius: "5px",
+                        backgroundColor: "grey",
+                        marginTop: 2,
+                        marginLeft: 2,
+                      }}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                  </>
                 )}
-              </Typography>
-            </Box>
-            <Box>
-              {localStorage.getItem("username") ===
-                event.userCreator.username && (
-                <>
-                  <Button
-                    variant="contained"
-                    color="warning"
-                    onClick={handleOpenModal}
-                    sx={{
-                      height: "40px",
-                      borderRadius: "5px",
-                      marginTop: 2,
-                      backgroundColor: (theme) => theme.palette.warning.light,
-                      color: (theme) => theme.palette.warning.contrastText,
-                      "&:hover": {
-                        backgroundColor: (theme) => theme.palette.warning.main,
-                      },
-                    }}
-                  >
-                    <EditNoteIcon />
-                  </Button>
-                  <Modal
-                    open={openModal}
-                    onClose={handleCloseModal}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                  >
-                    <EditEvent event={event} handleSubmitEdit={handleSubmitEdit}/>
-                  </Modal>
-                  <Button
-                    variant="contained"
-                    sx={{
-                      height: "40px",
-                      borderRadius: "5px",
-                      backgroundColor: "grey",
-                      marginTop: 2,
-                      marginLeft: 2,
-                    }}
-                  >
-                    <DeleteIcon />
-                  </Button>
-                </>
-              )}
+              </Box>
             </Box>
           </Box>
         </Card>
