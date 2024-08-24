@@ -1,14 +1,13 @@
 import { Box, Button, CardContent, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { Event } from "../types/types";
-import { apiEditEvent } from "../api/SpentApiManager";
-import { useNavigate } from "react-router-dom";
 
 interface EditEventProps {
   event: Event;
+  handleSubmitEdit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const EditEvent = React.forwardRef(({ event }: EditEventProps, ref) => {
+const EditEvent = React.forwardRef(({ event, handleSubmitEdit  }: EditEventProps, ref) => {
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -25,7 +24,6 @@ const EditEvent = React.forwardRef(({ event }: EditEventProps, ref) => {
   const [title, setTitle] = useState(event.title);
   const [description, setDescription] = useState(event.description);
   const [address, setAddress] = useState(event.address);
-  const navigate = useNavigate();
 
   const handleTitleChange = (e: {
     target: { value: React.SetStateAction<string> };
@@ -45,12 +43,6 @@ const EditEvent = React.forwardRef(({ event }: EditEventProps, ref) => {
     setAddress(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    apiEditEvent(title, description, address, event.id);
-    navigate(`/events/${event.id}`);
-  };
-
   return (
     <>
       <Box ref={ref} sx={style}>
@@ -66,7 +58,7 @@ const EditEvent = React.forwardRef(({ event }: EditEventProps, ref) => {
             <Box
               component="form"
               noValidate
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmitEdit}
               sx={{ mt: 1 }}
             >
               <TextField
