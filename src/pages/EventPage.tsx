@@ -18,6 +18,7 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+  apiEditEvent,
   apiGetEventById,
   apiJoinEvent,
   apiWithdrawEvent,
@@ -144,6 +145,20 @@ export default function EventPage() {
 
     setEvent(updatedEvent);
     apiWithdrawEvent(id as string);
+  };
+
+  const handleSubmitEdit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+
+    const title = formData.get("title") as string;
+    const description = formData.get("description") as string;
+    const address = formData.get("address") as string;
+    event.title = title;
+    event.description = description;
+    event.address = address;
+    apiEditEvent(title, description, address, event.id);
+    setOpenModal(false);
   };
 
   return (
@@ -335,7 +350,7 @@ export default function EventPage() {
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                   >
-                    <EditEvent event={event} />
+                    <EditEvent event={event} handleSubmitEdit={handleSubmitEdit}/>
                   </Modal>
                   <Button
                     variant="contained"
