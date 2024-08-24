@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
 import { TextField } from '@mui/material';
+import React, { useState } from 'react';
 
 interface ValidatedTextField {
     validator: (value: string) => string | false;
     onChange: (isValid: boolean) => void;
-    margin?:'normal' | 'none' | undefined;
+    margin?: 'normal' | 'none' | undefined;
     label: string;
     required?: boolean;
     fullWidth?: boolean;
@@ -13,7 +13,7 @@ interface ValidatedTextField {
     autoComplete?: string;
     autoFocus?: boolean;
     type?: string;
-    multiline:boolean;
+    multiline: boolean;
     rows: number;
 }
 
@@ -33,19 +33,19 @@ const ValidatedTextField: React.FC<ValidatedTextField> = ({
         const newErrorMessage = validator(newValue);
         setValue(newValue);
         setError(!!newErrorMessage);
-        setErrorMessage(newErrorMessage ? newErrorMessage : '');        
+        setErrorMessage(newErrorMessage ? newErrorMessage : '');
         onChange(!newErrorMessage);
     };
 
-    return(
+    return (
         <TextField
-      label={label}
-      value={value}
-      onChange={handleChange}
-      error={error}
-      helperText={error ? errorMessage : ''}
-      {...props}
-    />
+            label={label}
+            value={value}
+            onChange={handleChange}
+            error={error}
+            helperText={error ? errorMessage : ''}
+            {...props}
+        />
     );
 };
 

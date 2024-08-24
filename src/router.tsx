@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import App from "./App";
 import LoginPage from "./auth/LoginPage";
 import RegisterPage from "./auth/RegisterPage";
+import Contact from "./pages/Contact";
 import EventCreate from "./pages/EventCreate";
 import EventPage from "./pages/EventPage";
 import SportsPage from "./pages/SportsPage";
@@ -30,6 +31,7 @@ function Router() {
         <Route path="/sports" element={<SportsPage />} />
         <Route path="/events/:id" element={<EventPage />} />
         <Route path="/event/create" element={<EventCreate />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     );
 
