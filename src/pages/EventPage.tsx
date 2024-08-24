@@ -28,6 +28,7 @@ import { TransitionProps } from "@mui/material/transitions";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+  apiDeleteEvent,
   apiEditEvent,
   apiGetEventById,
   apiJoinEvent,
@@ -158,6 +159,11 @@ export default function EventPage() {
     event.address = address;
     apiEditEvent(title, description, address, event.id);
     setOpenModal(false);
+  };
+
+  const handleDeleteEvent = () => {
+    apiDeleteEvent(event.id);
+    navigate("/");
   };
 
   return (
@@ -370,6 +376,7 @@ export default function EventPage() {
                       />
                     </Modal>
                     <Button
+                    onClick={handleDeleteEvent}
                       variant="contained"
                       sx={{
                         height: "40px",
