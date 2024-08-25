@@ -1,11 +1,11 @@
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 import GroupIcon from "@mui/icons-material/Group";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PersonIcon from "@mui/icons-material/Person";
 import SportsHandballIcon from "@mui/icons-material/SportsHandball";
-import EditNoteIcon from "@mui/icons-material/EditNote";
-import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Box,
   Button,
@@ -34,11 +34,11 @@ import {
   apiJoinEvent,
   apiWithdrawEvent,
 } from "../api/SpentApiManager";
+import "../App.css";
+import EditEvent from "../components/EditEventComponent";
 import FooterComponent from "../components/FooterComponent";
 import Header from "../components/HeaderComponent";
 import { Event, User } from "../types/types";
-import "./EventPage.css";
-import EditEvent from "../components/EditEventComponent";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
