@@ -24,7 +24,7 @@ export const passwordValidator = (value: string, enabled: boolean = true) => {
 
 export const usernameValidator = (value: string, enabled: boolean = true) => {
     if (!enabled) return false;
-    if (value.length < 5) return "The username must have at least 3 characters";
+    if (value.length < 3) return "The username must have at least 3 characters";
     else if (value.length > 15) return "The username must have fewer than 20 characters";
     else if (!/^[a-zA-Z0-9]/.test(value)) return "The username should only contain letters and numbers";
     else return false;

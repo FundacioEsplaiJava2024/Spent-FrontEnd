@@ -23,7 +23,6 @@ import { Sport } from "../types/types";
 import { addressValidator, dateValidator, descriptionValidator, numParticipantsValidator, titleValidator } from "../validations/CreateEventValidator";
 import ValidatedTextField from "../validations/ValidatedTextField";
 
-
 export default function EventCreate() {
   const navigate = useNavigate();
   const [sports, setSports] = useState<Sport[]>([]);
@@ -202,6 +201,9 @@ export default function EventCreate() {
                   label="Date"
                   name="date"
                   type="date"
+                  // InputLabelProps={{
+                  //   shrink: true,
+                  // }}
                   multiline={false}
                   rows={1}
                   validator={dateValidator}
