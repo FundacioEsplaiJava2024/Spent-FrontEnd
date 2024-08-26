@@ -46,6 +46,10 @@ export default function MenuAppBar() {
     navigate("/contact");
   };
 
+  const handleSportClick = () => {
+    navigate("/sports");
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -68,6 +72,10 @@ export default function MenuAppBar() {
             }}
           />
           <div>
+          <Button color="primary"
+              onClick={handleSportClick}
+              sx={{marginRight: 3, color: 'black',}}>
+                Sports</Button>
             <Button color="primary"
               onClick={handleContactClick}
               sx={{marginRight: 3, color: 'black',}}>
