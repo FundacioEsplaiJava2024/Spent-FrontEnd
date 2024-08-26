@@ -15,6 +15,8 @@ interface ValidatedTextField {
     type?: string;
     multiline:boolean;
     rows: number;
+    InputLabelProps?: { shrink: boolean};
+    variant?: 'standard' | 'outlined' | 'filled'
 }
 
 

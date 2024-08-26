@@ -181,6 +181,7 @@ export default function EventCreate() {
                 onSubmit={handleSubmit}
                 sx={{ mt: 1 }}
               >
+
                 <ValidatedTextField
                   margin="normal"
                   required
@@ -191,6 +192,7 @@ export default function EventCreate() {
                   autoComplete="title"
                   autoFocus
                   multiline={false}
+                  variant="filled"
                   rows={1}
                   validator={titleValidator}
                   onChange={(isValid)}
@@ -204,6 +206,10 @@ export default function EventCreate() {
                   name="date"
                   type="date"
                   multiline={false}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}       
+                  variant="filled"
                   rows={1}
                   validator={dateValidator}
                   onChange={(isValid)}
@@ -237,6 +243,7 @@ export default function EventCreate() {
                   autoComplete="description"
                   autoFocus={true}
                   multiline={true}
+                  variant="filled"
                   rows={4}
                   validator={descriptionValidator}
                   onChange={(isValid)}
@@ -255,6 +262,7 @@ export default function EventCreate() {
                   validator={numParticipantsValidator}
                   onChange={(isValid)}
                   multiline={false}
+                  variant="filled"
                   rows={0}
                 />
 
@@ -270,6 +278,7 @@ export default function EventCreate() {
                   validator={addressValidator}
                   onChange={(isValid)}
                   multiline={false}
+                  variant="filled"
                   rows={0}
                 />
                 <Stack spacing={2} sx={{ width: 300, marginTop: 3 }}>

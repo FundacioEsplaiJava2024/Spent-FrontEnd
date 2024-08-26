@@ -83,6 +83,7 @@ export default function LoginPage() {
               name="email"
               autoComplete="email"
               autoFocus
+              variant="filled"
             />
             <TextField
               margin="normal"
@@ -93,6 +94,7 @@ export default function LoginPage() {
               type="password"
               id="password"
               autoComplete="current-password"
+              variant="filled"
             />
             <Button
               type="submit"
