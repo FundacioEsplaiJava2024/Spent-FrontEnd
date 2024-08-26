@@ -12,14 +12,14 @@ export default function Contact() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
-    const [error, setError] = useState(null);
+    // const [error, setError] = useState(null);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        const nameValue = data.get("name") as string;
-        const emailValue = data.get("email") as string;
-        const messageValue = data.get("message") as string;
+        // const data = new FormData(event.currentTarget);
+        // const nameValue = data.get("name") as string;
+        // const emailValue = data.get("email") as string;
+        // const messageValue = data.get("message") as string;
 
         // if (contactValidator(nameValue, emailValue, messageValue)) {
         //     setError("Invalid input");
@@ -110,11 +110,11 @@ export default function Contact() {
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
                             />
-                            {error && (
+                            {/* {error && (
                                 <Typography color="error" variant="subtitle2">
                                     {error}
                                 </Typography>
-                            )}
+                            )} */}
                             <Button
                                 type="submit"
                                 fullWidth
