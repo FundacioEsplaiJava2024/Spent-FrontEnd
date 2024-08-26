@@ -57,10 +57,10 @@ export default function EventPage() {
   const formattedDate =
     event && event.date
       ? new Date(event.date).toLocaleDateString("en-GB", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
       : "Date not available";
 
   const [open, setOpen] = React.useState(false);
@@ -345,51 +345,51 @@ export default function EventPage() {
               <Box>
                 {localStorage.getItem("username") ===
                   event.userCreator.username && (
-                  <>
-                    <Button
-                      variant="contained"
-                      color="warning"
-                      onClick={handleOpenModal}
-                      sx={{
-                        height: "40px",
-                        borderRadius: "5px",
-                        marginTop: 2,
-                        backgroundColor: (theme) => theme.palette.warning.light,
-                        color: (theme) => theme.palette.warning.contrastText,
-                        "&:hover": {
-                          backgroundColor: (theme) =>
-                            theme.palette.warning.main,
-                        },
-                      }}
-                    >
-                      <EditNoteIcon />
-                    </Button>
-                    <Modal
-                      open={openModal}
-                      onClose={handleCloseModal}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                    >
-                      <EditEvent
-                        event={event}
-                        handleSubmitEdit={handleSubmitEdit}
-                      />
-                    </Modal>
-                    <Button
-                    onClick={handleDeleteEvent}
-                      variant="contained"
-                      sx={{
-                        height: "40px",
-                        borderRadius: "5px",
-                        backgroundColor: "grey",
-                        marginTop: 2,
-                        marginLeft: 2,
-                      }}
-                    >
-                      <DeleteIcon />
-                    </Button>
-                  </>
-                )}
+                    <>
+                      <Button
+                        variant="contained"
+                        color="warning"
+                        onClick={handleOpenModal}
+                        sx={{
+                          height: "40px",
+                          borderRadius: "5px",
+                          marginTop: 2,
+                          backgroundColor: (theme) => theme.palette.warning.light,
+                          color: (theme) => theme.palette.warning.contrastText,
+                          "&:hover": {
+                            backgroundColor: (theme) =>
+                              theme.palette.warning.main,
+                          },
+                        }}
+                      >
+                        <EditNoteIcon />
+                      </Button>
+                      <Modal
+                        open={openModal}
+                        onClose={handleCloseModal}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                      >
+                        <EditEvent
+                          event={event}
+                          handleSubmitEdit={handleSubmitEdit}
+                        />
+                      </Modal>
+                      <Button
+                        onClick={handleDeleteEvent}
+                        variant="contained"
+                        sx={{
+                          height: "40px",
+                          borderRadius: "5px",
+                          backgroundColor: "grey",
+                          marginTop: 2,
+                          marginLeft: 2,
+                        }}
+                      >
+                        <DeleteIcon />
+                      </Button>
+                    </>
+                  )}
               </Box>
             </Box>
           </Box>

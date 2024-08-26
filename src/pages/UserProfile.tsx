@@ -15,18 +15,18 @@ function UserProfile() {
   const { username } = useParams();
   const [user, setUser] = useState<User | null>(null);
   const isUserLoggedIn = localStorage.getItem("username") == user?.username ? true : false;
-  const participatedEvents:  Event[] = [];
-  const pendingEvents:  Event[] = [];
+  const participatedEvents: Event[] = [];
+  const pendingEvents: Event[] = [];
 
-  const today = new Date(); // Get today's date
+  const today = new Date();
 
   user?.joinedEvents.forEach((event) => {
-    const eventDate = new Date(event.date); // Convert the event date string to a Date object
+    const eventDate = new Date(event.date);
 
     if (eventDate < today) {
-      participatedEvents.push(event); // Add to participatedEvents if the date is earlier than today
+      participatedEvents.push(event);
     } else {
-      pendingEvents.push(event); // Add to pendingEvents if the date is today or later
+      pendingEvents.push(event);
     }
   });
 

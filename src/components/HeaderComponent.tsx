@@ -72,14 +72,14 @@ export default function MenuAppBar() {
             }}
           />
           <div>
-          <Button color="primary"
+            <Button color="primary"
               onClick={handleSportClick}
-              sx={{marginRight: 3, color: 'black', fontSize:18}}>
-                Sports</Button>
+              sx={{ marginRight: 3, color: 'black', fontSize: 18 }}>
+              Sports</Button>
             <Button color="primary"
               onClick={handleContactClick}
-              sx={{marginRight: 3, color: 'black', fontSize:18}}>
-                Contact</Button>
+              sx={{ marginRight: 3, color: 'black', fontSize: 18 }}>
+              Contact</Button>
             <Button
               color="primary"
               variant="contained"
