@@ -98,6 +98,7 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               rows={1}
               validator={emailValidator}
               onChange={(isValid)=> setEmailIsValid(isValid)}
+              variant="filled"
             />
             <ValidatedTextField
               margin="normal"
@@ -112,6 +113,7 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               rows={1}
               validator={passwordValidator}
               onChange={(isValid) => setPasswordIsValid(isValid)}
+              variant="filled"
             />
             <ValidatedTextField
               margin="normal"
@@ -126,6 +128,7 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               rows={1}
               onChange={(isValid) => setConfirmPasswordIsValid(isValid)}
               validator={() => false}
+              variant="filled"
               />
             <ValidatedTextField
               margin="normal"
@@ -140,6 +143,7 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               rows={1}
               validator={usernameValidator}
               onChange={(isValid) => setUsernameIsValid(isValid)}
+              variant="filled"
             />
             <ValidatedTextField
               margin="normal"
@@ -154,6 +158,7 @@ export default function RegisterPage({ setToken }: RegisterPageProps) {
               rows={1}
               validator={nameValidator}
               onChange={(isValid) => setNameIsValid(isValid)}
+              variant="filled"
             />
             <Button
               type="submit"
