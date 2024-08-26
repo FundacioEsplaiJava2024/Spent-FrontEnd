@@ -95,8 +95,8 @@ function App() {
 
           <Stack direction="row" spacing={8} alignItems="center"
             sx={{ marginTop: 2, marginBottom: 2 }}>
-            <Typography variant="body1"
-              sx={{ textDecoration: 'none', color: 'blue' }}
+            <Typography variant="body1" color={'primary'}
+              sx={{ textDecoration: 'none' }}
               component="a" href="/sports">
               <SportsHandballIcon sx={{ fontSize: 20, marginBottom: -0.4 }} />
               Sports
