@@ -13,7 +13,8 @@ export const descriptionValidator = (value: string) => {
 }
 
 export const addressValidator = (value: string) => {
-    if (value.length < 1) return "The address is empty";
+    if (value.length < 2) return "The address must have a length of at least 2 characters";
+    else if (value.length > 30) return "The address must have fewer than 30 characters";
     return false;
 }
 
