@@ -115,7 +115,11 @@ function App() {
             />
           </Stack>
           {filteredEvents.map((event) => (
-            <EventCard key={event.id} event={event} />
+            <Box display="flex" flexWrap="wrap">
+              <Box sx={{ width: 600}}>
+                <EventCard key={event.id} event={event} />
+              </Box>
+            </Box>
           ))}
 
         </div>

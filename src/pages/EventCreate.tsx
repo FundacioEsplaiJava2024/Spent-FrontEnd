@@ -23,7 +23,6 @@ import { Sport } from "../types/types";
 import { addressValidator, dateValidator, descriptionValidator, numParticipantsValidator, titleValidator } from "../validations/CreateEventValidator";
 import ValidatedTextField from "../validations/ValidatedTextField";
 
-
 export default function EventCreate() {
   const navigate = useNavigate();
   const [sports, setSports] = useState<Sport[]>([]);
@@ -99,14 +98,14 @@ export default function EventCreate() {
     }
 
     if (sportName == null) {
-      alert('Seleccione un deporte');
+      alert('Select a sport');
       return;
     }
 
     var realStartTime = "";
     var realEndTime = "";
 
-  
+
     if (startTime && endTime) {
       realStartTime = startTime.format('HH:mm') as string;
       realEndTime = endTime.format('HH:mm') as string;
@@ -114,24 +113,23 @@ export default function EventCreate() {
       alert('Time not selected');
       return;
     }
-    console.log("name"+selectedSport?.name),
-    console.log("sportName"+ sportName),
-    await apiCreateEvent(
-      title,
-      date,
-      realStartTime,
-      realEndTime,
-      description,
-      numParticipants.toString(),
-      address,
-      sportName ?? ""
-    );
+    console.log("name" + selectedSport?.name),
+      console.log("sportName" + sportName),
+      await apiCreateEvent(
+        title,
+        date,
+        realStartTime,
+        realEndTime,
+        description,
+        numParticipants.toString(),
+        address,
+        sportName ?? ""
+      );
     navigate("/");
   };
 
   const handleClose = () => {
     navigate("/");
-
   };
 
   function isValid(): void {
@@ -205,6 +203,9 @@ export default function EventCreate() {
                   label="Date"
                   name="date"
                   type="date"
+                  // InputLabelProps={{
+                  //   shrink: true,
+                  // }}
                   multiline={false}
                   InputLabelProps={{
                     shrink: true,
@@ -214,7 +215,7 @@ export default function EventCreate() {
                   validator={dateValidator}
                   onChange={(isValid)}
                 />
-                <Box sx={{ display: "flex", marginTop: 1, gap: 10 }}>
+                <Box sx={{ display: "flex", marginTop: 1.5, gap: 5 }}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <TimeField
                       label="Start time"
@@ -265,7 +266,6 @@ export default function EventCreate() {
                   variant="filled"
                   rows={0}
                 />
-
                 <ValidatedTextField
                   margin="normal"
                   required
@@ -281,7 +281,7 @@ export default function EventCreate() {
                   variant="filled"
                   rows={0}
                 />
-                <Stack spacing={2} sx={{ width: 300, marginTop: 3 }}>
+                <Stack spacing={2} sx={{ width: 300, marginTop: 1.5 }}>
                   <Autocomplete
                     id="free-solo-demo"
                     freeSolo

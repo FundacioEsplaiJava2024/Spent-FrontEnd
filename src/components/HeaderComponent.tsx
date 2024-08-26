@@ -41,6 +41,15 @@ export default function MenuAppBar() {
   const handleCreateEvent = () => {
     navigate("/event/create");
   };
+
+  const handleContactClick = () => {
+    navigate("/contact");
+  };
+
+  const handleSportClick = () => {
+    navigate("/sports");
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -63,11 +72,19 @@ export default function MenuAppBar() {
             }}
           />
           <div>
+            <Button color="primary"
+              onClick={handleSportClick}
+              sx={{ marginRight: 3, color: 'black', fontSize: 18 }}>
+              Sports</Button>
+            <Button color="primary"
+              onClick={handleContactClick}
+              sx={{ marginRight: 3, color: 'black', fontSize: 18 }}>
+              Contact</Button>
             <Button
               color="primary"
               variant="contained"
               onClick={handleCreateEvent}
-              sx={{ flexDirection: 'row-reverse', marginRight: 2}}
+              sx={{ flexDirection: 'row-reverse', marginRight: 3 }}
             >
               <Box sx={{
                 flexGrow: 0,
@@ -76,7 +93,6 @@ export default function MenuAppBar() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginRight: 0,
               }}>
                 <AddIcon sx={{ fontSize: 30 }} />
               </Box>

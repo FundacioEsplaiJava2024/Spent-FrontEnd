@@ -22,9 +22,9 @@ function SportsPage() {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const filteredSports = sports
-  .filter((sport: Sport) =>
-    searchTerm ? sport.name.toLowerCase().includes(searchTerm.toLowerCase()) : true
-  );
+    .filter((sport: Sport) =>
+      searchTerm ? sport.name.toLowerCase().includes(searchTerm.toLowerCase()) : true
+    );
 
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function SportsPage() {
         <Stack
           spacing={2}
           sx={{ width: 1000, borderRadius: 80, marginTop: 3 }}
-          id="SearchBar" 
+          id="SearchBar"
         >
           <Autocomplete
             id="free-solo-demo"
@@ -72,56 +72,56 @@ function SportsPage() {
         </Stack>
       </Box>
       <Grid container justifyContent="center">
-        <Typography variant="h3" align="center" style={{ marginTop: 15, fontWeight: "semi-bold"}}>
-            <SportsHandballIcon sx={{ fontSize: 40 }} /> Sports
+        <Typography variant="h3" align="center" style={{ marginTop: 15, fontWeight: "semi-bold" }}>
+          <SportsHandballIcon sx={{ fontSize: 40 }} /> Sports
         </Typography>
       </Grid>
       <Container
-      id="sports"
-      sx={{
-        pt: { xs: 2, sm: 4 },
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: { xs: 3, sm: 6 },
-      }}
-    >
-      <Grid container spacing={2}>
-        {filteredSports.map((sport, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index} sx={{ display: 'flex' }}>
-            <Card
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                flexGrow: 1,
-                p: 1,
-              }}
-            >
-              <CardContent>
-                <Typography variant="body1" color="text.primary">
-                  {sport.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {sport.description}
-                </Typography>
-              </CardContent>
-              <Box
+        id="sports"
+        sx={{
+          pt: { xs: 2, sm: 4 },
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: { xs: 3, sm: 6 },
+        }}
+      >
+        <Grid container spacing={2}>
+          {filteredSports.map((sport, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index} sx={{ display: 'flex' }}>
+              <Card
                 sx={{
                   display: 'flex',
-                  flexDirection: 'row',
+                  flexDirection: 'column',
                   justifyContent: 'space-between',
-                  pr: 2,
+                  flexGrow: 1,
+                  p: 1,
                 }}
               >
+                <CardContent>
+                  <Typography variant="body1" color="text.primary">
+                    {sport.name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {sport.description}
+                  </Typography>
+                </CardContent>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    pr: 2,
+                  }}
+                >
 
-              </Box>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+                </Box>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
 
     </>
   );

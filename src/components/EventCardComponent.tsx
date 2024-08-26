@@ -13,10 +13,18 @@ interface EventCardProps {
 export default function EventCard({ event }: EventCardProps) {
   const shortStartTime = event.startTime.substring(0, 5);
   const shortEndTime = event.endTime.substring(0, 5);
+  const formattedDate =
+    event && event.date
+      ? new Date(event.date).toLocaleDateString("en-GB", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+      : "Date not available";
 
   return (
     <Link to={`/events/${event.id}`} className="EventCard">
-      <Card variant="outlined" sx={{ width: 600, marginTop: 3 }}>
+      <Card variant="outlined" sx={{ marginTop: 3 }}>
         <Box sx={{ p: 2 }}>
           <Stack
             direction="row"
@@ -36,7 +44,7 @@ export default function EventCard({ event }: EventCardProps) {
           </Stack>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Typography color="text.secondary" variant="body2">
-              {event.date}
+              {formattedDate}
             </Typography>
             <Typography color="text.secondary" variant="body2">
               {shortStartTime} / {shortEndTime}

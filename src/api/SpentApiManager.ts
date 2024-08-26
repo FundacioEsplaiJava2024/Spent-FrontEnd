@@ -161,7 +161,7 @@ export const apiEditEvent = async (
     address: string,
     eventId: string
 ) => {
-     await SpentApi.put(
+    await SpentApi.put(
         `/events/${eventId}`,
         {
             title: title,

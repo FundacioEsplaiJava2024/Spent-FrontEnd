@@ -55,7 +55,7 @@ export default function Footer() {
             }}
 
           >
-            <img src={"./SPENT.png"} style={logoStyle} alt="logo of SPENT" />
+            <img src={"/SPENT.png"} style={logoStyle} alt="logo of SPENT" />
           </Box>
           <Typography variant="body2" color="text.secondary" mb={2}>
             Spent is a web application designed for sports enthusiasts of all
