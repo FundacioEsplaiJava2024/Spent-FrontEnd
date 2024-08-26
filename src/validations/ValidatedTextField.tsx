@@ -19,7 +19,6 @@ interface ValidatedTextField {
     variant?: 'standard' | 'outlined' | 'filled'
 }
 
-
 const ValidatedTextField: React.FC<ValidatedTextField> = ({
     label,
     validator,
