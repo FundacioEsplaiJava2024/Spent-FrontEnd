@@ -150,3 +150,26 @@ export const apiCreateEvent = async (
         { headers: { authorization: localStorage.getItem("accessToken") } }
     );
 };
+
+export const apiDeleteEvent = async (id: string) => {
+    await SpentApi.delete(`/events/${id}`, { headers: { authorization: localStorage.getItem("accessToken") } });
+}
+
+export const apiEditEvent = async (
+    title: string,
+    description: string,
+    address: string,
+    eventId: string
+) => {
+     await SpentApi.put(
+        `/events/${eventId}`,
+        {
+            title: title,
+            description: description,
+            address: address,
+        },
+        { headers: { authorization: localStorage.getItem("accessToken") } }
+    );
+    // console.log(response)
+
+};

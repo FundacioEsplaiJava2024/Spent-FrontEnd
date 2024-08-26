@@ -1,5 +1,7 @@
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 import GroupIcon from "@mui/icons-material/Group";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PersonIcon from "@mui/icons-material/Person";
@@ -16,6 +18,7 @@ import {
   DialogContentText,
   DialogTitle,
   Divider,
+  Modal,
   Slide,
   Stack,
   Typography,
@@ -25,14 +28,17 @@ import { TransitionProps } from "@mui/material/transitions";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+  apiDeleteEvent,
+  apiEditEvent,
   apiGetEventById,
   apiJoinEvent,
   apiWithdrawEvent,
 } from "../api/SpentApiManager";
+import "../App.css";
+import EditEvent from "../components/EditEventComponent";
 import FooterComponent from "../components/FooterComponent";
 import Header from "../components/HeaderComponent";
 import { Event, User } from "../types/types";
-import "./EventPage.css";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -51,13 +57,16 @@ export default function EventPage() {
   const formattedDate =
     event && event.date
       ? new Date(event.date).toLocaleDateString("en-GB", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
       : "Date not available";
 
   const [open, setOpen] = React.useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -138,16 +147,41 @@ export default function EventPage() {
     apiWithdrawEvent(id as string);
   };
 
+  const handleSubmitEdit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+
+    const title = formData.get("title") as string;
+    const description = formData.get("description") as string;
+    const address = formData.get("address") as string;
+    event.title = title;
+    event.description = description;
+    event.address = address;
+    apiEditEvent(title, description, address, event.id);
+    setOpenModal(false);
+  };
+
+  const handleDeleteEvent = () => {
+    apiDeleteEvent(event.id);
+    navigate("/");
+  };
+
   return (
     <>
       <Header />
-      <Box sx={{
-        display: "flex",
-        justifyContent: "center",
-      }}>
-        <Card variant="outlined" sx={{
-          width: 1150, marginTop: 10
-        }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Card
+          variant="outlined"
+          sx={{
+            width: 1150,
+            marginTop: 10,
+          }}
+        >
           <Box sx={{ p: 2 }}>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Box>
@@ -164,7 +198,9 @@ export default function EventPage() {
                   Organizer:{" "}
                   <Chip
                     color="primary"
-                    onClick={() => handleUserProfile(event.userCreator.username)}
+                    onClick={() =>
+                      handleUserProfile(event.userCreator.username)
+                    }
                     icon={<PersonIcon />}
                     label={event.userCreator.username}
                     size="medium"
@@ -270,46 +306,95 @@ export default function EventPage() {
             </Box>
             <Divider sx={{ marginTop: 2 }} />
 
-            <Box>
-              <Typography variant="h5">
-                {isParticipant ? (
-                  <Button
-                    onClick={handleWithdraw}
-                    variant="contained"
-                    color="error"
-                    sx={{
-                      width: "100px",
-                      height: "40px",
-                      borderRadius: "5px",
-                      backgroundColor: "red",
-                      marginTop: 2,
-                    }}
-                  >
-                    Withdraw
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={handleJoin}
-                    variant="contained"
-                    color="success"
-                    sx={{
-                      width: "100px",
-                      height: "40px",
-                      borderRadius: "5px",
-                      backgroundColor: "#4CAF50",
-                      marginTop: 2,
-                    }}
-                  >
-                    Join
-                  </Button>
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Box>
+                <Typography variant="h5">
+                  {isParticipant ? (
+                    <Button
+                      onClick={handleWithdraw}
+                      variant="contained"
+                      color="error"
+                      sx={{
+                        width: "100px",
+                        height: "40px",
+                        borderRadius: "5px",
+                        backgroundColor: "red",
+                        marginTop: 2,
+                      }}
+                    >
+                      Withdraw
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={handleJoin}
+                      variant="contained"
+                      color="success"
+                      sx={{
+                        width: "100px",
+                        height: "40px",
+                        borderRadius: "5px",
+                        backgroundColor: "#4CAF50",
+                        marginTop: 2,
+                      }}
+                    >
+                      Join
+                    </Button>
+                  )}
+                </Typography>
+              </Box>
+              <Box>
+                {localStorage.getItem("username") ===
+                  event.userCreator.username && (
+                  <>
+                    <Button
+                      variant="contained"
+                      color="warning"
+                      onClick={handleOpenModal}
+                      sx={{
+                        height: "40px",
+                        borderRadius: "5px",
+                        marginTop: 2,
+                        backgroundColor: (theme) => theme.palette.warning.light,
+                        color: (theme) => theme.palette.warning.contrastText,
+                        "&:hover": {
+                          backgroundColor: (theme) =>
+                            theme.palette.warning.main,
+                        },
+                      }}
+                    >
+                      <EditNoteIcon />
+                    </Button>
+                    <Modal
+                      open={openModal}
+                      onClose={handleCloseModal}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <EditEvent
+                        event={event}
+                        handleSubmitEdit={handleSubmitEdit}
+                      />
+                    </Modal>
+                    <Button
+                    onClick={handleDeleteEvent}
+                      variant="contained"
+                      sx={{
+                        height: "40px",
+                        borderRadius: "5px",
+                        backgroundColor: "grey",
+                        marginTop: 2,
+                        marginLeft: 2,
+                      }}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                  </>
                 )}
-              </Typography>
+              </Box>
             </Box>
           </Box>
         </Card>
       </Box>
-
-
       <FooterComponent />
     </>
   );
